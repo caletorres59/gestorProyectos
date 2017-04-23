@@ -1,0 +1,129 @@
+<div class="principal">
+    <div class="container">
+        <br>
+            <br>
+                <div class="row">
+                    <div class="col-md-5">
+                        <!-- panel formulario -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Create project role
+                            </div>
+                            <br>
+                                <div class="panel-body">
+                                    <form class="formCrud" name="formJobs" role="form">
+                                        <input name="codigo" ng-model="datos.idCargo" style="display:none" type="text">
+                                            <div class="form-group">
+                                                <label>
+                                                    Description
+                                                </label>
+                                                <textarea class="form-control" name="descripcion" ng-model="datos.descripcion">
+                                                </textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>
+                                                    Working hours
+                                                </label>
+                                                <input class="form-control" ng-model="datos.horario" placeholder=" " required="" type="text">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>
+                                                    Salary
+                                                </label>
+                                                <input class="form-control" ng-model="datos.salario" placeholder="Salary " required="" type="number">
+                                                </input>
+                                            </div>
+                                            <br>
+                                                <div class="btn-group btn-group-justified grupobtn">
+                                                    <span class="btn form-control" ng-click="saveJobs(formJobs)">
+                                                        Create
+                                                        <i class="glyphicon glyphicon-plus">
+                                                        </i>
+                                                    </span>
+                                                    <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formJobs)">
+                                                        Edit
+                                                        <i class="glyphicon glyphicon-pencil">
+                                                        </i>
+                                                    </span>
+                                                </div>
+                                            </br>
+                                        </input>
+                                    </form>
+                                </div>
+                            </br>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-search">
+                                        </i>
+                                    </span>
+                                    <input class="form-control" ng-model="filtrar" placeholder="Search a jobs" type="text">
+                                    </input>
+                                </div>
+                                <!-- table -->
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Id
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Description
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Working hours
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Salary
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    <i class="glyphicon glyphicon-trash">
+                                                    </i>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-init="listJobs()">
+                                        <tr ng-click="getSelectedRow(obj)" ng-repeat="obj in   jobs |
+                            filter:filtrar ">
+                                            <td>
+                                                {{obj.idCargo}}
+                                            </td>
+                                            <td>
+                                                {{obj.descripcion}}
+                                            </td>
+                                            <td>
+                                                {{obj.horario}}
+                                            </td>
+                                            <td>
+                                                {{obj.salario}}
+                                            </td>
+                                            <td>
+                                                <span class="glyphicon glyphicon-trash" ng-click="delete(obj.idCargo)">
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </br>
+        </br>
+    </div>
+</div>

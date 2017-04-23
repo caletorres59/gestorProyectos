@@ -1,0 +1,145 @@
+<div class="principal">
+    <div class="container">
+        <br>
+            <br>
+                <div class="row">
+                    <div class="col-md-5">
+                        <!-- panel formulario -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Create Project
+                            </div>
+                            <br>
+                                <div class="panel-body">
+                                    <form class="formCrud" name="formProjects" role="form">
+                                        <input name="codigo" ng-model="datos.codigo" style="display:none" type="text">
+                                            <div class="form-group">
+                                                <label>
+                                                    Name
+                                                </label>
+                                                <input class="form-control" ng-model="datos.nombre" placeholder="Nombre " required="" type="text">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>
+                                                    Start date
+                                                </label>
+                                                <input class="form-control" ng-model="datos.fechaInicio" placeholder="Nombre " required="" type="date">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>
+                                                    End date
+                                                </label>
+                                                <input class="form-control" ng-model="datos.fechaFin" placeholder="Nombre " required="" type="date">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>
+                                                    Stage of the project
+                                                </label>
+                                                <input class="form-control" ng-model="datos.etapaProyecto" placeholder="Nombre " required="" type="number">
+                                                </input>
+                                                <!-- Botones -->
+                                                <br>
+                                                    <div class="btn-group btn-group-justified grupobtn">
+                                                        <span class="btn form-control" ng-click="saveProject(formProjects)">
+                                                            Create
+                                                            <i class="glyphicon glyphicon-plus">
+                                                            </i>
+                                                        </span>
+                                                        <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formProjects)">
+                                                            Edit
+                                                            <i class="glyphicon glyphicon-pencil">
+                                                            </i>
+                                                        </span>
+                                                    </div>
+                                                </br>
+                                            </div>
+                                        </input>
+                                    </form>
+                                </div>
+                            </br>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-search">
+                                        </i>
+                                    </span>
+                                    <input class="form-control" ng-model="filtrar" placeholder="Search a project" type="text">
+                                    </input>
+                                </div>
+                                <!-- table -->
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Id
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Name
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Date start
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Date end
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Stage
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    <i class="glyphicon glyphicon-trash">
+                                                    </i>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-init="listProjects()">
+                                        <tr ng-click="getSelectedRow(obj)" ng-repeat="obj in   projects |
+                            filter:filtrar ">
+                                            <td>
+                                                {{obj.idProyecto}}
+                                            </td>
+                                            <td>
+                                                {{obj.nombre}}
+                                            </td>
+                                            <td>
+                                                {{obj.fechaInicio}}
+                                            </td>
+                                            <td>
+                                                {{obj.fechaFin}}
+                                            </td>
+                                            <td>
+                                                {{obj.etapaProyecto}}
+                                            </td>
+                                            <td>
+                                                <span class="glyphicon glyphicon-trash" ng-click="delete(obj.idProyecto)">
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </br>
+        </br>
+    </div>
+</div>
