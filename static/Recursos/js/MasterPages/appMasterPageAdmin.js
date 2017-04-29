@@ -16,6 +16,9 @@ app.config(function($routeProvider) {
     }).when('/team', {
         controller: 'CtlTeam',
         templateUrl: 'team.html'
+    }).when('/activities', {
+        controller: 'CtlActivities',
+        templateUrl: 'activities.html'
     }).otherwise({
         redirectTo: '/'
     });
