@@ -1,3 +1,149 @@
-<span>
-    team
-</span>
+<div class="principal">
+    <div class="container">
+        <br>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Add member
+                        </div>
+                        <div class="panel-body">
+                            <input name="codigo" ng-model="datos.idCargo" style="display:none" type="text">
+                            </input>
+                            <div class="form-group">
+                                <span class="btn btn-default form-control btnTeam" ng-click="listProject()">
+                                    Select a  Project
+                                    <i class="glyphicon glyphicon-plus-sign pull-left">
+                                    </i>
+                                </span>
+                                <br>
+                                    <ul class="list-group list">
+                                        <li class="list-group-item" ng-click="selectProject(obj)" ng-repeat="obj in   projects | filter:filtrar ">
+                                            {{obj.nombre}}
+                                        </li>
+                                    </ul>
+                                </br>
+                            </div>
+                            <div class="form-group">
+                                <form name="search">
+                                    <div class="input-group" id="srch-term">
+                                        <span class="input-group-addon" ng-click="searchId(search)">
+                                            <i class="glyphicon glyphicon-search">
+                                            </i>
+                                        </span>
+                                        <input class="form-control" name="srch-datos.numeroDocumentoterm" ng-model="datos.numeroDocumento" placeholder="Search identification user" type="text">
+                                        </input>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="form-group" ng-repeat="per in person">
+                                <div class="">
+                                    Id : {{per.idUsuario}}
+                                </div>
+                                <div class="">
+                                    User : {{per.nombreUsuario}}
+                                </div>
+                                <div class="">
+                                    First Name : {{per.nombres}}
+                                </div>
+                                <div class="">
+                                    Last Name : {{per.apellidos}}
+                                </div>
+                            </div>
+                            <!-- Jobs -->
+                            <div class="form-group">
+                                <span class="btn btn-default form-control btnTeam" id="spn-jobs" ng-click="listJobs()">
+                                    <i class="glyphicon glyphicon-plus-sign pull-left">
+                                    </i>
+                                    Add Job
+                                </span>
+                                <ul class="list-group list">
+                                    <li class="list-group-item" ng-click="selectJob(job)" ng-model="datos.job" ng-repeat=" job in jobs">
+                                        {{job.nombreCargo}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Botones -->
+                            <div class="btn-group btn-group-justified grupobtn">
+                                <span class="btn form-control" ng-click="saveTeam()">
+                                    Create
+                                    <i class="glyphicon glyphicon-plus">
+                                    </i>
+                                </span>
+                                <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formJobs)">
+                                    Edit
+                                    <i class="glyphicon glyphicon-pencil">
+                                    </i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <!-- panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-search">
+                                        </i>
+                                    </span>
+                                    <input class="form-control" ng-model="filtrar" placeholder="Search Member of the project " type="text">
+                                    </input>
+                                </div>
+                                <!-- Tabla -->
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Name Project
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Name Member
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Job
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    <i class="glyphicon glyphicon-trash">
+                                                    </i>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-init="">
+                                        <tr ng-click="getSelectedRow(obj)" ng-repeat="obj in   team |
+                            filter:filtrar ">
+                                            <td>
+                                                {{obj.nombre}}
+                                            </td>
+                                            <td>
+                                                {{obj.nombres}}
+                                            </td>
+                                            <td>
+                                                {{obj.nombreCargo}}
+                                            </td>
+                                            <td>
+                                                <span class="glyphicon glyphicon-trash" ng-click="delete(obj.idUsuario,obj.idProyecto)">
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- div row -->
+                </div>
+            </div>
+        </br>
+    </div>
+</div>

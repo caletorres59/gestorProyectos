@@ -51,13 +51,8 @@ function crear(respuesta) {
     });
     //Se construye la respuesta al cliente
 }
-/**
- * Funcion que registra un usuario
- * @param {type} pedido
- * @param {type} respuesta
- * @returns {undefined}
- */
-function saveJobs(pedido, respuesta) {
+
+function saveTeam(pedido, respuesta) {
     //Se obtienen los datos que se enviaron por post
     //    var info = '';
     //    pedido.on('data', function (datosparciales) {
@@ -66,15 +61,14 @@ function saveJobs(pedido, respuesta) {
     //    
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
-    var registro = {
-        nombreCargo: datos['nombreCargo'],
-        descripcion: datos['descripcion'],
-        horario: datos['horario'],
-        salario: datos['salario']
+    var team = {
+        idUsuario: datos['idUsuario'],
+        idProyecto: datos['idProyecto'],
+        idCargo: datos['idCargo']
     };
-    var sql = 'insert into pf_cargos set ?';
+    var sql = 'insert into pf_integrantesProyectos set ?';
     //Se hace un insert mandado el objet completo
-    conexion.query(sql, registro, function(error, resultado) {
+    conexion.query(sql, team, function(error, resultado) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
@@ -83,8 +77,13 @@ function saveJobs(pedido, respuesta) {
         }
     });
 }
-//delete project
-function deleteJobs(pedido, respuesta) {
+/**
+ * Funcion que registra un usuario
+ * @param {type} pedido
+ * @param {type} respuesta
+ * @returns {undefined}
+ */
+function searchId(pedido, respuesta) {
     //Se obtienen los datos que se enviaron por post
     //    var info = '';
     //    pedido.on('data', function (datosparciales) {
@@ -93,10 +92,35 @@ function deleteJobs(pedido, respuesta) {
     //    
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
-    var idCargo = [datos['idCargo']];
-    var sql = 'delete from pf_cargos where idCargo = ?';
+    //
+    numeroDocumento = datos['numeroDocumento'];
+    rol = 'user';
+    var sql = 'select idUsuario , nombreUsuario, nombres, apellidos from pf_usuarios where numeroDocumento = ? and rol = ?';
     //Se hace un insert mandado el objet completo
-    conexion.query(sql, idCargo, function(error, resultado) {
+    conexion.query(sql, [numeroDocumento, rol], function(error, resultado) {
+        if (error) {
+            console.log(error);
+            respuesta.send(constantes.ERROR);
+        } else {
+            respuesta.send(JSON.stringify(resultado));
+        }
+    });
+}
+//delete project
+function deleteTeam(pedido, respuesta) {
+    //Se obtienen los datos que se enviaron por post
+    //    var info = '';
+    //    pedido.on('data', function (datosparciales) {
+    //        info += datosparciales;
+    //    });
+    //    
+    var datos = pedido.body;
+    //Se crea un objeto con la informacion capturada
+    var idProyecto = datos['idProyecto'];
+    var idUsuario = datos['idUsuario'];
+    var sql = 'delete from pf_integrantesProyectos where idProyecto = ? and idUsuario = ?';
+    //Se hace un insert mandado el objet completo
+    conexion.query(sql, [idProyecto, idUsuario], function(error, resultado) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
@@ -107,7 +131,7 @@ function deleteJobs(pedido, respuesta) {
 }
 
 function listJobs(pedido, respuesta) {
-    var sql = 'select idCargo, nombreCargo , descripcion, horario, salario from pf_cargos';
+    var sql = 'select idCargo, descripcion, horario, salario from pf_cargos';
     //Se hace un insert mandado el objet completo
     console.log("estoy en lista");
     conexion.query(sql, function(error, filas) {
@@ -119,14 +143,30 @@ function listJobs(pedido, respuesta) {
         }
     });
 }
-
+//List team
+function listTeam(pedido, respuesta) {
+    var datos = pedido.body;
+    //Se crea un objeto con la informacion capturada
+    var idProyecto = datos['idProyecto'];
+    console.log(idProyecto);
+    //Se hace un insert mandado el objet completo
+    var sql = 'SELECT i.idProyecto, p.nombre, i.idUsuario, u.nombres, i.idCargo, c.nombreCargo FROM pf_integrantesProyectos  i  JOIN pf_usuarios u ON u.idUsuario = i.idUsuario JOIN pf_cargos c ON c.idCargo = i.idCargo JOIN pf_proyectos p ON i.idProyecto = p.idProyecto WHERE i.idProyecto = ?';
+    conexion.query(sql, idProyecto, function(error, filas) {
+        if (error) {
+            console.log(error);
+            respuesta.send(constantes.ERROR);
+        } else {
+            respuesta.send(JSON.stringify(filas));
+        }
+    });
+}
+//update
 function updateJobs(pedido, respuesta) {
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
     var idCargo = [datos['idCargo']];
     var update = {
         idCargo: datos['idCargo'],
-        nombreCargo: datos['nombreCargo'],
         descripcion: datos['descripcion'],
         horario: datos['horario'],
         salario: datos['salario']
@@ -149,7 +189,7 @@ function updateJobs(pedido, respuesta) {
  */
 //Habilita a las funciones para que sean llamadas o exportadas desde otros archivos 
 exports.conectardb = conectardb;
-exports.saveJobs = saveJobs;
-exports.listJobs = listJobs;
-exports.deleteJobs = deleteJobs;
-exports.updateJobs = updateJobs;
+exports.searchId = searchId;
+exports.saveTeam = saveTeam;
+exports.listTeam = listTeam;
+exports.deleteTeam = deleteTeam;

@@ -21,6 +21,7 @@ app.service('jobsService', function($http, $httpParamSerializerJQLike) {
             method: "post",
             url: "/saveJobs",
             data: $httpParamSerializerJQLike({
+                nombreCargo: datos.nombreCargo,
                 descripcion: datos.descripcion,
                 horario: datos.horario,
                 salario: datos.salario
@@ -69,6 +70,7 @@ app.service('jobsService', function($http, $httpParamSerializerJQLike) {
             url: "/updateJobs",
             data: $httpParamSerializerJQLike({
                 idCargo: datos.idCargo,
+                nombreCargo: datos.nombreCargo,
                 descripcion: datos.descripcion,
                 horario: datos.horario,
                 salario: datos.salario

@@ -13,8 +13,9 @@ app.config(function($routeProvider) {
     }).when('/jobs', {
         controller: 'CtlJobs',
         templateUrl: 'jobs.html'
-        // }).when('/Logo', {
-        //     templateUrl: 'gestionLogo.html'
+    }).when('/team', {
+        controller: 'CtlTeam',
+        templateUrl: 'team.html'
     }).otherwise({
         redirectTo: '/'
     });

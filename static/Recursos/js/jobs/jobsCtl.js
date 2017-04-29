@@ -96,6 +96,7 @@ app.controller('CtlJobs', function($scope, jobsService) {
                 for (var i = 0; i < response.length; i++) {
                     $scope.jobs.push({
                         idCargo: response[i]['idCargo'],
+                        nombreCargo: response[i]['nombreCargo'],
                         descripcion: response[i]['descripcion'],
                         horario: response[i]['horario'],
                         salario: response[i]['salario']

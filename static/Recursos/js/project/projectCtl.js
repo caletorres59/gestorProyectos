@@ -129,4 +129,8 @@ app.controller('CtlProjects', function($scope, projectsService) {
         var new_fecha = new Date(fechaReplace.replace(pattern, '$1-$2-$3'));
         return new_fecha;
     };
+    $scope.Progreso = function(value) {
+        // var progreso = value;
+        //alert(value);
+    }
 });

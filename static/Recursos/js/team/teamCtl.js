@@ -1,64 +1,48 @@
 /* global app */
 //CREO MI VARIABLE APP
-
-var app = angular.module("appControladorLotes", []);
-
 /*Toda funcion de controlador debe tener un $scope, que es la referencia a todos
  * los elementos que pertenecen al constrolador*/
 /*app.controller(nombre de la funcion)  ($scope, nombre de los servicios a utilizar)*/
 /*$windows servicio por defecto para poder utilizar refresco de pagina y redireccionamiento*/
 /*logInService, nombre del servicio que contiene la promesa. */
-app.controller('CtlLotes', function ($scope, lotesService) {
-
+app.controller('CtlTeam', function($scope, teamService) {
     /*Se inicializa el modelo*/
-    $scope.identificacion = "";
-    $scope.lotes = [];
-    $scope.fincas = [];
+    $scope.datos = "";
+    $scope.projects = [];
+    $scope.jobs = [];
+    $scope.person = [];
+    $scope.team = [];
+    $("#srch-term").fadeOut();
+    $("#spn-jobs").fadeOut();
     //$scope.identificacion = "";
-
     /*Se define una funcion en el controlador*/
-    $scope.guardar = function (form) {
+    $scope.saveTeam = function() {
         /*Al ser el servicio la llamada por http (funcion asincrona) toca definir
          * promesas con el "then", que se ejecuta unicamente cuando se le retorna
          * un valor valido. Este se ejecuta unicamente cuando el llamado http 
          * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
-      alert($scope.identificacion.selFincas);
-        if (form) {
-            // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
-            //  * el cual esta asociado a los input*/
-            lotesService.guardar($scope.identificacion).then(function (response) {
-                // //     /*El resultado de la promesa se recibe por parametro*/
-                // //     //alert(response.usuario + " " + response.password);
-                // //     /*Solo con limpiar el objeto se limpian todos los input 
-                // //      * asociados*/
-                
-                if (response == "OK")
-                {
-
-                    $('.msgServidor').html("<div id='msg' class='alert alert-success'>el lote fue registrada <span class='glyphicon glyphicon-ok'></span></div>");
-                    setTimeout(function () {
-                        $('#msg').attr("display", "none");
-                    }, 5000);
-
-                } else {
-                    $('.msgServidor').html("<div id='msg' class='alert alert-danger'>Error en el registro <span class='glyphicon glyphicon-ok'></span></div>");
-                    setTimeout(function () {
-                        $('#msg').attr("display", "none");
-                    }, 5000);
-                }
-
-                $scope.identificacion = "";
-
-            });
-        } else {
-            alert("Verifique los datos ingresados");
-        }
-        $scope.listar();
+        var idProyecto = $scope.projects[0].idProyecto;
+        var idUsuario = $scope.person[0].idUsuario;
+        var idCargo = $scope.jobs[0].idCargo;
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        //  * el cual esta asociado a los input*/
+        teamService.saveTeam(idProyecto, idUsuario, idCargo).then(function(response) {
+            // //     /*El resultado de la promesa se recibe por parametro*/
+            // //     //alert(response.usuario + " " + response.password);
+            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //      * asociados*/
+            if (response == "OK") {
+                alert("ok");
+            } else {
+                alert("error");
+            }
+            $scope.datos = "";
+        });
     };
     //modificar////////////////////////////////////////////
-    $scope.modificar = function (form) {
+    $scope.update = function(form) {
         /*Al ser el servicio la llamada por http (funcion asincrona) toca definir
          * promesas con el "then", que se ejecuta unicamente cuando se le retorna
          * un valor valido. Este se ejecuta unicamente cuando el llamado http 
@@ -66,164 +50,162 @@ app.controller('CtlLotes', function ($scope, lotesService) {
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
         if (form) {
-
-
             // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
             //  * el cual esta asociado a los input*/
-            lotesService.modificar($scope.identificacion).then(function (response) {
+            teamService.update($scope.datos).then(function(response) {
                 // //     /*El resultado de la promesa se recibe por parametro*/
                 // //     //alert(response.usuario + " " + response.password);
                 // //     /*Solo con limpiar el objeto se limpian todos los input 
                 // //      * asociados*/
-                if (response == "OK")
-                {
-
-                    $('.msgServidor').html("<div id='msg' class='alert alert-success'>el lote fue modificada <span class='glyphicon glyphicon-ok'></span></div>");
-                    setTimeout(function () {
-                        $('#msg').attr("display", "none");
-                    }, 5000);
-                    $scope.listar();
+                if (response == "OK") {
+                    alert("ok");
                 } else {
-                    $('.msgServidor').html("<div id='msg' class='alert alert-danger'>Error al modificar <span class='glyphicon glyphicon-ok'></span></div>");
-                    setTimeout(function () {
-                        $('#msg').attr("display", "none");
-                    }, 5000);
+                    alert("error");
                 }
-                $scope.identificacion = "";
+                $scope.datos = "";
             });
         }
     };
+    ////SearchId
+    $scope.searchId = function(form) {
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        //  * el cual esta asociado a los input*/
+        alert("busco usuario");
+        teamService.searchId($scope.datos).then(function(response) {
+            // //     /*El resultado de la promesa se recibe por parametro*/
+            // //     //alert(response.usuario + " " + response.password);
+            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //      * asociados*/
+            // var object;
+            // object = response;
+            $scope.person.push({
+                idUsuario: response[0]['idUsuario'],
+                nombreUsuario: response[0]['nombreUsuario'],
+                nombres: response[0]['nombres'],
+                apellidos: response[0]['apellidos']
+            });
+            $('#spn-jobs').fadeIn(3000);
+        });
+    };
     ///Eliminar/////////////////////////////////////////////
-    $scope.eliminar = function (codigo) {
+    $scope.delete = function(idUsuario, idProyecto) {
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
-        lotesService.eliminar(codigo).then(function (response) {
+        alert(idUsuario);
+        alert(idProyecto);
+        teamService.delete(idUsuario, idProyecto).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
-            if (response == "OK")
-            {
-
-                $('.msgServidor').html("<div id='msg' class='alert alert-success'>el lote fue eliminada <span class='glyphicon glyphicon-ok'></span></div>");
-                setTimeout(function () {
-                    $('#msg').attr("display", "none");
-                }, 5000);
-
+            alert("controller");
+            if (response == "OK") {
+                alert("ok");
             } else {
-                $('.msgServidor').html("<div id='msg' class='alert alert-danger'>Error al eliminar <span class='glyphicon glyphicon-ok'></span></div>");
-                setTimeout(function () {
-                    $(".msgServidor").attr("display", "none");
-                }, 5000);
+                alert("error");
             }
-
-            $scope.identificacion = "";
-            $scope.listar();
+            $scope.datos = "";
+            // $scope.listJobs();
         });
-
     };
-
     //listar//////////////////////////////////////////
-    $scope.listar = function () {
-        $scope.lotes = [];
+    $scope.listProject = function() {
+        $scope.projects = [];
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
-        lotesService.listar($scope.identificacion).then(function (response) {
+        teamService.listProject().then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
-            if (response.length > 0)
-            {
-                for (var i = 0; i < response.length; i++)
-                {
-                    $scope.lotes.push({
-                        codigo: response[i].ID,
-                        nombre: response[i].nombre,
-                        fincas: response[i].fincas,
-                        metros: response[i].metros,
-                        descripcion: response[i].descripcion
-                        
-
+            if (response.length > 0) {
+                for (var i = 0; i < response.length; i++) {
+                    $scope.projects.push({
+                        idProyecto: response[i]['idProyecto'],
+                        nombre: response[i]['nombre']
                     });
                 }
-            } else
-            {
-                $('.msgServidor').html("<div id='msg' class='alert alert-danger'>No hay registros de fincas <span class='glyphicon glyphicon-ok'></span></div>");
-                setTimeout(function () {
-                    $('.msgServidor').attr("display", "none");
-                }, 5000);
+            } else {
+                alert("no hay datos");
             }
-
         });
-
     };
-
-    /////////////////////////
-    //Listar Fincas
-     $scope.listarFincas = function () {
-       
+    //List Jobs
+    $scope.listJobs = function() {
+        $scope.jobs = [];
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
-        //  
-       
-        lotesService.listarFincas($scope.identificacion).then(function (response) {
+        teamService.listJobs().then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
-            if (response.length > 0)
-            {
-                for (var i = 0; i < response.length; i++)
-                {
-                   $scope.fincas.push({
-                        codigo: response[i].ID,
-                        nombre: response[i].nombre,
-                        descripcion: response[i].descripcion,
-                        longitud: response[i].longitud,
-                        latitud: response[i].latitud,
-                        hectareas: response[i].hectareas
-
+            if (response.length > 0) {
+                for (var i = 0; i < response.length; i++) {
+                    $scope.jobs.push({
+                        idCargo: response[i]['idCargo'],
+                        nombreCargo: response[i]['nombreCargo']
                     });
                 }
-            } else
-            {
-                $('.msgServidor').html("<div id='msg' class='alert alert-danger'>No hay registros de fincas <span class='glyphicon glyphicon-ok'></span></div>");
-                setTimeout(function () {
-                    $('.msgServidor').attr("display", "none");
-                }, 5000);
+            } else {
+                alert("no hay datos");
             }
-
         });
-
     };
-
-    //Ordenar Campos////////////////////////////////////////
-    $scope.ordenarPorParametro = function (tipo)
-    {
-        $scope.ordenSeleccionado = tipo;
+    //Lista de integrante
+    $scope.listTeam = function(idProyecto) {
+        $scope.team = [];
+        alert(idProyecto);
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        //  * el cual esta asociado a los input*/
+        teamService.listTeam(idProyecto).then(function(response) {
+            // //     /*El resultado de la promesa se recibe por parametro*/
+            // //     //alert(response.usuario + " " + response.password);
+            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //      * asociados*/
+            if (response.length > 0) {
+                for (var i = 0; i < response.length; i++) {
+                    $scope.team.push({
+                        idProyecto: response[i]['idProyecto'],
+                        nombre: response[i]['nombre'],
+                        idUsuario: response[i]['idUsuario'],
+                        nombres: response[i]['nombres'],
+                        idCargo: response[i]['idCargo'],
+                        nombreCargo: response[i]['nombreCargo']
+                    });
+                }
+            } else {
+                alert("no hay datos");
+            }
+        });
     };
+    $scope.selectProject = function(obj) {
+        $scope.projects = [];
+        $scope.projects.push({
+            idProyecto: obj.idProyecto,
+            nombre: obj.nombre
+        });
+        alert(obj.idProyecto)
+        $scope.listTeam(obj.idProyecto);
+        $("#srch-term").fadeIn("slow");
+    };
+    $scope.selectJob = function(obj) {
+        $scope.jobs = [];
+        $scope.jobs.push({
+            idCargo: obj.idCargo,
+            nombreCargo: obj.nombreCargo
+        });
+    };
+    // /////////////////////////
+    // //Listar Fincas
+    // //Ordenar Campos////////////////////////////////////////
+    // $scope.ordenarPorParametro = function(tipo) {
+    //     $scope.ordenSeleccionado = tipo;
+    // };
     //Mostrar Campos
-    $scope.mostrarCampos = function (codigo)
-    {
-        var lotesV = $scope.lotes;
-        var lote;
-        angular.forEach(lotesV, function (obj)
-        {
-            if (obj.codigo === codigo)
-            {
-                lote = obj;
-                lote.metros=parseInt(obj.metros);
-                
-            }
-
-        });
-        //Seteo los campos
-        $scope.identificacion = lote;
-        $('#btnEditar').removeAttr('disabled');
-
-
-    };
-    $scope.listar();
-    $scope.listarFincas();
+    // $scope.getSelectedRow = function(obj) {
+    //     obj.salario = parseInt(obj.salario);
+    //     $scope.datos = obj;
+    //     $('#btn-edit').removeAttr('disabled');
+    // };
 });
