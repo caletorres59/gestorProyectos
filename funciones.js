@@ -8,13 +8,13 @@ var fs = require('fs');
 var servidor;
 /*Variabel que gestionara la conexion de la base de datos*/
 var conexion;
-//Con la libreria cargada, se tiene accceso a todos los tipos posibles de MIME, 
+//Con la libreria cargada, se tiene accceso a todos los tipos posibles de MIME,
 //y no solo a los 6 que se habian especificado
 var mime = require('mime');
 var formidable = require('formidable');
 var express = require('express');
 var server;
-/*Con el ./ se indica que el archivo que se va a necesitar se encuentra en la 
+/*Con el ./ se indica que el archivo que se va a necesitar se encuentra en la
  * misma carpeta, ademas cuando no se coloca esto NODE busca en su nucleo dicho
  * repositorio */
 var daoRegistro = require('./daoRegistro');
@@ -22,6 +22,7 @@ var daoLogin = require('./daoLogin');
 var daoProjects = require('./daoProjects');
 var daoJobs = require('./daoJobs');
 var daoTeam = require('./daoTeam');
+var daoActivity = require('./daoActivity');
 var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.urlencoded({
@@ -34,6 +35,7 @@ function configurarServidor() {
     daoProjects.conectardb();
     daoJobs.conectardb();
     daoTeam.conectardb();
+    daoActivity.conectardb();
     app.use(express.static(__dirname + '/static'));
     server = app.listen(8888, function() {
         console.log('Servidor web iniciado');
@@ -61,6 +63,12 @@ app.post('/searchId', daoTeam.searchId);
 app.post('/saveTeam', daoTeam.saveTeam);
 app.post('/listTeam', daoTeam.listTeam);
 app.post('/deleteTeam', daoTeam.deleteTeam);
+
+
+app.post('/saveActivity', daoActivity.saveActivity);
+app.post('/updateActivity', daoActivity.updateActivity);
+app.post('/listActivities',daoActivity.listActivities);
+app.post('/getActivityById',daoActivity.getActivityById);
 // app.post('/updateJobs', daoJobs.updateJobs);
 // app.post('/crearVacas', daoVacas.crearVacas);
 // app.post('/listarVacas', daoVacas.listarVacas);
@@ -193,7 +201,7 @@ function subirArchivo(pedido, respuesta) {
 }
 
 function cargarPagina(ruta, respuesta) {
-    //Lea el archivo index  
+    //Lea el archivo index
     fs.readFile(ruta, function(error, contenidoArchivo) {
         //Si sucede un error leyendo el archivo, muestre error 500
         if (error) {
@@ -204,7 +212,7 @@ function cargarPagina(ruta, respuesta) {
             respuesta.end();
         } else {
             /*Tambien cambia la forma de determinar el tipo de MIME, por esta*/
-            /*Se obtienen todos los tipos de dato que se esten tratando 
+            /*Se obtienen todos los tipos de dato que se esten tratando
              * de cargar en el html*/
             var tipo = mime.lookup(ruta);
             /*Los muestro por consola*/
@@ -226,6 +234,6 @@ function mostrarError(respuesta) {
     respuesta.write('<!doctype html><html><head></head><body>Recurso inexistente</body></html>');
     respuesta.end();
 }
-//Habilita a las funciones para que sean llamadas o exportadas desde otros archivos 
+//Habilita a las funciones para que sean llamadas o exportadas desde otros archivos
 exports.configurarServidor = configurarServidor;
 exports.iniciarServidor = iniciarServidor;
