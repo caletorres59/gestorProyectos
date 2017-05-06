@@ -1,3 +1,205 @@
-<span>
-    task
-</span>
+<div class="principal">
+    <div class="container">
+        <br>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Add Task
+                        </div>
+                        <div class="panel-body">
+                            <input name="codigo" ng-model="datos.idCargo" style="display:none" type="text">
+                            </input>
+                            <!-- Projects -->
+                            <div class="form-group">
+                                <span class="btn btn-default form-control btnTeam" ng-click="listProject()">
+                                    Select a Project
+                                    <i class="glyphicon glyphicon-plus-sign pull-left">
+                                    </i>
+                                </span>
+                                <br>
+                                    <ul class="list-group list">
+                                        <li class="list-group-item" ng-click="selectProject(obj)" ng-repeat="obj in   projects | filter:filtrar ">
+                                            {{obj.nombre}}
+                                        </li>
+                                    </ul>
+                                </br>
+                            </div>
+                            <!-- Activities -->
+                            <div class="form-group" id="activities">
+                                <span class="btn btn-default form-control btnTeam" ng-click="listActivities()">
+                                    Select Activity
+                                    <i class="glyphicon glyphicon-plus-sign pull-left">
+                                    </i>
+                                </span>
+                                <br>
+                                    <ul class="list-group list">
+                                        <li class="list-group-item" ng-click="selectActivity(obj)" ng-repeat="obj in   activities | filter:filtrar ">
+                                            {{obj.nombre}}
+                                        </li>
+                                    </ul>
+                                </br>
+                            </div>
+                            <!-- Formulario -->
+                            <div class="panel panel-default" id="panelTask">
+                                <div class="panel-heading">
+                                    Register Task
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formTasks" role="form">
+                                        <input name="idTarea" ng-model="datos.idTarea" style="display:none" type="text">
+                                        </input>
+                                        <div class="form-group">
+                                            <label>
+                                                Name
+                                            </label>
+                                            <input class="form-control" ng-model="datos.nombre" placeholder="Name " required="" type="text">
+                                            </input>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>
+                                                Start date
+                                            </label>
+                                            <input class="form-control" ng-model="datos.fechaInicio" placeholder="Nombre " required="" type="date">
+                                            </input>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>
+                                                End date
+                                            </label>
+                                            <input class="form-control" ng-model="datos.fechaFin" placeholder="Nombre " required="" type="date">
+                                            </input>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>
+                                                Progress
+                                            </label>
+                                            <input class="form-control" ng-model="datos.porcentajeDesarrollo" placeholder="progress %" required="" type="text">
+                                            </input>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>
+                                                Task status
+                                            </label>
+                                            <input class="form-control" ng-model="datos.porcentajeDesarrollo" placeholder="status" required="" type="text">
+                                            </input>
+                                        </div>
+                                        <!-- Botones -->
+                                        <div class="btn-group btn-group-justified grupobtn">
+                                            <span class="btn form-control" ng-click="saveTeam()">
+                                                Create
+                                                <i class="glyphicon glyphicon-plus">
+                                                </i>
+                                            </span>
+                                            <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formJobs)">
+                                                Edit
+                                                <i class="glyphicon glyphicon-pencil">
+                                                </i>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <!-- panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-search">
+                                        </i>
+                                    </span>
+                                    <input class="form-control" ng-model="filtrar" placeholder="Search Member of the project " type="text">
+                                    </input>
+                                </div>
+                                <!-- Tabla -->
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Name Project
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Name Activity
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Name Task
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Start Date
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    End Date
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Progress %
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Status
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    <i class="glyphicon glyphicon-trash">
+                                                    </i>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-init="">
+                                        <tr ng-click="getSelectedRow(obj)" ng-repeat="obj in   task |
+                            filter:filtrar ">
+                                            <td>
+                                                {{obj.nombreProyecto}}
+                                            </td>
+                                            <td>
+                                                {{obj.nombreActividad}}
+                                            </td>
+                                            <td>
+                                                {{obj.nombreTarea}}
+                                            </td>
+                                            <td>
+                                                {{obj.fechaInicio}}
+                                            </td>
+                                            <td>
+                                                {{obj.fechaFin}}
+                                            </td>
+                                            <td>
+                                                {{obj.porcentajeDesarrollo}}
+                                            </td>
+                                            <td>
+                                                {{obj.estado}}
+                                            </td>
+                                            <td>
+                                                <span class="glyphicon glyphicon-trash" ng-click="delete(obj.idUsuario,obj.idProyecto)">
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- div row -->
+                </div>
+            </div>
+        </br>
+    </div>
+</div>
