@@ -13,6 +13,7 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
     $scope.activities = [];
     $scope.projects = [];
     $scope.users = [];
+    $scope.idProyecto= "";
     //$scope.identificacion = "";
 
     /*Se define una funcion en el controlador*/
@@ -92,11 +93,11 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
         });
 
     };
-    $scope.listProject = function() {
+    $scope.listProjects = function() {
         $scope.projects = [];
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
         //  * el cual esta asociado a los input*/
-        teamService.listProject().then(function(response) {
+        activitiesService.listProjects().then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input
@@ -114,28 +115,41 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
         });
     };
 
+    $scope.listUsersByProject = function() {
+      $scope.users = [];
+      activitiesService.listUsersByProject($scope.idProyecto).then(function(response) {
+          if (response.length > 0) {
+              for (var i = 0; i < response.length; i++) {
+                  $scope.users.push({
+                      idUsuario: response[i]['idUsuario'],
+                      nombres: response[i]['nombres'],
+                      apellidos: response[i]['apellidos'],
+                      nombreCompleto: response[i]['nombres'] + ' '+ response[i]['apellidos']
+                  });
+              }
+          } else {
+              alert("no hay datos");
+          }
+      });
+    }
+
     //listActivities//////////////////////////////////////////
     $scope.listActivities = function () {
         $scope.activities = [];
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
         //  * el cual esta asociado a los input*/
-        activitiesService.listActivities().then(function (response) {
-            // //     /*El resultado de la promesa se recibe por parametro*/
-            // //     //alert(response.usuario + " " + response.password);
-            // //     /*Solo con limpiar el objeto se limpian todos los input
-            // //      * asociados*/
+        activitiesService.listActivities($scope.idProyecto).then(function (response) {
             if (response.length > 0)
             {
                 for (var i = 0; i < response.length; i++)
                 {
                     $scope.activities.push({
-                        codigo: response[i].ID,
-                        nombre: response[i].nombre,
-                        fincas: response[i].fincas,
-                        metros: response[i].metros,
-                        descripcion: response[i].descripcion
-
-
+                      idActividad: response[i].idActividad,
+                      idUsuario: response[i].idUsuario,
+                      nombre: response[i].nombre,
+                      descripcion: response[i].descripcion,
+                      fechaInicio: response[i].fechaInicio,
+                      fechaFin: response[i].fechaFin
                     });
                 }
             } else
@@ -145,48 +159,7 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
                     $('.msgServidor').attr("display", "none");
                 }, 5000);
             }
-
         });
-
-    };
-
-    /////////////////////////
-    //listActivities Fincas
-     $scope.listActivitiesFincas = function () {
-
-        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
-        //  * el cual esta asociado a los input*/
-        //
-
-        lotesService.listActivitiesFincas($scope.identificacion).then(function (response) {
-            // //     /*El resultado de la promesa se recibe por parametro*/
-            // //     //alert(response.usuario + " " + response.password);
-            // //     /*Solo con limpiar el objeto se limpian todos los input
-            // //      * asociados*/
-            if (response.length > 0)
-            {
-                for (var i = 0; i < response.length; i++)
-                {
-                   $scope.fincas.push({
-                        codigo: response[i].ID,
-                        nombre: response[i].nombre,
-                        descripcion: response[i].descripcion,
-                        longitud: response[i].longitud,
-                        latitud: response[i].latitud,
-                        hectareas: response[i].hectareas
-
-                    });
-                }
-            } else
-            {
-                $('.msgServidor').html("<div id='msg' class='alert alert-danger'>No hay registros de fincas <span class='glyphicon glyphicon-ok'></span></div>");
-                setTimeout(function () {
-                    $('.msgServidor').attr("display", "none");
-                }, 5000);
-            }
-
-        });
-
     };
 
     //Ordenar Campos////////////////////////////////////////
@@ -215,6 +188,15 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
 
 
     };
-    $scope.listActivities();
-    $scope.listActivitiesFincas();
+    $scope.selectProject = function(obj) {
+        $scope.projects = [];
+        $scope.projects.push({
+            idProyecto: obj.idProyecto,
+            nombre: obj.nombre
+        });
+        $scope.idProyecto=obj.idProyecto;
+        $scope.listActivities();
+        $scope.listUsersByProject();
+        $("#srch-term").fadeIn("slow");
+    };
 });

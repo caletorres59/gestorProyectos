@@ -51,6 +51,7 @@ app.post('/save_project', daoProjects.save_project);
 app.post('/listProjects', daoProjects.listProjects);
 app.post('/deleteProject', daoProjects.deleteProject);
 app.post('/updateProject', daoProjects.updateProjects);
+app.post('/listUsersByProject',daoProjects.listUsersByProject);
 // //////
 //Jobs
 app.post('/saveJobs', daoJobs.saveJobs);

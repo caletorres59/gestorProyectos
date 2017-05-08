@@ -11,7 +11,7 @@
                             <input name="codigo" ng-model="datos.idCargo" style="display:none" type="text">
                             </input>
                             <div class="form-group">
-                                <span class="btn btn-default form-control btnTeam" ng-click="listProject()">
+                                <span class="btn btn-default form-control btnTeam" ng-click="listProjects()">
                                     Select a  Project
                                     <i class="glyphicon glyphicon-plus-sign pull-left">
                                     </i>
@@ -25,16 +25,18 @@
                                 </br>
                             </div>
                             <div class="form-group">
-                                <form name="search">
-                                    <div class="input-group" id="srch-term">
-                                        <span class="input-group-addon" ng-click="searchId(search)">
-                                            <i class="glyphicon glyphicon-search">
-                                            </i>
-                                        </span>
-                                        <input class="form-control" name="srch-datos.numeroDocumentoterm" ng-model="datos.numeroDocumento" placeholder="Search identification user" type="text">
-                                        </input>
-                                    </div>
-                                </form>
+                              <span class="btn btn-default form-control btnTeam" ng-click="listUsersProject()">
+                                  Select a team member
+                                  <i class="glyphicon glyphicon-plus-sign pull-left">
+                                  </i>
+                              </span>
+                              <br>
+                                  <ul class="list-group list">
+                                      <li class="list-group-item" ng-click="selectUser(obj)" ng-repeat="obj in  users | filter:filtrar ">
+                                          {{obj.nombreCompleto}}
+                                      </li>
+                                  </ul>
+                              </br>
                             </div>
                             <div class="form-group" ng-repeat="per in person">
                                 <div class="">
@@ -98,17 +100,22 @@
                                         <tr>
                                             <th class="seleccionable">
                                                 <a>
-                                                    Name Project
+                                                    Activity Name
                                                 </a>
                                             </th>
                                             <th class="seleccionable">
                                                 <a>
-                                                    Name Member
+                                                    Description
                                                 </a>
                                             </th>
                                             <th class="seleccionable">
                                                 <a>
-                                                    Job
+                                                    Start Date
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    End Date
                                                 </a>
                                             </th>
                                             <th class="seleccionable">
@@ -120,19 +127,22 @@
                                         </tr>
                                     </thead>
                                     <tbody ng-init="">
-                                        <tr ng-click="getSelectedRow(obj)" ng-repeat="obj in   team |
+                                        <tr ng-click="getSelectedRow(obj)" ng-repeat="obj in activities |
                             filter:filtrar ">
                                             <td>
                                                 {{obj.nombre}}
                                             </td>
                                             <td>
-                                                {{obj.nombres}}
+                                                {{obj.descripcion }}
                                             </td>
                                             <td>
-                                                {{obj.nombreCargo}}
+                                                {{obj.fechaInicio | date:'yyyy-MM-dd'}}
                                             </td>
                                             <td>
-                                                <span class="glyphicon glyphicon-trash" ng-click="delete(obj.idUsuario,obj.idProyecto)">
+                                                {{obj.fechaFin | date:'yyyy-MM-dd'}}
+                                            </td>
+                                            <td>
+                                                <span class="glyphicon glyphicon-trash" ng-click="delete(obj.idActividad)">
                                                 </span>
                                             </td>
                                         </tr>

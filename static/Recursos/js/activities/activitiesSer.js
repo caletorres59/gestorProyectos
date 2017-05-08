@@ -100,7 +100,7 @@ app.service('activitiesService', function ($http, $httpParamSerializerJQLike) {
         return promise;
     };
 
-    this.listProject = function() {
+    this.listProjects = function() {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         var promise = $http({
@@ -123,11 +123,11 @@ app.service('activitiesService', function ($http, $httpParamSerializerJQLike) {
     this.listActivities = function (identificacion) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
-        alert("listar lotes");
         var promise = $http({
             method: "post",
             url: "/listActivities",
             data: $httpParamSerializerJQLike({
+              idProyecto: identificacion
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function mySucces(response) {
@@ -136,8 +136,25 @@ app.service('activitiesService', function ($http, $httpParamSerializerJQLike) {
         }, function myError(response) {
             alert("Error");
         });
-
         /*Luego se retorna la promesa*/
         return promise;
+    };
+
+    this.listUsersByProject = function(idProyecto){
+      var promise = $http({
+          method: "post",
+          url: "/listUsersByProject",
+          data: $httpParamSerializerJQLike({
+            idProyecto: idProyecto
+          }),
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      }).then(function mySucces(response) {
+          /*Todos los datos se almacenan en .data*/
+          return response.data;
+      }, function myError(response) {
+          alert("Error");
+      });
+      /*Luego se retorna la promesa*/
+      return promise;
     };
 });
