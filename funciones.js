@@ -70,6 +70,7 @@ app.post('/saveActivity', daoActivity.saveActivity);
 app.post('/updateActivity', daoActivity.updateActivity);
 app.post('/listActivities',daoActivity.listActivities);
 app.post('/getActivityById',daoActivity.getActivityById);
+app.post('/deleteActivity', daoActivity.deleteActivity);
 // app.post('/updateJobs', daoJobs.updateJobs);
 // app.post('/crearVacas', daoVacas.crearVacas);
 // app.post('/listarVacas', daoVacas.listarVacas);

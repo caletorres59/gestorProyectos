@@ -8,7 +8,8 @@
                             Add member
                         </div>
                         <div class="panel-body">
-                            <input name="codigo" ng-model="datos.idCargo" style="display:none" type="text">
+                          <form class="formCrud" name="formActivity" role="form">
+                            <input name="codigo" ng-model="datos.idActividad" style="display:none" type="text">
                             </input>
                             <div class="form-group">
                                 <span class="btn btn-default form-control btnTeam" ng-click="listProjects()">
@@ -24,7 +25,7 @@
                                     </ul>
                                 </br>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="srch-term">
                               <span class="btn btn-default form-control btnTeam" ng-click="listUsersProject()">
                                   Select a team member
                                   <i class="glyphicon glyphicon-plus-sign pull-left">
@@ -38,46 +39,50 @@
                                   </ul>
                               </br>
                             </div>
-                            <div class="form-group" ng-repeat="per in person">
-                                <div class="">
-                                    Id : {{per.idUsuario}}
-                                </div>
-                                <div class="">
-                                    User : {{per.nombreUsuario}}
-                                </div>
-                                <div class="">
-                                    First Name : {{per.nombres}}
-                                </div>
-                                <div class="">
-                                    Last Name : {{per.apellidos}}
-                                </div>
-                            </div>
-                            <!-- Jobs -->
-                            <div class="form-group">
-                                <span class="btn btn-default form-control btnTeam" id="spn-jobs" ng-click="listJobs()">
-                                    <i class="glyphicon glyphicon-plus-sign pull-left">
-                                    </i>
-                                    Add Job
-                                </span>
-                                <ul class="list-group list">
-                                    <li class="list-group-item" ng-click="selectJob(job)" ng-model="datos.job" ng-repeat=" job in jobs">
-                                        {{job.nombreCargo}}
-                                    </li>
-                                </ul>
+                            <div class="form-group" id="div-data">
+                              <div class="form-group">
+                                  <label>
+                                      Name
+                                  </label>
+                                  <input class="form-control" name="nombre" ng-model="datos.nombre" placeholder="name">
+                                  </input>
+                              </div>
+                              <div class="form-group">
+                                  <label>
+                                      Description
+                                  </label>
+                                  <textarea class="form-control" name="descripcion" ng-model="datos.descripcion" style="resize: none;">
+                                  </textarea>
+                              </div>
+                              <div class="form-group">
+                                  <label>
+                                      Start date
+                                  </label>
+                                  <input class="form-control" ng-model="datos.fechaInicio" placeholder="fechaInicio " required="" type="date">
+                                  </input>
+                              </div>
+                              <div class="form-group">
+                                  <label>
+                                      End date
+                                  </label>
+                                  <input class="form-control" ng-model="datos.fechaFin" placeholder="fechaFin " required="" type="date">
+                                  </input>
+                              </div>
                             </div>
                             <!-- Botones -->
                             <div class="btn-group btn-group-justified grupobtn">
-                                <span class="btn form-control" ng-click="saveTeam()">
+                                <span class="btn form-control" ng-click="saveActivity()">
                                     Create
                                     <i class="glyphicon glyphicon-plus">
                                     </i>
                                 </span>
-                                <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formJobs)">
+                                <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formActivity)">
                                     Edit
                                     <i class="glyphicon glyphicon-pencil">
                                     </i>
                                 </span>
                             </div>
+                          </form>
                         </div>
                     </div>
                 </div>
