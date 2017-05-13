@@ -15,49 +15,51 @@
                                         <div class="alerts">
                                         </div>
                                         <input name="codigo" ng-model="datos.codigo" style="display:none" type="text">
-                                            <div class="form-group">
-                                                <label>
-                                                    Name
-                                                </label>
-                                                <input class="form-control" ng-model="datos.nombre" placeholder="Nombre " required="" type="text">
-                                                </input>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>
-                                                    Start date
-                                                </label>
-                                                <input class="form-control" ng-model="datos.fechaInicio" placeholder="Nombre " required="" type="date">
-                                                </input>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>
-                                                    End date
-                                                </label>
-                                                <input class="form-control" ng-model="datos.fechaFin" placeholder="Nombre " required="" type="date">
-                                                </input>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>
-                                                    Stage of the project
-                                                </label>
-                                                <input class="form-control" ng-model="datos.etapaProyecto" placeholder="Nombre " required="" type="number">
-                                                </input>
-                                                <!-- Botones -->
-                                                <br>
-                                                    <div class="btn-group btn-group-justified grupobtn">
-                                                        <span class="btn form-control" ng-click="saveProject(formProjects)">
-                                                            Create
-                                                            <i class="glyphicon glyphicon-plus">
-                                                            </i>
-                                                        </span>
-                                                        <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formProjects)">
-                                                            Edit
-                                                            <i class="glyphicon glyphicon-pencil">
-                                                            </i>
-                                                        </span>
-                                                    </div>
-                                                </br>
-                                            </div>
+                                            <input name="idUsuario" ng-model="datos.idUsuario" style="display:none" type="text">
+                                                <div class="form-group">
+                                                    <label>
+                                                        Name
+                                                    </label>
+                                                    <input class="form-control" ng-model="datos.nombre" placeholder="Nombre " required="" type="text">
+                                                    </input>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        Start date
+                                                    </label>
+                                                    <input class="form-control" ng-model="datos.fechaInicio" placeholder="Nombre " required="" type="date">
+                                                    </input>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        End date
+                                                    </label>
+                                                    <input class="form-control" ng-model="datos.fechaFin" placeholder="Nombre " required="" type="date">
+                                                    </input>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        Stage of the project
+                                                    </label>
+                                                    <input class="form-control" ng-model="datos.etapaProyecto" placeholder="Nombre " required="" type="number">
+                                                    </input>
+                                                    <!-- Botones -->
+                                                    <br>
+                                                        <div class="btn-group btn-group-justified grupobtn">
+                                                            <span class="btn form-control" ng-click="saveProject(formProjects)">
+                                                                Create
+                                                                <i class="glyphicon glyphicon-plus">
+                                                                </i>
+                                                            </span>
+                                                            <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formProjects)">
+                                                                Edit
+                                                                <i class="glyphicon glyphicon-pencil">
+                                                                </i>
+                                                            </span>
+                                                        </div>
+                                                    </br>
+                                                </div>
+                                            </input>
                                         </input>
                                     </form>
                                 </div>
