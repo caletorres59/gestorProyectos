@@ -41,7 +41,8 @@ function saveActivity(pedido, respuesta) {
         idProyecto: datos['idProyecto'],
         nombre: datos['nombre'],
         descripcion: datos['descripcion'],
-        fechaFin: datos['fechaFin']
+        fechaFin: datos['fechaFin'],
+        fechaInicio: datos['fechaInicio']
     };
     var sql = 'insert into pf_actividades set ?';
     //Se hace un insert mandado el objet completo
@@ -70,9 +71,9 @@ function getActivityById(pedido, respuesta) {
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
     //
-    numeroDocumento = datos['idAdctividad'];
+    numeroDocumento = datos['idActividad'];
     rol = 'user';
-    var sql = 'select idUsuario , idProyecto, nombre, descripcion, fechaFin from pf_actividades where idAdctividad = ?';
+    var sql = 'select idUsuario , idProyecto, nombre, descripcion, fechaFin from pf_actividades where idActividad = ?';
     //Se hace un insert mandado el objet completo
     conexion.query(sql, [numeroDocumento, rol], function(error, resultado) {
         if (error) {
@@ -93,10 +94,11 @@ function deleteActivity(pedido, respuesta) {
     //
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
-    var idAdctividad = datos['idAdctividad'];
-    var sql = 'delete from pf_actividades where idAdctividad = ?';
+    var idActividad = datos['idActividad'];
+    console.log(idActividad);
+    var sql = 'delete from pf_actividades where idActividad = ?';
     //Se hace un insert mandado el objet completo
-    conexion.query(sql, [idProyecto, idUsuario], function(error, resultado) {
+    conexion.query(sql, [idActividad], function(error, resultado) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
@@ -107,7 +109,7 @@ function deleteActivity(pedido, respuesta) {
 }
 
 function listActivities(pedido, respuesta) {
-    var sql = 'select idActividad, idUsuario , idProyecto, nombre, descripcion, fechaFin from pf_actividades where idProyecto = ?';
+    var sql = 'select idActividad, idUsuario , idProyecto, nombre, descripcion, fechaInicio, fechaFin from pf_actividades where idProyecto = ?';
     //Se hace un insert mandado el objet completo
     var datos = pedido.body;
     var idProyecto = datos['idProyecto'];
@@ -120,21 +122,26 @@ function listActivities(pedido, respuesta) {
         }
     });
 }
-//update
+//update<
 function updateActivity(pedido, respuesta) {
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
-    var idAdctividad = datos['idAdctividad'];
-    var update = {
+    var idActividad = datos['idActividad'];
+    var update = { << << << < HEAD
         idUsuario: datos['idUsuario'],
         idProyecto: datos['idProyecto'],
         nombre: datos['nombre'],
         descripcion: datos['descripcion'],
-        fechaFin: datos['fechaFin']
+        fechaFin: datos['fechaFin'] === === = idUsuario: datos['idUsuario'],
+        idProyecto: datos['idProyecto'],
+        nombre: datos['nombre'],
+        descripcion: datos['descripcion'],
+        fechaFin: datos['fechaFin'],
+        fechaInicio: datos['fechaInicio'] >>> >>> > 02e bc8f7a9ecde1423dc4f4211309b9a662a0db1
     };
-    var sql = 'update pf_actividades set ? where idAdctividad = ?';
+    var sql = 'update pf_actividades set ? where idActividad = ?';
     //Se hace un insert mandado el objet completo
-    conexion.query(sql, [update, idAdctividad], function(error, resultado) {
+    conexion.query(sql, [update, idActividad], function(error, resultado) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);

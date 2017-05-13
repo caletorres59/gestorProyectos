@@ -63,7 +63,7 @@ function save_project(pedido, respuesta) {
     //    pedido.on('data', function (datosparciales) {
     //        info += datosparciales;
     //    });
-    //    
+    //
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
     var registro = {
@@ -90,7 +90,7 @@ function deleteProject(pedido, respuesta) {
     //    pedido.on('data', function (datosparciales) {
     //        info += datosparciales;
     //    });
-    //    
+    //
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
     var idProyecto = [datos['idProyecto']];
@@ -120,6 +120,23 @@ function listProjects(pedido, respuesta) {
     });
 }
 
+function listUsersByProject(pedido, respuesta){
+  var sql = 'SELECT u.idUsuario, u.nombreUsuario, u.rol, u.tipoDocumento, u.numeroDocumento, u.nombres, u.apellidos, u.fechaNacimiento '+
+'FROM pf_usuarios u JOIN pf_integrantesProyectos ip ON u.idUsuario= ip.idUsuario WHERE ip.idProyecto = ?';
+  //Se hace un insert mandado el objet completo
+
+  var datos = pedido.body;
+
+  console.log("estoy en lista");
+  conexion.query(sql,[datos['idProyecto']], function(error, filas) {
+      if (error) {
+          console.log(error);
+          respuesta.send(constantes.ERROR);
+      } else {
+          respuesta.send(JSON.stringify(filas));
+      }
+  });
+}
 function updateProjects(pedido, respuesta) {
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
@@ -148,9 +165,10 @@ function updateProjects(pedido, respuesta) {
  * @param {type} respuesta
  * @returns {undefined}
  */
-//Habilita a las funciones para que sean llamadas o exportadas desde otros archivos 
+//Habilita a las funciones para que sean llamadas o exportadas desde otros archivos
 exports.conectardb = conectardb;
 exports.save_project = save_project;
 exports.listProjects = listProjects;
 exports.deleteProject = deleteProject;
 exports.updateProjects = updateProjects;
+exports.listUsersByProject = listUsersByProject;

@@ -53,6 +53,7 @@ app.post('/save_project', daoProjects.save_project);
 app.post('/listProjects', daoProjects.listProjects);
 app.post('/deleteProject', daoProjects.deleteProject);
 app.post('/updateProject', daoProjects.updateProjects);
+app.post('/listUsersByProject', daoProjects.listUsersByProject);
 // //////
 //Jobs
 app.post('/saveJobs', daoJobs.saveJobs);
@@ -76,6 +77,7 @@ app.post('/saveActivity', daoActivity.saveActivity);
 app.post('/updateActivity', daoActivity.updateActivity);
 app.post('/listActivities', daoActivity.listActivities);
 app.post('/getActivityById', daoActivity.getActivityById);
+app.post('/deleteActivity', daoActivity.deleteActivity);
 // app.post('/updateJobs', daoJobs.updateJobs);
 // app.post('/crearVacas', daoVacas.crearVacas);
 // app.post('/listarVacas', daoVacas.listarVacas);
