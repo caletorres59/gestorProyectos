@@ -9,6 +9,22 @@ var app = angular.module("appControladorRegistro", []);
 app.controller('CtlRegistro', function($scope, registroService) {
     /*Se inicializa el modelo*/
     $scope.datos = "";
+    $scope.tipoUsuario ="";
+    $scope.userTypes =
+      [
+        {
+          "nombre":"Integrante",
+          "value":"user"
+        },{
+          "nombre":"Gerente",
+          "value":"admin"
+        }
+      ]
+    ;
+
+    $scope.setUserType=function(obj){
+      $scope.tipoUsuario = obj.value;
+    }
     //$scope.identificacion = "";
     /*Se define una funcion en el controlador*/
     $scope.registrar = function(form) {
@@ -23,6 +39,9 @@ app.controller('CtlRegistro', function($scope, registroService) {
     ||$scope.isNullOrEmpty($scope.datos.fechaNacimiento)){
       $(".alerts").html("<div class='error'><p>Check the entered data</p></div>");
     }else{
+      if($scope.datos.confirmarContrasena != $scope.datos.contrasena){
+        $(".alerts").html("<div class='error'><p>Password and confirm Password are not equal</p></div>");
+      }else{
       if (form) {
           // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
           //  * el cual esta asociado a los input*/
@@ -42,6 +61,7 @@ app.controller('CtlRegistro', function($scope, registroService) {
       } else {
           alert("Verifique los datos ingresados");
       }
+    }
     }
 
     };

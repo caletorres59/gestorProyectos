@@ -77,6 +77,8 @@
                     </input>
                     <input name="password" ng-model="datos.contrasena" placeholder="password" required="text" type="password">
                     </input>
+                    <input name="confirmPassword" ng-model="datos.confirmarContrasena" placeholder="Confirm password" required="text" type="password">
+                    </input>
                     <input name="documento" ng-model="datos.numeroDocumento" placeholder="document" required="text" type="text">
                     </input>
                     <input name="nombre" ng-model="datos.nombres" placeholder="name" required="text" type="text">
@@ -87,6 +89,9 @@
                     </input>
                     <input name="fecha" ng-model="datos.fechaNacimiento" placeholder="date of birdth" required="date" type="date">
                     </input>
+                    <select ng-model="datos.tipoUsuario">
+                      <option ng-repeat="x in userTypes" value="{{x.value}}">{{x.nombre}}</option>
+                    </select>
                 </p>
                 <button name="submit" ng-click="registrar('formRegistro')" >
                     <i class="icon-arrow-right">

@@ -27,7 +27,8 @@ app.service('registroService', function($http, $httpParamSerializerJQLike) {
                 nombres: datos.nombres,
                 apellidos: datos.apellidos,
                 email: datos.email,
-                fechaNacimiento: datos.fechaNacimiento
+                fechaNacimiento: datos.fechaNacimiento,
+                tipoUsuario: datos.tipoUsuario
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

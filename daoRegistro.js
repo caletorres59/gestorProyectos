@@ -70,8 +70,8 @@ function registroUsuario(pedido, respuesta) {
     var tipoDocumento = 'cc';
     var registro = {
         nombreUsuario: datos['nombreUsuario'],
-        contrasena: datos['nombreUsuario'],
-        rol: rol,
+        contrasena: datos['contrasena'],
+        rol: datos['tipoUsuario'],
         tipoDocumento: tipoDocumento,
         numeroDocumento: datos['numeroDocumento'],
         nombres: datos['nombres'],
@@ -79,9 +79,8 @@ function registroUsuario(pedido, respuesta) {
         email: datos['email'],
         fechaNacimiento: datos['fechaNacimiento']
     };
-    if(registro.nombreUsuario == registro.contrasena){
-      respuesta.send(constantes.ERROR);
-    }else{
+    console.log(registro);
+
       var sql = 'insert into pf_usuarios set ?';
       //Se hace un insert mandado el objet completo
       conexion.query(sql, registro, function(error, resultado) {
@@ -92,7 +91,7 @@ function registroUsuario(pedido, respuesta) {
               respuesta.send(constantes.OK);
           }
       });
-    }
+
 }
 
 function findUserByEmail(email){
