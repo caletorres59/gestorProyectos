@@ -18,23 +18,28 @@ app.controller('CtlProjects', function($scope, projectsService) {
          * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
-        if (form) {
-            // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
-            //  * el cual esta asociado a los input*/
-            projectsService.saveProject($scope.datos).then(function(response) {
-                // //     /*El resultado de la promesa se recibe por parametro*/
-                // //     //alert(response.usuario + " " + response.password);
-                // //     /*Solo con limpiar el objeto se limpian todos los input 
-                // //      * asociados*/
-                if (response == "OK") {
-                    $(".alerts").html("<div class='info'><p>Project is saved</p></div>");
-                } else {
-                    $(".alerts").html("<div class='error'><p>Project is not saved</p></div>");
-                }
-                $scope.datos = "";
-            });
+        if ($scope.isNullOrEmpty($scope.datos.nombre) || $scope.isNullOrEmpty($scope.datos.fechaInicio) || $scope.isNullOrEmpty($scope.datos.fechaFin) || $scope.isNullOrEmpty($scope.datos.etapaProyecto)) {
+            $(".alerts").html("<div class='info'><p>Check the entered data</p></div>");
         } else {
-            alert("Verifique los datos ingresados");
+            if (form) {
+                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+                //  * el cual esta asociado a los input*/
+                projectsService.saveProject($scope.datos).then(function(response) {
+                    // //     /*El resultado de la promesa se recibe por parametro*/
+                    // //     //alert(response.usuario + " " + response.password);
+                    // //     /*Solo con limpiar el objeto se limpian todos los input 
+                    // //      * asociados*/
+                    if (response == "OK") {
+                        $(".alerts").html("<div class='info'><p>Project is saved</p></div>");
+                        $scope.listProjects();
+                    } else {
+                        $(".alerts").html("<div class='error'><p>Project is not saved</p></div>");
+                    }
+                    $scope.datos = "";
+                });
+            } else {
+                alert("Verifique los datos ingresados");
+            }
         }
         // $scope.listar();
     };
@@ -46,21 +51,26 @@ app.controller('CtlProjects', function($scope, projectsService) {
          * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
-        if (form) {
-            // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
-            //  * el cual esta asociado a los input*/
-            projectsService.update($scope.datos).then(function(response) {
-                // //     /*El resultado de la promesa se recibe por parametro*/
-                // //     //alert(response.usuario + " " + response.password);
-                // //     /*Solo con limpiar el objeto se limpian todos los input 
-                // //      * asociados*/
-                if (response == "OK") {
-                    alert("ok");
-                } else {
-                    alert("error");
-                }
-                $scope.datos = "";
-            });
+        if ($scope.isNullOrEmpty($scope.datos.nombre) || $scope.isNullOrEmpty($scope.datos.fechaInicio) || $scope.isNullOrEmpty($scope.datos.fechaFin) || $scope.isNullOrEmpty($scope.datos.etapaProyecto)) {
+            $(".alerts").html("<div class='info'><p>Choose a project </p></div>");
+        } else {
+            if (form) {
+                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+                //  * el cual esta asociado a los input*/
+                projectsService.update($scope.datos).then(function(response) {
+                    // //     /*El resultado de la promesa se recibe por parametro*/
+                    // //     //alert(response.usuario + " " + response.password);
+                    // //     /*Solo con limpiar el objeto se limpian todos los input 
+                    // //      * asociados*/
+                    if (response == "OK") {
+                        $(".alerts").html("<div class='info'><p>Project is updated</p></div>");
+                        $scope.listProjects();
+                    } else {
+                        $(".alerts").html("<div class='error'><p>Project is not updated</p></div>");
+                    }
+                    $scope.datos = "";
+                });
+            }
         }
     };
     ///Eliminar/////////////////////////////////////////////
@@ -72,11 +82,11 @@ app.controller('CtlProjects', function($scope, projectsService) {
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
-            alert("controller");
+            //alert("controller");
             if (response == "OK") {
-                alert("ok");
+                $(".alerts").html("<div class='info'><p>Project is deleted</p></div>");
             } else {
-                alert("error");
+                $(".alerts").html("<div class='info'><p>Project is not deleted</p></div>");
             }
             $scope.datos = "";
             $scope.listProjects();
@@ -106,6 +116,13 @@ app.controller('CtlProjects', function($scope, projectsService) {
                 alert("no hay datos");
             }
         });
+    };
+    //validate
+    $scope.isNullOrEmpty = function(obj) {
+        if (obj == null || obj == "") {
+            return true;
+        }
+        return false;
     };
     // /////////////////////////
     // //Listar Fincas

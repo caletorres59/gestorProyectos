@@ -18,23 +18,28 @@ app.controller('CtlJobs', function($scope, jobsService) {
          * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
-        if (form) {
-            // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
-            //  * el cual esta asociado a los input*/
-            jobsService.saveJobs($scope.datos).then(function(response) {
-                // //     /*El resultado de la promesa se recibe por parametro*/
-                // //     //alert(response.usuario + " " + response.password);
-                // //     /*Solo con limpiar el objeto se limpian todos los input 
-                // //      * asociados*/
-                if (response == "OK") {
-                    alert("ok");
-                } else {
-                    alert("error");
-                }
-                $scope.datos = "";
-            });
+        if ($scope.isNullOrEmpty($scope.datos.nombreCargo) || $scope.isNullOrEmpty($scope.datos.descripcion) || $scope.isNullOrEmpty($scope.datos.horario) || $scope.isNullOrEmpty($scope.datos.salario)) {
+            $(".alerts").html("<div class='info'><p>Check the entered data</p></div>");
         } else {
-            alert("Verifique los datos ingresados");
+            if (form) {
+                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+                //  * el cual esta asociado a los input*/
+                jobsService.saveJobs($scope.datos).then(function(response) {
+                    // //     /*El resultado de la promesa se recibe por parametro*/
+                    // //     //alert(response.usuario + " " + response.password);
+                    // //     /*Solo con limpiar el objeto se limpian todos los input 
+                    // //      * asociados*/
+                    if (response == "OK") {
+                        $(".alerts").html("<div class='info'><p>Job is saved</p></div>");
+                        $scope.listJobs();
+                    } else {
+                        $(".alerts").html("<div class='info'><p>Job is not saved</p></div>");
+                    }
+                    $scope.datos = "";
+                });
+            } else {
+                alert("Verifique los datos ingresados");
+            }
         }
         // $scope.listar();
     };
@@ -46,21 +51,26 @@ app.controller('CtlJobs', function($scope, jobsService) {
          * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
-        if (form) {
-            // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
-            //  * el cual esta asociado a los input*/
-            jobsService.update($scope.datos).then(function(response) {
-                // //     /*El resultado de la promesa se recibe por parametro*/
-                // //     //alert(response.usuario + " " + response.password);
-                // //     /*Solo con limpiar el objeto se limpian todos los input 
-                // //      * asociados*/
-                if (response == "OK") {
-                    alert("ok");
-                } else {
-                    alert("error");
-                }
-                $scope.datos = "";
-            });
+        if ($scope.isNullOrEmpty($scope.datos.nombreCargo) || $scope.isNullOrEmpty($scope.datos.descripcion) || $scope.isNullOrEmpty($scope.datos.horario) || $scope.isNullOrEmpty($scope.datos.salario)) {
+            $(".alerts").html("<div class='info'><p>Selected a job</p></div>");
+        } else {
+            if (form) {
+                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+                //  * el cual esta asociado a los input*/
+                jobsService.update($scope.datos).then(function(response) {
+                    // //     /*El resultado de la promesa se recibe por parametro*/
+                    // //     //alert(response.usuario + " " + response.password);
+                    // //     /*Solo con limpiar el objeto se limpian todos los input 
+                    // //      * asociados*/
+                    if (response == "OK") {
+                        $(".alerts").html("<div class='info'><p>Job is updated</p></div>");
+                        $scope.listJobs();
+                    } else {
+                        $(".alerts").html("<div class='info'><p>Job is not upadated</p></div>");
+                    }
+                    $scope.datos = "";
+                });
+            }
         }
     };
     ///Eliminar/////////////////////////////////////////////
@@ -72,11 +82,10 @@ app.controller('CtlJobs', function($scope, jobsService) {
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
-            alert("controller");
             if (response == "OK") {
-                alert("ok");
+                $(".alerts").html("<div class='info'><p>delete job ok</p></div>");
             } else {
-                alert("error");
+                $(".alerts").html("<div class='info'><p>error delete</p></div>");
             }
             $scope.datos = "";
             $scope.listJobs();
@@ -84,7 +93,7 @@ app.controller('CtlJobs', function($scope, jobsService) {
     };
     //listar//////////////////////////////////////////
     $scope.listJobs = function() {
-        $scope.projects = [];
+        $scope.jobs = [];
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
         jobsService.listJobs().then(function(response) {
@@ -106,6 +115,13 @@ app.controller('CtlJobs', function($scope, jobsService) {
                 alert("no hay datos");
             }
         });
+    };
+    //validate
+    $scope.isNullOrEmpty = function(obj) {
+        if (obj == null || obj == "") {
+            return true;
+        }
+        return false;
     };
     // /////////////////////////
     // //Listar Fincas
