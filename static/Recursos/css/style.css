@@ -342,6 +342,7 @@ div.panel-heading
     font-size: 1.3em;
     background: #59AFCF;
     border-radius: 5%;
+    padding: 10px;
 }
 .alerts div.error p
 {
@@ -350,4 +351,5 @@ div.panel-heading
     font-size: 1.3em;
     background: #DD63EB;
     border-radius: 5%;
+    padding: 10px;
 }
