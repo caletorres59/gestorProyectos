@@ -9,6 +9,7 @@ app.controller('CtlProjects', function($scope, projectsService) {
     /*Se inicializa el modelo*/
     $scope.datos = "";
     $scope.projects = [];
+    $scope.idUsuario = sessionStorage.getItem("id");
     //$scope.identificacion = "";
     /*Se define una funcion en el controlador*/
     $scope.saveProject = function(form) {
@@ -24,6 +25,7 @@ app.controller('CtlProjects', function($scope, projectsService) {
             if (form) {
                 // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
                 //  * el cual esta asociado a los input*/
+                $scope.datos.idUsuario = sessionStorage.getItem("id");
                 projectsService.saveProject($scope.datos).then(function(response) {
                     // //     /*El resultado de la promesa se recibe por parametro*/
                     // //     //alert(response.usuario + " " + response.password);
@@ -97,7 +99,7 @@ app.controller('CtlProjects', function($scope, projectsService) {
         $scope.projects = [];
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
-        projectsService.listProjects().then(function(response) {
+        projectsService.listProjects($scope.idUsuario).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
@@ -109,7 +111,8 @@ app.controller('CtlProjects', function($scope, projectsService) {
                         nombre: response[i]['nombre'],
                         fechaInicio: response[i]['fechaInicio'],
                         fechaFin: response[i]['fechaFin'],
-                        etapaProyecto: response[i]['etapaProyecto']
+                        etapaProyecto: response[i]['etapaProyecto'],
+                        idUsuario: response[i]['idUsuario']
                     });
                 }
             } else {

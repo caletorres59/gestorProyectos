@@ -107,10 +107,13 @@ function deleteProject(pedido, respuesta) {
 }
 
 function listProjects(pedido, respuesta) {
-    var sql = 'select idProyecto, nombre, fechaInicio, fechaFin,etapaProyecto from pf_proyectos';
+    var datos = pedido.body;
+    console.log(datos['idUsuario'] + "idU");
+    var idUsuario = [datos['idUsuario']];
+    var sql = 'select idProyecto, nombre, fechaInicio, fechaFin,etapaProyecto, idUsuario from pf_proyectos where idUsuario= ?';
     //Se hace un insert mandado el objet completo
     console.log("estoy en lista");
-    conexion.query(sql, function(error, filas) {
+    conexion.query(sql, idUsuario, function(error, filas) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
@@ -120,23 +123,21 @@ function listProjects(pedido, respuesta) {
     });
 }
 
-function listUsersByProject(pedido, respuesta){
-  var sql = 'SELECT u.idUsuario, u.nombreUsuario, u.rol, u.tipoDocumento, u.numeroDocumento, u.nombres, u.apellidos, u.fechaNacimiento '+
-'FROM pf_usuarios u JOIN pf_integrantesProyectos ip ON u.idUsuario= ip.idUsuario WHERE ip.idProyecto = ?';
-  //Se hace un insert mandado el objet completo
-
-  var datos = pedido.body;
-
-  console.log("estoy en lista");
-  conexion.query(sql,[datos['idProyecto']], function(error, filas) {
-      if (error) {
-          console.log(error);
-          respuesta.send(constantes.ERROR);
-      } else {
-          respuesta.send(JSON.stringify(filas));
-      }
-  });
+function listUsersByProject(pedido, respuesta) {
+    var sql = 'SELECT u.idUsuario, u.nombreUsuario, u.rol, u.tipoDocumento, u.numeroDocumento, u.nombres, u.apellidos, u.fechaNacimiento ' + 'FROM pf_usuarios u JOIN pf_integrantesProyectos ip ON u.idUsuario= ip.idUsuario WHERE ip.idProyecto = ?';
+    //Se hace un insert mandado el objet completo
+    var datos = pedido.body;
+    console.log("estoy en lista");
+    conexion.query(sql, [datos['idProyecto']], function(error, filas) {
+        if (error) {
+            console.log(error);
+            respuesta.send(constantes.ERROR);
+        } else {
+            respuesta.send(JSON.stringify(filas));
+        }
+    });
 }
+
 function updateProjects(pedido, respuesta) {
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
