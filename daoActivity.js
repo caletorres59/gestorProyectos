@@ -127,17 +127,13 @@ function updateActivity(pedido, respuesta) {
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
     var idActividad = datos['idActividad'];
-    var update = { << << << < HEAD
-        idUsuario: datos['idUsuario'],
-        idProyecto: datos['idProyecto'],
-        nombre: datos['nombre'],
-        descripcion: datos['descripcion'],
-        fechaFin: datos['fechaFin'] === === = idUsuario: datos['idUsuario'],
-        idProyecto: datos['idProyecto'],
-        nombre: datos['nombre'],
-        descripcion: datos['descripcion'],
-        fechaFin: datos['fechaFin'],
-        fechaInicio: datos['fechaInicio'] >>> >>> > 02e bc8f7a9ecde1423dc4f4211309b9a662a0db1
+    var update = {
+      idUsuario: datos['idUsuario'],
+      idProyecto: datos['idProyecto'],
+      nombre: datos['nombre'],
+      descripcion: datos['descripcion'],
+      fechaFin: datos['fechaFin'],
+      fechaInicio: datos['fec']
     };
     var sql = 'update pf_actividades set ? where idActividad = ?';
     //Se hace un insert mandado el objet completo
