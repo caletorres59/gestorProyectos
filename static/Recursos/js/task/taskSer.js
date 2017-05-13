@@ -33,15 +33,65 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
         /*Luego se retorna la promesa*/
         return promise;
     };
-    //Eliminar
-    this.eliminar = function(codigo) {
+    // list Activities
+    this.listActivities = function(idProyecto) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         var promise = $http({
             method: "post",
-            url: "/eliminarLotes",
+            url: "/listActivities",
             data: $httpParamSerializerJQLike({
-                codigo: codigo
+                idProyecto: idProyecto
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function mySucces(response) {
+            /*Todos los datos se almacenan en .data*/
+            return response.data;
+        }, function myError(response) {
+            alert("Error");
+        });
+        /*Luego se retorna la promesa*/
+        return promise;
+    };
+    //Save task
+    this.saveTask = function(datos, idActividad) {
+        /*El resultado del $http es almacenado en la promesa*/
+        /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
+        var promise = $http({
+            method: "post",
+            url: "/saveTask",
+            data: $httpParamSerializerJQLike({
+                idActividad: idActividad,
+                nombreTarea: datos['nombre'],
+                fechaInicio: datos['fechaInicio'],
+                fechaFin: datos['fechaFin'],
+                porcentajeDesarrollo: datos['porcentajeDesarrollo']
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function mySucces(response) {
+            /*Todos los datos se almacenan en .data*/
+            return response.data;
+        }, function myError(response) {
+            alert("Error");
+        });
+        /*Luego se retorna la promesa*/
+        return promise;
+    };
+    //Eliminar
+    this.deleteTask = function(codigo) {
+        /*El resultado del $http es almacenado en la promesa*/
+        /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
+        alert(codigo);
+        alert("estoy en el servicio de eliminar las tareas");
+        var promise = $http({
+            method: "post",
+            url: "/deleteTask",
+            data: $httpParamSerializerJQLike({
+                idTarea: codigo
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -84,14 +134,17 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
         return promise;
     };
     //Listar
-    this.listar = function(identificacion) {
+    this.listTask = function(idProyecto, idActividad) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
-        alert("listar lotes");
+        alert("listar tareas");
         var promise = $http({
             method: "post",
-            url: "/listarLotes",
-            data: $httpParamSerializerJQLike({}),
+            url: "/listTask",
+            data: $httpParamSerializerJQLike({
+                idProyecto: idProyecto,
+                idActividad: idActividad
+            }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }

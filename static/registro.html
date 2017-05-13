@@ -70,19 +70,19 @@
         <section class="main">
             <form class="form-5 registro clearfix" name="formRegistro" ng-controller="CtlRegistro">
                 <p>
-                    <input id="nombre" name="nombre" ng-model="datos.nombreUsuario" placeholder="Username" type="text">
+                    <input id="nombre" name="nombre" ng-model="datos.nombreUsuario" placeholder="Username" required="text" type="text">
                     </input>
-                    <input name="password" ng-model="datos.contrasena" placeholder="password" type="password">
+                    <input name="password" ng-model="datos.contrasena" placeholder="password" required="text" type="password">
                     </input>
-                    <input name="documento" ng-model="datos.numeroDocumento" placeholder="document" type="text">
+                    <input name="documento" ng-model="datos.numeroDocumento" placeholder="document" required="text" type="text">
                     </input>
-                    <input name="nombre" ng-model="datos.nombres" placeholder="name" type="text">
+                    <input name="nombre" ng-model="datos.nombres" placeholder="name" required="text" type="text">
                     </input>
-                    <input name="apellido" ng-model="datos.apellidos" placeholder="last name" type="text">
+                    <input name="apellido" ng-model="datos.apellidos" placeholder="last name" required="text" type="text">
                     </input>
-                    <input name="email" ng-model="datos.email" placeholder="e-mail" type="email">
+                    <input name="email" ng-model="datos.email" placeholder="e-mail" required="text" type="email">
                     </input>
-                    <input name="fecha" ng-model="datos.fechaNacimiento" placeholder="date of birdth" type="date">
+                    <input name="fecha" ng-model="datos.fechaNacimiento" placeholder="date of birdth" required="date" type="date">
                     </input>
                 </p>
                 <button name="submit" ng-click="registrar('formRegistro')" type="">

@@ -14,40 +14,40 @@ app.controller('CtlTask', function($scope, taskService) {
     $("#panelTask").fadeOut();
     //$scope.identificacion = "";
     /*Se define una funcion en el controlador*/
-    // $scope.guardar = function(form) {
-    //     /*Al ser el servicio la llamada por http (funcion asincrona) toca definir
-    //      * promesas con el "then", que se ejecuta unicamente cuando se le retorna
-    //      * un valor valido. Este se ejecuta unicamente cuando el llamado http 
-    //      * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
-    //      * uso de ese paradigma*/
-    //     /*Si el formulario esta bien validado*/
-    //     alert($scope.identificacion.selFincas);
-    //     if (form) {
-    //         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
-    //         //  * el cual esta asociado a los input*/
-    //         taskService.guardar($scope.identificacion).then(function(response) {
-    //             // //     /*El resultado de la promesa se recibe por parametro*/
-    //             // //     //alert(response.usuario + " " + response.password);
-    //             // //     /*Solo con limpiar el objeto se limpian todos los input 
-    //             // //      * asociados*/
-    //             if (response == "OK") {
-    //                 $('.msgServidor').html("<div id='msg' class='alert alert-success'>el lote fue registrada <span class='glyphicon glyphicon-ok'></span></div>");
-    //                 setTimeout(function() {
-    //                     $('#msg').attr("display", "none");
-    //                 }, 5000);
-    //             } else {
-    //                 $('.msgServidor').html("<div id='msg' class='alert alert-danger'>Error en el registro <span class='glyphicon glyphicon-ok'></span></div>");
-    //                 setTimeout(function() {
-    //                     $('#msg').attr("display", "none");
-    //                 }, 5000);
-    //             }
-    //             $scope.identificacion = "";
-    //         });
-    //     } else {
-    //         alert("Verifique los datos ingresados");
-    //     }
-    //     $scope.listar();
-    // };
+    $scope.saveTask = function(form) {
+        /*Al ser el servicio la llamada por http (funcion asincrona) toca definir
+         * promesas con el "then", que se ejecuta unicamente cuando se le retorna
+         * un valor valido. Este se ejecuta unicamente cuando el llamado http 
+         * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
+         * uso de ese paradigma*/
+        /*Si el formulario esta bien validado*/
+        alert($scope.datos.nombre);
+        var idActividad = $scope.activities[0].idActividad;
+        if (form) {
+            // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+            //  * el cual esta asociado a los input*/
+            taskService.saveTask($scope.datos, idActividad).then(function(response) {
+                // //     /*El resultado de la promesa se recibe por parametro*/
+                // //     //alert(response.usuario + " " + response.password);
+                // //     /*Solo con limpiar el objeto se limpian todos los input 
+                // //      * asociados*/
+                if (response == "OK") {
+                    $('.msgServidor').html("<div id='msg' class='alert alert-success'>el lote fue registrada <span class='glyphicon glyphicon-ok'></span></div>");
+                    setTimeout(function() {
+                        $('#msg').attr("display", "none");
+                    }, 5000);
+                } else {
+                    $('.msgServidor').html("<div id='msg' class='alert alert-danger'>Error en el registro <span class='glyphicon glyphicon-ok'></span></div>");
+                    setTimeout(function() {
+                        $('#msg').attr("display", "none");
+                    }, 5000);
+                }
+                $scope.identificacion = "";
+            });
+        } else {
+            alert("Verifique los datos ingresados");
+        }
+    };
     // //modificar////////////////////////////////////////////
     // $scope.modificar = function(form) {
     //     /*Al ser el servicio la llamada por http (funcion asincrona) toca definir
@@ -80,30 +80,29 @@ app.controller('CtlTask', function($scope, taskService) {
     //         });
     //     }
     // };
-    // ///Eliminar/////////////////////////////////////////////
-    // $scope.eliminar = function(codigo) {
-    //     // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
-    //     //  * el cual esta asociado a los input*/
-    //     taskService.eliminar(codigo).then(function(response) {
-    //         // //     /*El resultado de la promesa se recibe por parametro*/
-    //         // //     //alert(response.usuario + " " + response.password);
-    //         // //     /*Solo con limpiar el objeto se limpian todos los input 
-    //         // //      * asociados*/
-    //         if (response == "OK") {
-    //             $('.msgServidor').html("<div id='msg' class='alert alert-success'>el lote fue eliminada <span class='glyphicon glyphicon-ok'></span></div>");
-    //             setTimeout(function() {
-    //                 $('#msg').attr("display", "none");
-    //             }, 5000);
-    //         } else {
-    //             $('.msgServidor').html("<div id='msg' class='alert alert-danger'>Error al eliminar <span class='glyphicon glyphicon-ok'></span></div>");
-    //             setTimeout(function() {
-    //                 $(".msgServidor").attr("display", "none");
-    //             }, 5000);
-    //         }
-    //         $scope.identificacion = "";
-    //         $scope.listar();
-    //     });
-    // };
+    ///Eliminar/////////////////////////////////////////////
+    $scope.deleteTask = function(codigo) {
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        //  * el cual esta asociado a los input*/
+        alert(codigo);
+        taskService.deleteTask(codigo).then(function(response) {
+            // //     /*El resultado de la promesa se recibe por parametro*/
+            // //     //alert(response.usuario + " " + response.password);
+            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //      * asociados*/
+            if (response == "OK") {
+                $('.msgServidor').html("<div id='msg' class='alert alert-success'>el lote fue eliminada <span class='glyphicon glyphicon-ok'></span></div>");
+                setTimeout(function() {
+                    $('#msg').attr("display", "none");
+                }, 5000);
+            } else {
+                $('.msgServidor').html("<div id='msg' class='alert alert-danger'>Error al eliminar <span class='glyphicon glyphicon-ok'></span></div>");
+                setTimeout(function() {
+                    $(".msgServidor").attr("display", "none");
+                }, 5000);
+            }
+        });
+    };
     //listar//////////////////////////////////////////
     $scope.listProject = function() {
         $scope.projects = [];
@@ -142,6 +141,34 @@ app.controller('CtlTask', function($scope, taskService) {
                     $scope.activities.push({
                         idActividad: response[i]['idActividad'],
                         nombre: response[i]['nombre']
+                    });
+                }
+            } else {
+                alert("no hay datos");
+            }
+        });
+    };
+    $scope.listTask = function() {
+        $scope.task = [];
+        var idProyecto = $scope.projects[0].idProyecto;
+        var idActividad = $scope.activities[0].idActividad;
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        //  * el cual esta asociado a los input*/
+        taskService.listTask(idProyecto, idActividad).then(function(response) {
+            // //     /*El resultado de la promesa se recibe por parametro*/
+            // //     //alert(response.usuario + " " + response.password);
+            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //      * asociados*/
+            if (response.length > 0) {
+                for (var i = 0; i < response.length; i++) {
+                    $scope.task.push({
+                        idTarea: response[i]['idTarea'],
+                        nombreProyecto: response[i]['nombre'],
+                        nombreActividad: response[i]['nombreActividad'],
+                        nombreTarea: response[i]['nombreTarea'],
+                        fechaInicio: response[i]['fechaInicio'],
+                        fechaFin: response[i]['fechaFin'],
+                        porcentajeDesarrollo: response[i]['porcentajeDesarrollo']
                     });
                 }
             } else {
@@ -206,5 +233,15 @@ app.controller('CtlTask', function($scope, taskService) {
         // alert(obj.idProyecto)
         //$scope.listTeam(obj.idProyecto);
         $("#activities").fadeIn("slow");
+    };
+    //select activitie
+    $scope.selectActivity = function(obj) {
+        $scope.activities = [];
+        $scope.activities.push({
+            idActividad: obj.idActividad,
+            nombre: obj.nombre
+        });
+        $scope.listTask();
+        $("#panelTask").fadeIn("slow");
     };
 });

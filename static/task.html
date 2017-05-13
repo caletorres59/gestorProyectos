@@ -77,16 +77,9 @@
                                             <input class="form-control" ng-model="datos.porcentajeDesarrollo" placeholder="progress %" required="" type="text">
                                             </input>
                                         </div>
-                                        <div class="form-group">
-                                            <label>
-                                                Task status
-                                            </label>
-                                            <input class="form-control" ng-model="datos.porcentajeDesarrollo" placeholder="status" required="" type="text">
-                                            </input>
-                                        </div>
                                         <!-- Botones -->
                                         <div class="btn-group btn-group-justified grupobtn">
-                                            <span class="btn form-control" ng-click="saveTeam()">
+                                            <span class="btn form-control" ng-click="saveTask(formTasks)">
                                                 Create
                                                 <i class="glyphicon glyphicon-plus">
                                                 </i>
@@ -188,7 +181,7 @@
                                                 {{obj.estado}}
                                             </td>
                                             <td>
-                                                <span class="glyphicon glyphicon-trash" ng-click="delete(obj.idUsuario,obj.idProyecto)">
+                                                <span class="glyphicon glyphicon-trash" ng-click="deleteTask(obj.idTarea)">
                                                 </span>
                                             </td>
                                         </tr>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8"/>
@@ -66,13 +66,16 @@
                     Sorry, only modern browsers.
                 </span>
             </div>
+            <div class="alerts">
+            </div>
         </header>
         <section class="main">
             <form class="form-5 clearfix" name="formLogin" ng-controller="CtlLogin">
                 <p>
-                    <input id="login" name="login" ng-model="datos.nombreUsuario" placeholder="Username" type="text">
+                    <!-- Valdacion -->
+                    <input id="login" name="login" ng-model="datos.nombreUsuario" required placeholder="Username" type="text">
                     </input>
-                    <input id="password" name="password" ng-model="datos.contrasena" placeholder="Password" type="password">
+                    <input id="password" name="password" ng-model="datos.contrasena" placeholder="Password" required type="password">
                     </input>
                 </p>
                 <button name="submit" ng-click="login('formLogin')" type="submit">

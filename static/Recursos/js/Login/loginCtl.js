@@ -18,39 +18,50 @@ app.controller('CtlLogin', function($scope, $window, loginService) {
          * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
+        //valido el formulario
         if (form) {
-            // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
-            //  * el cual esta asociado a los input*/
-            loginService.login($scope.datos).then(function(response) {
-                // //     /*El resultado de la promesa se recibe por parametro*/
-                // //     //alert(response.usuario + " " + response.password);
-                // //     /*Solo con limpiar el objeto se limpian todos los input 
-                // //      * asociados*/
-                //valido si hay datos
-                if (response.length > 0) {
-                    sessionStorage.setItem("id", response[0].idUsuario);
-                    sessionStorage.setItem("username", response[0].nombreUsuario);
-                    sessionStorage.setItem("role", response[0].rol);
-                    sessionStorage.setItem("identification", response[0].numeroDocumento);
-                    sessionStorage.setItem("nombres", response[0].numeroDocumento);
-                    if (response[0].rol == 'admin') {
-                        // /*Redirecciona la pagina*/
-                        $window.location.href = "masterAdmin.html";
+            if ($scope.isNullOrEmpty($scope.datos.nombreUsuario) || $scope.isNullOrEmpty($scope.datos.contrasena)) {
+                alert("ingrese los campos");
+            } else {
+                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+                //  * el cual esta asociado a los input*/
+                loginService.login($scope.datos).then(function(response) {
+                    // //     /*El resultado de la promesa se recibe por parametro*/
+                    // //     //alert(response.usuario + " " + response.password);
+                    // //     /*Solo con limpiar el objeto se limpian todos los input 
+                    // //      * asociados*/
+                    //valido si hay datos
+                    if (response.length > 0) {
+                        sessionStorage.setItem("id", response[0].idUsuario);
+                        sessionStorage.setItem("username", response[0].nombreUsuario);
+                        sessionStorage.setItem("role", response[0].rol);
+                        sessionStorage.setItem("identification", response[0].numeroDocumento);
+                        sessionStorage.setItem("nombres", response[0].numeroDocumento);
+                        if (response[0].rol == 'admin') {
+                            // /*Redirecciona la pagina*/
+                            $window.location.href = "masterAdmin.html";
+                        } else {
+                            $window.location.href = "masterUsers.html";
+                        }
                     } else {
-                        $window.location.href = "masterUsers.html";
+                        alert("no existe el usuario registrese");
                     }
-                } else {
-                    alert("no existe el usuario registrese");
-                }
-                // if (response == "OK") {
-                //     window.location.href = "index.html";
-                // } else {
-                //     alert("El usuario no fue registrado");
-                // }
-                $scope.datos = "";
-            });
+                    // if (response == "OK") {
+                    //     window.location.href = "index.html";
+                    // } else {
+                    //     alert("El usuario no fue registrado");
+                    // }
+                    $scope.datos = "";
+                });
+            }
         } else {
             alert("Verifique los datos ingresados");
         }
+    };
+    $scope.isNullOrEmpty = function(obj) {
+        if (obj == null || obj == "") {
+            return true;
+        }
+        return false;
     };
 });

@@ -27,9 +27,9 @@ app.controller('CtlProjects', function($scope, projectsService) {
                 // //     /*Solo con limpiar el objeto se limpian todos los input 
                 // //      * asociados*/
                 if (response == "OK") {
-                    alert("ok");
+                    $(".alerts").html("<div class='info'><p>Project is saved</p></div>");
                 } else {
-                    alert("error");
+                    $(".alerts").html("<div class='error'><p>Project is not saved</p></div>");
                 }
                 $scope.datos = "";
             });
