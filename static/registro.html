@@ -68,7 +68,10 @@
             </div>
         </header>
         <section class="main">
+          <div class="alerts">
+          </div>
             <form class="form-5 registro clearfix" name="formRegistro" ng-controller="CtlRegistro">
+
                 <p>
                     <input id="nombre" name="nombre" ng-model="datos.nombreUsuario" placeholder="Username" required="text" type="text">
                     </input>
@@ -85,7 +88,7 @@
                     <input name="fecha" ng-model="datos.fechaNacimiento" placeholder="date of birdth" required="date" type="date">
                     </input>
                 </p>
-                <button name="submit" ng-click="registrar('formRegistro')" type="">
+                <button name="submit" ng-click="registrar('formRegistro')" >
                     <i class="icon-arrow-right">
                     </i>
                     <span>

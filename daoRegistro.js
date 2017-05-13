@@ -63,7 +63,7 @@ function registroUsuario(pedido, respuesta) {
     //    pedido.on('data', function (datosparciales) {
     //        info += datosparciales;
     //    });
-    //    
+    //
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
     var rol = 'user';
@@ -79,22 +79,43 @@ function registroUsuario(pedido, respuesta) {
         email: datos['email'],
         fechaNacimiento: datos['fechaNacimiento']
     };
-    var sql = 'insert into pf_usuarios set ?';
-    //Se hace un insert mandado el objet completo
-    conexion.query(sql, registro, function(error, resultado) {
-        if (error) {
-            console.log(error);
-            respuesta.send(constantes.ERROR);
-        } else {
-            respuesta.send(constantes.OK);
-        }
-    });
+    if(registro.nombreUsuario == registro.contrasena){
+      respuesta.send(constantes.ERROR);
+    }else{
+      var sql = 'insert into pf_usuarios set ?';
+      //Se hace un insert mandado el objet completo
+      conexion.query(sql, registro, function(error, resultado) {
+          if (error) {
+              console.log(error);
+              respuesta.send(constantes.ERROR);
+          } else {
+              respuesta.send(constantes.OK);
+          }
+      });
+    }
+}
+
+function findUserByEmail(email){
+  var sql = 'select idUsuario from pf_usuarios where email = ?';
+  //Se hace un insert mandado el objet
+  conexion.query(sql, email, function(error, filas) {
+      if (error) {
+        return false;
+      } else {
+          var retorno = JSON.stringify(filas);
+          if(retorno[0]["idUsuario"] != undefined){
+            return false;
+          }else{
+            return true;
+          }
+      }
+  });
 }
 /**
  *  Funcion que lista los tipos de cerveza los retorna como un String
  * @param {type} respuesta
  * @returns {undefined}
  */
-//Habilita a las funciones para que sean llamadas o exportadas desde otros archivos 
+//Habilita a las funciones para que sean llamadas o exportadas desde otros archivos
 exports.conectardb = conectardb;
 exports.registroUsuario = registroUsuario;

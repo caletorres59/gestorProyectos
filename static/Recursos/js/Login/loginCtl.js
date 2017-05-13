@@ -14,8 +14,8 @@ app.controller('CtlLogin', function($scope, $window, loginService) {
     $scope.login = function(form) {
         /*Al ser el servicio la llamada por http (funcion asincrona) toca definir
          * promesas con el "then", que se ejecuta unicamente cuando se le retorna
-         * un valor valido. Este se ejecuta unicamente cuando el llamado http 
-         * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
+         * un valor valido. Este se ejecuta unicamente cuando el llamado http
+         * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
         //valido el formulario
@@ -23,12 +23,12 @@ app.controller('CtlLogin', function($scope, $window, loginService) {
             if ($scope.isNullOrEmpty($scope.datos.nombreUsuario) || $scope.isNullOrEmpty($scope.datos.contrasena)) {
                 alert("ingrese los campos");
             } else {
-                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
                 //  * el cual esta asociado a los input*/
                 loginService.login($scope.datos).then(function(response) {
                     // //     /*El resultado de la promesa se recibe por parametro*/
                     // //     //alert(response.usuario + " " + response.password);
-                    // //     /*Solo con limpiar el objeto se limpian todos los input 
+                    // //     /*Solo con limpiar el objeto se limpian todos los input
                     // //      * asociados*/
                     //valido si hay datos
                     if (response.length > 0) {

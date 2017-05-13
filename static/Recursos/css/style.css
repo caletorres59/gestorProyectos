@@ -58,7 +58,7 @@
     border: none; /* Remove the default border */
     background: white; /* Fallback */
     background: rgba(255,255,255,0.2);
-    box-shadow: 
+    box-shadow:
         inset 0 0 10px rgba(255,255,255,0.5);
 
     /* Font styles */
@@ -66,7 +66,7 @@
     text-indent: 10px;
     color: #ee4c8d;
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    font-size: 20px;       
+    font-size: 20px;
 }
 
 .form-5 input[type=text] {
@@ -141,11 +141,11 @@
 
     border-radius: 0 5px 5px 0;
     box-shadow:
-        inset 0 0 4px rgba(255, 255, 255, 0.7), 
+        inset 0 0 4px rgba(255, 255, 255, 0.7),
         inset 0 0 0 1px rgba(0, 0, 0, 0.2);
     border: none;
     border-left: 1px solid silver;
-    cursor: pointer;  
+    cursor: pointer;
     line-height: 102px; /* Same as height */
 }
 .form-5.registro button {
@@ -167,11 +167,11 @@
 
     border-radius: 0 5px 5px 0;
     box-shadow:
-        inset 0 0 4px rgba(255, 255, 255, 0.7), 
+        inset 0 0 4px rgba(255, 255, 255, 0.7),
         inset 0 0 0 1px rgba(0, 0, 0, 0.2);
     border: none;
     border-left: 1px solid silver;
-    cursor: pointer;  
+    cursor: pointer;
     line-height: 102px; /* Same as height */
 }
 
@@ -198,9 +198,9 @@
 .form-5 button span {
     display: block;
 
-    /* Font styles */ 
+    /* Font styles */
     color: #8d1645;
-    font-family: 'Montserrat', Arial, sans-serif; 
+    font-family: 'Montserrat', Arial, sans-serif;
     font-size: 20px;
     text-shadow: 0 1px 0 rgba(255,255,255,0.4);
 
@@ -256,7 +256,7 @@
     -moz-transition: none;
     -ms-transition: none;
     -o-transition: none;
-    transition: none; 
+    transition: none;
 }
 
 .form-5 button:active span {
@@ -335,7 +335,7 @@ div.panel-heading
     background-color: #DD63EB !important;
     color: #fff;
 }
-.alerts div.info p 
+.alerts div.info p
 {
     text-align: center;
     color: #fff;
@@ -343,11 +343,11 @@ div.panel-heading
     background: #59AFCF;
     border-radius: 5%;
 }
-.alerts div.error p 
-{ 
+.alerts div.error p
+{
     text-align: center;
     color: #fff;
     font-size: 1.3em;
-    background: #FBC3C3;
+    background: #DD63EB;
     border-radius: 5%;
 }
