@@ -25,6 +25,7 @@ var daoTeam = require('./daoTeam');
 var daoActivity = require('./daoActivity');
 var daoTasks = require('./daoTasks');
 var daoStatus = require('./daoStatus');
+var daoResources = require('./daoResources');
 var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.urlencoded({
@@ -40,6 +41,7 @@ function configurarServidor() {
     daoActivity.conectardb();
     daoTasks.conectardb();
     daoStatus.conectardb();
+    daoResources.conectardb();
     app.use(express.static(__dirname + '/static'));
     server = app.listen(8888, function() {
         console.log('Servidor web iniciado');
@@ -83,6 +85,14 @@ app.post('/getActivityById', daoActivity.getActivityById);
 app.post('/deleteActivity', daoActivity.deleteActivity);
 //Status
 app.post('/listProjectsItems', daoStatus.listProjectsItems);
+
+
+
+
+app.post('/saveResource',daoResources.saveResource);
+app.post('/listResources', daoResources.listResources);
+app.post('/updateResource', daoResources.updateResource);
+app.post('/deleteResource', daoResources.deleteResource);
 // app.post('/updateJobs', daoJobs.updateJobs);
 // app.post('/crearVacas', daoVacas.crearVacas);
 // app.post('/listarVacas', daoVacas.listarVacas);
