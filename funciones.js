@@ -77,12 +77,15 @@ app.post('/saveTask', daoTasks.saveTask);
 app.post('/listTask', daoTasks.listTask);
 app.post('/deleteTask', daoTasks.deleteTask);
 app.post('/updateTask', daoTasks.updateTask);
+app.post('/assignResources', daoTasks.assignResources);
+app.post('/getResources', daoTasks.getResources);
 //team
 app.post('/listTeam', daoTeam.listTeam);
 app.post('/deleteTeam', daoTeam.deleteTeam);
 app.post('/saveActivity', daoActivity.saveActivity);
 app.post('/updateActivity', daoActivity.updateActivity);
 app.post('/listActivities', daoActivity.listActivities);
+app.post('/listActivitiesByProject', daoActivity.listActivitiesByProject);
 app.post('/getActivityById', daoActivity.getActivityById);
 app.post('/deleteActivity', daoActivity.deleteActivity);
 //Status
