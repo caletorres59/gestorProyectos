@@ -35,9 +35,9 @@ app.controller('CtlTeam', function($scope, teamService) {
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
             if (response == "OK") {
-                alert("ok");
+                $(".alerts").html("<div class='info'><p>The member was assigned</p></div>");
             } else {
-                alert("error");
+                $(".alerts").html("<div class='info'><p>The member was not assigned</p></div>");
             }
             $scope.datos = "";
         });
@@ -59,9 +59,9 @@ app.controller('CtlTeam', function($scope, teamService) {
                 // //     /*Solo con limpiar el objeto se limpian todos los input 
                 // //      * asociados*/
                 if (response == "OK") {
-                    alert("ok");
+                    $(".alerts").html("<div class='info'><p>The member was updated</p></div>");
                 } else {
-                    alert("error");
+                    $(".alerts").html("<div class='info'><p>The member was not updated</p></div>");
                 }
                 $scope.datos = "";
             });
@@ -71,7 +71,7 @@ app.controller('CtlTeam', function($scope, teamService) {
     $scope.searchId = function(form) {
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
-        alert("busco usuario");
+        //alert("busco usuario");
         teamService.searchId($scope.datos).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
@@ -92,18 +92,18 @@ app.controller('CtlTeam', function($scope, teamService) {
     $scope.delete = function(idUsuario, idProyecto) {
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
-        alert(idUsuario);
-        alert(idProyecto);
+        //alert(idUsuario);
+        // alert(idProyecto);
         teamService.delete(idUsuario, idProyecto).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
-            alert("controller");
+            //alert("controller");
             if (response == "OK") {
-                alert("ok");
+                $(".alerts").html("<div class='info'><p>The member was updated</p></div>");
             } else {
-                alert("error");
+                $(".alerts").html("<div class='info'><p>The member not deleted</p></div>");
             }
             $scope.datos = "";
             // $scope.listJobs();
@@ -127,7 +127,7 @@ app.controller('CtlTeam', function($scope, teamService) {
                     });
                 }
             } else {
-                alert("no hay datos");
+                //alert("no hay datos");
             }
         });
     };
@@ -150,14 +150,14 @@ app.controller('CtlTeam', function($scope, teamService) {
                     });
                 }
             } else {
-                alert("no hay datos");
+                // alert("no hay datos");
             }
         });
     };
     //Lista de integrante
     $scope.listTeam = function(idProyecto) {
         $scope.team = [];
-        alert(idProyecto);
+        //alert(idProyecto);
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
         teamService.listTeam(idProyecto).then(function(response) {
@@ -177,7 +177,7 @@ app.controller('CtlTeam', function($scope, teamService) {
                     });
                 }
             } else {
-                alert("no hay datos");
+                // alert("no hay datos");
             }
         });
     };
@@ -187,7 +187,7 @@ app.controller('CtlTeam', function($scope, teamService) {
             idProyecto: obj.idProyecto,
             nombre: obj.nombre
         });
-        alert(obj.idProyecto)
+        // alert(obj.idProyecto)
         $scope.listTeam(obj.idProyecto);
         $("#srch-term").fadeIn("slow");
     };

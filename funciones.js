@@ -88,6 +88,7 @@ app.post('/deleteActivity', daoActivity.deleteActivity);
 //Status
 app.post('/listProjectsItems', daoStatus.listProjectsItems);
 app.post('/listActivities2', daoStatus.listActivities);
+app.post('/listTask2', daoStatus.listTask2);
 //Meetings
 app.post('/listMeetings', daoMeetings.listMeetings);
 app.post('/deleteMeeting', daoMeetings.deleteMeeting);
