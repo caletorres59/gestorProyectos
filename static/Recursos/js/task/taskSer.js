@@ -36,14 +36,15 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
         return promise;
     };
     // list Activities
-    this.listActivities = function(idProyecto) {
+    this.listActivities = function(idProyecto, idUsuario) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         var promise = $http({
             method: "post",
             url: "/listActivities",
             data: $httpParamSerializerJQLike({
-                idProyecto: idProyecto
+                idProyecto: idProyecto,
+                idUsuario: idUsuario
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

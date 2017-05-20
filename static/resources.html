@@ -8,11 +8,13 @@
                             Add Resource
                         </div>
                         <div class="panel-body">
+                          <div class="alerts">
+                          </div>
                             <input name="codigo" ng-model="datos.idRecurso" style="display:none" type="text">
                             </input>
                             <!-- Projects -->
                             <div class="form-group">
-                                <span class="btn btn-default form-control btnTeam" ng-click="listProject()">
+                                <span class="btn btn-default form-control btnTeam" ng-click="listProjects()">
                                     Select a Project
                                     <i class="glyphicon glyphicon-plus-sign pull-left">
                                     </i>
@@ -25,40 +27,26 @@
                                     </ul>
                                 </br>
                             </div>
-                            <!-- Activities -->
-                            <div class="form-group" id="activities">
-                                <span class="btn btn-default form-control btnTeam" ng-click="listActivities()">
-                                    Select Activity
-                                    <i class="glyphicon glyphicon-plus-sign pull-left">
-                                    </i>
-                                </span>
-                                <br>
-                                    <ul class="list-group list">
-                                        <li class="list-group-item" ng-click="selectActivity(obj)" ng-repeat="obj in   activities | filter:filtrar ">
-                                            {{obj.nombre}}
-                                        </li>
-                                    </ul>
-                                </br>
-                            </div>
                             <!-- Formulario -->
                             <div class="panel panel-default" id="panelTask">
                                 <div class="panel-heading">
                                     Assign a resource
                                 </div>
-                                <div class="panel-body">
-                                    <form name="formTasks" role="form">
+                                <div class="panel-body" id="div-data">
+                                    <form name="formResources" role="form">
                                         <input name="idRecurso" ng-model="datos.idRecurso" style="display:none" type="text">
+                                        <input name="idProyecto" ng-model="datos.idProyecto" style="display:none" type="text">
                                         </input>
-                                        <div class="form-group">
+                                        <div class="form-group" >
                                             <label>
                                                 Name
                                             </label>
-                                            <input class="form-control" ng-model="datos.nombreTarea" placeholder="Name " required="" type="text">
+                                            <input class="form-control" ng-model="datos.nombre" placeholder="Name " required="" type="text">
                                             </input>
                                         </div>
                                         <div class="form-group">
                                             <label>
-                                                Cantidad
+                                                Quantity
                                             </label>
                                             <input class="form-control" ng-model="datos.cantidad" placeholder="cantidad " required="" type="number">
                                             </input>
@@ -79,12 +67,12 @@
                                         </div>
                                         <!-- Botones -->
                                         <div class="btn-group btn-group-justified grupobtn">
-                                            <span class="btn form-control" ng-click="saveTask(formTasks)">
+                                            <span class="btn form-control" ng-click="saveResource(formResources)">
                                                 Create
                                                 <i class="glyphicon glyphicon-plus">
                                                 </i>
                                             </span>
-                                            <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formTasks)">
+                                            <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formResources)">
                                                 Edit
                                                 <i class="glyphicon glyphicon-pencil">
                                                 </i>
@@ -115,37 +103,22 @@
                                         <tr>
                                             <th class="seleccionable">
                                                 <a>
-                                                    Name Project
+                                                    Name
                                                 </a>
                                             </th>
                                             <th class="seleccionable">
                                                 <a>
-                                                    Name Activity
+                                                    Quantity
                                                 </a>
                                             </th>
                                             <th class="seleccionable">
                                                 <a>
-                                                    Name Task
+                                                    Description
                                                 </a>
                                             </th>
                                             <th class="seleccionable">
                                                 <a>
-                                                    Start Date
-                                                </a>
-                                            </th>
-                                            <th class="seleccionable">
-                                                <a>
-                                                    End Date
-                                                </a>
-                                            </th>
-                                            <th class="seleccionable">
-                                                <a>
-                                                    Progress %
-                                                </a>
-                                            </th>
-                                            <th class="seleccionable">
-                                                <a>
-                                                    Status
+                                                    Location
                                                 </a>
                                             </th>
                                             <th class="seleccionable">
@@ -157,31 +130,22 @@
                                         </tr>
                                     </thead>
                                     <tbody ng-init="">
-                                        <tr ng-click="getSelectedRow(obj)" ng-repeat="obj in   task |
+                                        <tr ng-click="getSelectedRow(obj)" ng-repeat="obj in resources |
                             filter:filtrar ">
                                             <td>
-                                                {{obj.nombreProyecto}}
+                                                {{obj.nombre}}
                                             </td>
                                             <td>
-                                                {{obj.nombreActividad}}
+                                                {{obj.cantidad}}
                                             </td>
                                             <td>
-                                                {{obj.nombreTarea}}
+                                                {{obj.descripcion}}
                                             </td>
                                             <td>
-                                                {{obj.fechaInicio}}
+                                                {{obj.ubicacion}}
                                             </td>
                                             <td>
-                                                {{obj.fechaFin}}
-                                            </td>
-                                            <td>
-                                                {{obj.porcentajeDesarrollo}}
-                                            </td>
-                                            <td>
-                                                {{obj.estado}}
-                                            </td>
-                                            <td>
-                                                <span class="glyphicon glyphicon-trash" ng-click="deleteTask(obj.idTarea)">
+                                                <span class="glyphicon glyphicon-trash" ng-click="deleteResource(obj.idRecurso)">
                                                 </span>
                                             </td>
                                         </tr>

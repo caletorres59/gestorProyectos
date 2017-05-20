@@ -27,7 +27,7 @@ function conectardb() {
     });
 }
 
-function saveActivity(pedido, respuesta) {
+function saveResource(pedido, respuesta) {
     //Se obtienen los datos que se enviaron por post
     //    var info = '';
     //    pedido.on('data', function (datosparciales) {
@@ -37,14 +37,13 @@ function saveActivity(pedido, respuesta) {
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
     var team = {
-        idUsuario: datos['idUsuario'],
         idProyecto: datos['idProyecto'],
         nombre: datos['nombre'],
+        cantidad: datos['cantidad'],
         descripcion: datos['descripcion'],
-        fechaFin: datos['fechaFin'],
-        fechaInicio: datos['fechaInicio']
+        ubicacion: datos['ubicacion']
     };
-    var sql = 'insert into pf_actividades set ?';
+    var sql = 'insert into pf_recursos set ?';
     //Se hace un insert mandado el objet completo
     conexion.query(sql, team, function(error, resultado) {
         if (error) {
@@ -61,7 +60,7 @@ function saveActivity(pedido, respuesta) {
  * @param {type} respuesta
  * @returns {undefined}
  */
-function getActivityById(pedido, respuesta) {
+function getResourceById(pedido, respuesta) {
     //Se obtienen los datos que se enviaron por post
     //    var info = '';
     //    pedido.on('data', function (datosparciales) {
@@ -71,9 +70,9 @@ function getActivityById(pedido, respuesta) {
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
     //
-    numeroDocumento = datos['idActividad'];
+    numeroDocumento = datos['idRecurso'];
     rol = 'user';
-    var sql = 'select idUsuario , idProyecto, nombre, descripcion, fechaFin from pf_actividades where idActividad = ?';
+    var sql = 'select idUsuario , idProyecto, nombre, descripcion, fechaFin from pf_Recursoes where idRecurso = ?';
     //Se hace un insert mandado el objet completo
     conexion.query(sql, [numeroDocumento, rol], function(error, resultado) {
         if (error) {
@@ -85,7 +84,7 @@ function getActivityById(pedido, respuesta) {
     });
 }
 //delete project
-function deleteActivity(pedido, respuesta) {
+function deleteResource(pedido, respuesta) {
     //Se obtienen los datos que se enviaron por post
     //    var info = '';
     //    pedido.on('data', function (datosparciales) {
@@ -94,11 +93,11 @@ function deleteActivity(pedido, respuesta) {
     //
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
-    var idActividad = datos['idActividad'];
-    console.log(idActividad);
-    var sql = 'delete from pf_actividades where idActividad = ?';
+    var idRecurso = datos['idRecurso'];
+    console.log(idRecurso);
+    var sql = 'delete from pf_recursos where idRecurso = ?';
     //Se hace un insert mandado el objet completo
-    conexion.query(sql, [idActividad], function(error, resultado) {
+    conexion.query(sql, [idRecurso], function(error, resultado) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
@@ -108,14 +107,12 @@ function deleteActivity(pedido, respuesta) {
     });
 }
 
-function listActivities(pedido, respuesta) {
-    var sql = 'select idActividad, idUsuario , idProyecto, nombre, descripcion, fechaInicio, fechaFin from pf_actividades where idProyecto = ? and idUsuario = ?';
+function listResources(pedido, respuesta) {
+    var sql = 'select idRecurso, idProyecto, nombre, cantidad, descripcion, ubicacion from pf_recursos where idProyecto = ?';
     //Se hace un insert mandado el objet completo
     var datos = pedido.body;
     var idProyecto = datos['idProyecto'];
-    var idUsuario = datos['idUsuario'];
-    console.log(idProyecto + " " + idUsuario);
-    conexion.query(sql, [idProyecto, idUsuario], function(error, filas) {
+    conexion.query(sql, [idProyecto], function(error, filas) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
@@ -125,21 +122,20 @@ function listActivities(pedido, respuesta) {
     });
 }
 //update<
-function updateActivity(pedido, respuesta) {
+function updateResource(pedido, respuesta) {
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
-    var idActividad = datos['idActividad'];
+    var idRecurso = datos['idRecurso'];
     var update = {
-        idUsuario: datos['idUsuario'],
-        idProyecto: datos['idProyecto'],
-        nombre: datos['nombre'],
-        descripcion: datos['descripcion'],
-        fechaFin: datos['fechaFin'],
-        fechaInicio: datos['fec']
+      idProyecto: datos['idProyecto'],
+      nombre: datos['nombre'],
+      cantidad: datos['cantidad'],
+      descripcion: datos['descripcion'],
+      ubicacion: datos['ubicacion']
     };
-    var sql = 'update pf_actividades set ? where idActividad = ?';
+    var sql = 'update pf_recursos set ? where idRecurso = ?';
     //Se hace un insert mandado el objet completo
-    conexion.query(sql, [update, idActividad], function(error, resultado) {
+    conexion.query(sql, [update, idRecurso], function(error, resultado) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
@@ -155,8 +151,8 @@ function updateActivity(pedido, respuesta) {
  */
 //Habilita a las funciones para que sean llamadas o exportadas desde otros archivos
 exports.conectardb = conectardb;
-exports.getActivityById = getActivityById;
-exports.saveActivity = saveActivity;
-exports.updateActivity = updateActivity;
-exports.listActivities = listActivities;
-exports.deleteActivity = deleteActivity;
+exports.getResourceById = getResourceById;
+exports.saveResource = saveResource;
+exports.updateResource = updateResource;
+exports.listResources = listResources;
+exports.deleteResource = deleteResource;

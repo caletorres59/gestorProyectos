@@ -15,21 +15,21 @@ app.controller('CtlProjects', function($scope, projectsService) {
     $scope.saveProject = function(form) {
         /*Al ser el servicio la llamada por http (funcion asincrona) toca definir
          * promesas con el "then", que se ejecuta unicamente cuando se le retorna
-         * un valor valido. Este se ejecuta unicamente cuando el llamado http 
-         * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
+         * un valor valido. Este se ejecuta unicamente cuando el llamado http
+         * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
         if ($scope.isNullOrEmpty($scope.datos.nombre) || $scope.isNullOrEmpty($scope.datos.fechaInicio) || $scope.isNullOrEmpty($scope.datos.fechaFin) || $scope.isNullOrEmpty($scope.datos.etapaProyecto)) {
             $(".alerts").html("<div class='info'><p>Check the entered data</p></div>");
         } else {
             if (form) {
-                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
                 //  * el cual esta asociado a los input*/
                 var idUsuario = sessionStorage.getItem("id");
                 projectsService.saveProject($scope.datos, idUsuario).then(function(response) {
                     // //     /*El resultado de la promesa se recibe por parametro*/
                     // //     //alert(response.usuario + " " + response.password);
-                    // //     /*Solo con limpiar el objeto se limpian todos los input 
+                    // //     /*Solo con limpiar el objeto se limpian todos los input
                     // //      * asociados*/
                     if (response == "OK") {
                         $(".alerts").html("<div class='info'><p>Project is saved</p></div>");
@@ -49,20 +49,20 @@ app.controller('CtlProjects', function($scope, projectsService) {
     $scope.update = function(form) {
         /*Al ser el servicio la llamada por http (funcion asincrona) toca definir
          * promesas con el "then", que se ejecuta unicamente cuando se le retorna
-         * un valor valido. Este se ejecuta unicamente cuando el llamado http 
-         * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
+         * un valor valido. Este se ejecuta unicamente cuando el llamado http
+         * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
         if ($scope.isNullOrEmpty($scope.datos.nombre) || $scope.isNullOrEmpty($scope.datos.fechaInicio) || $scope.isNullOrEmpty($scope.datos.fechaFin) || $scope.isNullOrEmpty($scope.datos.etapaProyecto)) {
             $(".alerts").html("<div class='info'><p>Choose a project </p></div>");
         } else {
             if (form) {
-                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
                 //  * el cual esta asociado a los input*/
                 projectsService.update($scope.datos).then(function(response) {
                     // //     /*El resultado de la promesa se recibe por parametro*/
                     // //     //alert(response.usuario + " " + response.password);
-                    // //     /*Solo con limpiar el objeto se limpian todos los input 
+                    // //     /*Solo con limpiar el objeto se limpian todos los input
                     // //      * asociados*/
                     if (response == "OK") {
                         $(".alerts").html("<div class='info'><p>Project is updated</p></div>");
@@ -77,12 +77,12 @@ app.controller('CtlProjects', function($scope, projectsService) {
     };
     ///Eliminar/////////////////////////////////////////////
     $scope.delete = function(codigo) {
-        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
         //  * el cual esta asociado a los input*/
         projectsService.delete(codigo).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
-            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //     /*Solo con limpiar el objeto se limpian todos los input
             // //      * asociados*/
             //alert("controller");
             if (response == "OK") {
@@ -97,12 +97,12 @@ app.controller('CtlProjects', function($scope, projectsService) {
     //listar//////////////////////////////////////////
     $scope.listProjects = function() {
         $scope.projects = [];
-        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
         //  * el cual esta asociado a los input*/
         projectsService.listProjects($scope.idUsuario).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
-            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //     /*Solo con limpiar el objeto se limpian todos los input
             // //      * asociados*/
             if (response.length > 0) {
                 for (var i = 0; i < response.length; i++) {

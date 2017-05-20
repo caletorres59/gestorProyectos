@@ -123,13 +123,16 @@ app.controller('CtlTask', function($scope, taskService) {
     $scope.listActivities = function() {
         $scope.activities = [];
         var idProyecto = $scope.projects[0].idProyecto;
+        alert(idProyecto + "asas");
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
-        taskService.listActivities(idProyecto).then(function(response) {
+        taskService.listActivities(idProyecto, $scope.idUsuario).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
+            // 
+            alert(response);
             if (response.length > 0) {
                 for (var i = 0; i < response.length; i++) {
                     $scope.activities.push({
