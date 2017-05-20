@@ -27,7 +27,7 @@ app.controller('CtlStatus', function($scope, statusService) {
                     });
                 }
             } else {
-                // alert("no hay datos");
+                alert("no hay datos");
             }
         });
     };
@@ -55,7 +55,7 @@ app.controller('CtlStatus', function($scope, statusService) {
                 }
                 $(".allitems").fadeIn("slow");
             } else {
-                //alert("no hay datos");
+                alert("no hay datos");
             }
         });
     };
@@ -80,7 +80,7 @@ app.controller('CtlStatus', function($scope, statusService) {
                     });
                 }
             } else {
-                //alert("no hay datos");
+                alert("no hay datos");
             }
         });
     };
@@ -104,16 +104,13 @@ app.controller('CtlStatus', function($scope, statusService) {
                     });
                 }
             } else {
-                $('.msgServidor').html("<div id='msg' class='alert alert-danger'>No hay registros de fincas <span class='glyphicon glyphicon-ok'></span></div>");
-                setTimeout(function() {
-                    $('.msgServidor').attr("display", "none");
-                }, 5000);
+                alert("no hay datos");
             }
         });
     };
     $scope.listTeam = function(idProyecto) {
         $scope.team = [];
-        alert(idProyecto);
+        //alert(idProyecto);
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
         statusService.listTeam(idProyecto).then(function(response) {
@@ -133,7 +130,7 @@ app.controller('CtlStatus', function($scope, statusService) {
                     });
                 }
             } else {
-                //alert("no hay datos");
+                alert("no hay datos");
             }
         });
     };
@@ -168,7 +165,7 @@ app.controller('CtlStatus', function($scope, statusService) {
                     });
                 }
             } else {
-                // alert("no hay datos");
+                alert("no hay datos");
             }
         });
     };
@@ -191,7 +188,7 @@ app.controller('CtlStatus', function($scope, statusService) {
                     });
                 }
             } else {
-                //alert("no hay datos");
+                alert("no hay datos");
             }
         });
     };

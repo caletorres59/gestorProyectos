@@ -43,7 +43,7 @@ app.controller('CtlTask', function($scope, taskService) {
                     $scope.datos = "";
                 });
             } else {
-                alert("Verifique los datos ingresados");
+                //  alert("Verifique los datos ingresados");
             }
         }
     };
@@ -115,7 +115,7 @@ app.controller('CtlTask', function($scope, taskService) {
                     });
                 }
             } else {
-                //alert("no hay datos");
+                alert("no hay datos");
             }
         });
     };
@@ -123,7 +123,7 @@ app.controller('CtlTask', function($scope, taskService) {
     $scope.listActivities = function() {
         $scope.activities = [];
         var idProyecto = $scope.projects[0].idProyecto;
-        alert(idProyecto + "asas");
+        //alert(idProyecto + "asas");
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
         taskService.listActivities(idProyecto, $scope.idUsuario).then(function(response) {
@@ -132,7 +132,7 @@ app.controller('CtlTask', function($scope, taskService) {
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
             // 
-            alert(response);
+            //alert(response);
             if (response.length > 0) {
                 for (var i = 0; i < response.length; i++) {
                     $scope.activities.push({
@@ -141,7 +141,7 @@ app.controller('CtlTask', function($scope, taskService) {
                     });
                 }
             } else {
-                // alert("no hay datos");
+                alert("no hay datos");
             }
         });
     };

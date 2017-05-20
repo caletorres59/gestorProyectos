@@ -127,7 +127,7 @@ app.controller('CtlTeam', function($scope, teamService) {
                     });
                 }
             } else {
-                //alert("no hay datos");
+                alert("no hay datos");
             }
         });
     };
@@ -150,7 +150,7 @@ app.controller('CtlTeam', function($scope, teamService) {
                     });
                 }
             } else {
-                // alert("no hay datos");
+                alert("no hay datos");
             }
         });
     };
@@ -177,7 +177,7 @@ app.controller('CtlTeam', function($scope, teamService) {
                     });
                 }
             } else {
-                // alert("no hay datos");
+                alert("no hay datos");
             }
         });
     };
