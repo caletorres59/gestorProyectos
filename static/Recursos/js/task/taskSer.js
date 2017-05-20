@@ -87,8 +87,6 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
     this.deleteTask = function(codigo) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
-        alert(codigo);
-        alert("estoy en el servicio de eliminar las tareas");
         var promise = $http({
             method: "post",
             url: "/deleteTask",
@@ -140,7 +138,6 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
     this.listTask = function(idProyecto, idActividad) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
-        alert("listar tareas");
         var promise = $http({
             method: "post",
             url: "/listTask",

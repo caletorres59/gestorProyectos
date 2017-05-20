@@ -28,6 +28,9 @@ app.config(function($routeProvider) {
     }).when('/status', {
         controller: 'CtlStatus',
         templateUrl: 'status.html'
+    }).when('/meetings', {
+        controller: 'CtlMeetings',
+        templateUrl: 'meetings.html'
     }).otherwise({
         redirectTo: '/'
     });

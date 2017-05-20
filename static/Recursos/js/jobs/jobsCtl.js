@@ -64,7 +64,7 @@ app.controller('CtlJobs', function($scope, jobsService) {
                     });
                 }
             } else {
-                alert("no hay datos");
+                //alert("no hay datos");
             }
         });
     };
@@ -76,6 +76,7 @@ app.controller('CtlJobs', function($scope, jobsService) {
          * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
+        alert($scope.datos.nombreCargo);
         if ($scope.isNullOrEmpty($scope.datos.nombreCargo) || $scope.isNullOrEmpty($scope.datos.descripcion) || $scope.isNullOrEmpty($scope.datos.horario) || $scope.isNullOrEmpty($scope.datos.salario)) {
             $(".alerts").html("<div class='info'><p>Selected a job</p></div>");
         } else {
@@ -107,13 +108,14 @@ app.controller('CtlJobs', function($scope, jobsService) {
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
+            var idProyecto = $scope.projects[0].idProyecto;
             if (response == "OK") {
                 $(".alerts").html("<div class='info'><p>delete job ok</p></div>");
+                $scope.listJobs(idProyecto);
             } else {
                 $(".alerts").html("<div class='info'><p>error delete</p></div>");
             }
             $scope.datos = "";
-            $scope.listJobs();
         });
     };
     //listar//////////////////////////////////////////
@@ -138,7 +140,7 @@ app.controller('CtlJobs', function($scope, jobsService) {
                     });
                 }
             } else {
-                alert("no hay datos");
+                //alert("no hay datos");
             }
         });
     };
@@ -155,7 +157,7 @@ app.controller('CtlJobs', function($scope, jobsService) {
             idProyecto: obj.idProyecto,
             nombre: obj.nombre
         });
-        alert(obj.idProyecto)
+        // alert(obj.idProyecto)
         $scope.listJobs(obj.idProyecto);
         $("#spn-jobs").fadeIn("slow");
     };

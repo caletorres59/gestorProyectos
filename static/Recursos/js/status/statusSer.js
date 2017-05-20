@@ -57,6 +57,69 @@ app.service('statusService', function($http, $httpParamSerializerJQLike) {
         /*Luego se retorna la promesa*/
         return promise;
     };
+    this.listActivities = function(codigo) {
+        /*El resultado del $http es almacenado en la promesa*/
+        /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
+        var promise = $http({
+            method: "post",
+            url: "/listActivities2",
+            data: $httpParamSerializerJQLike({
+                idProyecto: codigo
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function mySucces(response) {
+            /*Todos los datos se almacenan en .data*/
+            return response.data;
+        }, function myError(response) {
+            alert("Error");
+        });
+        /*Luego se retorna la promesa*/
+        return promise;
+    };
+    this.listTeam = function(idProyecto) {
+        /*El resultado del $http es almacenado en la promesa*/
+        /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
+        var promise = $http({
+            method: "post",
+            url: "/listTeam",
+            data: $httpParamSerializerJQLike({
+                idProyecto: idProyecto
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function mySucces(response) {
+            /*Todos los datos se almacenan en .data*/
+            return response.data;
+        }, function myError(response) {
+            alert("Error");
+        });
+        /*Luego se retorna la promesa*/
+        return promise;
+    };
+    this.listJobs = function(codigo) {
+        /*El resultado del $http es almacenado en la promesa*/
+        /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
+        var promise = $http({
+            method: "post",
+            url: "/listJobs",
+            data: $httpParamSerializerJQLike({
+                idProyecto: codigo
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function mySucces(response) {
+            /*Todos los datos se almacenan en .data*/
+            return response.data;
+        }, function myError(response) {
+            alert("Error");
+        });
+        /*Luego se retorna la promesa*/
+        return promise;
+    };
     // //Eliminar
     // this.eliminar = function(codigo) {
     //     /*El resultado del $http es almacenado en la promesa*/

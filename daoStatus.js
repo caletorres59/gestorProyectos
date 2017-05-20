@@ -73,6 +73,21 @@ function listProjectsItems(pedido, respuesta) {
         }
     });
 }
+/////
+function listActivities(pedido, respuesta) {
+    //Se hace un insert mandado el objet completo
+    var datos = pedido.body;
+    var idProyecto = datos['idProyecto'];
+    var sql = 'select a.idActividad, a.idUsuario , a.idProyecto, a.nombre, a.descripcion, a.fechaInicio, a.fechaFin, u.nombres from pf_actividades a join pf_usuarios u on u.idUsuario = a.idUsuario  where idProyecto = ?';
+    conexion.query(sql, [idProyecto], function(error, filas) {
+        if (error) {
+            console.log(error);
+            respuesta.send(constantes.ERROR);
+        } else {
+            respuesta.send(JSON.stringify(filas));
+        }
+    });
+}
 /**
  *  Funcion que lista los tipos de cerveza los retorna como un String
  * @param {type} respuesta
@@ -81,3 +96,4 @@ function listProjectsItems(pedido, respuesta) {
 //Habilita a las funciones para que sean llamadas o exportadas desde otros archivos
 exports.conectardb = conectardb;
 exports.listProjectsItems = listProjectsItems;
+exports.listActivities = listActivities;

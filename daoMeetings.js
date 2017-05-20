@@ -26,34 +26,30 @@ function conectardb() {
         }
     });
 }
-
-function saveActivity(pedido, respuesta) {
-    //Se obtienen los datos que se enviaron por post
-    //    var info = '';
-    //    pedido.on('data', function (datosparciales) {
-    //        info += datosparciales;
-    //    });
-    //
-    var datos = pedido.body;
-    //Se crea un objeto con la informacion capturada
-    var team = {
-        idUsuario: datos['idUsuario'],
-        idProyecto: datos['idProyecto'],
-        nombre: datos['nombre'],
-        descripcion: datos['descripcion'],
-        fechaFin: datos['fechaFin'],
-        fechaInicio: datos['fechaInicio']
-    };
-    var sql = 'insert into pf_actividades set ?';
-    //Se hace un insert mandado el objet completo
-    conexion.query(sql, team, function(error, resultado) {
+//Crear tabla
+function crear(respuesta) {
+    var sql = "drop table if exists articulos";
+    //Ejecuta la consulta, a partir de la conexion a la base de datos
+    conexion.query(sql, function(error, resultado) {
         if (error) {
             console.log(error);
-            respuesta.send(constantes.ERROR);
-        } else {
-            respuesta.send(constantes.OK);
+            return;
         }
     });
+    var sql2 = 'create table articulos (' + 'codigo int primary key auto_increment,' + 'descripcion varchar(50),' + 'precio float' + ')';
+    conexion.query(sql2, function(error, resultado) {
+        respuesta.writeHead(200, {
+            'Content-Type': 'text/html'
+        });
+        if (error) {
+            console.log(error);
+            respuesta.write(constantes.ERROR);
+        } else {
+            respuesta.write(constantes.OK);
+        }
+        respuesta.end();
+    });
+    //Se construye la respuesta al cliente
 }
 /**
  * Funcion que registra un usuario
@@ -61,44 +57,45 @@ function saveActivity(pedido, respuesta) {
  * @param {type} respuesta
  * @returns {undefined}
  */
-function getActivityById(pedido, respuesta) {
+function saveMeeting(pedido, respuesta) {
     //Se obtienen los datos que se enviaron por post
     //    var info = '';
     //    pedido.on('data', function (datosparciales) {
     //        info += datosparciales;
     //    });
-    //
+    //    
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
-    //
-    numeroDocumento = datos['idActividad'];
-    rol = 'user';
-    var sql = 'select idUsuario , idProyecto, nombre, descripcion, fechaFin from pf_actividades where idActividad = ?';
+    var registro = {
+        idProyecto: datos['idProyecto'],
+        ubicacion: datos['ubicacion'],
+        tematica: datos['tematica']
+    };
+    var sql = 'insert into pf_reuniones set ?';
     //Se hace un insert mandado el objet completo
-    conexion.query(sql, [numeroDocumento, rol], function(error, resultado) {
+    conexion.query(sql, registro, function(error, resultado) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
         } else {
-            respuesta.send(JSON.stringify(resultado));
+            respuesta.send(constantes.OK);
         }
     });
 }
 //delete project
-function deleteActivity(pedido, respuesta) {
+function deleteMeeting(pedido, respuesta) {
     //Se obtienen los datos que se enviaron por post
     //    var info = '';
     //    pedido.on('data', function (datosparciales) {
     //        info += datosparciales;
     //    });
-    //
+    //    
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
-    var idActividad = datos['idActividad'];
-    console.log(idActividad);
-    var sql = 'delete from pf_actividades where idActividad = ?';
+    var idReunion = [datos['idReunion']];
+    var sql = 'delete from pf_reuniones where idReunion = ?';
     //Se hace un insert mandado el objet completo
-    conexion.query(sql, [idActividad], function(error, resultado) {
+    conexion.query(sql, idReunion, function(error, resultado) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
@@ -108,12 +105,14 @@ function deleteActivity(pedido, respuesta) {
     });
 }
 
-function listActivities(pedido, respuesta) {
-    var sql = 'select idActividad, idUsuario , idProyecto, nombre, descripcion, fechaInicio, fechaFin from pf_actividades where idProyecto = ?';
-    //Se hace un insert mandado el objet completo
+function listMeetings(pedido, respuesta) {
     var datos = pedido.body;
-    var idProyecto = datos['idProyecto'];
-    conexion.query(sql, [idProyecto], function(error, filas) {
+    //Se crea un objeto con la informacion capturada
+    var idProyecto = [datos['idProyecto']];
+    var sql = 'select r.idReunion, p.nombre, r.ubicacion, r.tematica from pf_reuniones r join pf_proyectos p on p.idProyecto = r.idProyecto where r.idProyecto = ?';
+    //Se hace un insert mandado el objet completo
+    console.log("estoy en lista");
+    conexion.query(sql, idProyecto, function(error, filas) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
@@ -122,22 +121,20 @@ function listActivities(pedido, respuesta) {
         }
     });
 }
-//update<
-function updateActivity(pedido, respuesta) {
+
+function updateMeeting(pedido, respuesta) {
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
-    var idActividad = datos['idActividad'];
+    var idReunion = [datos['idReunion']];
     var update = {
-        idUsuario: datos['idUsuario'],
+        idReunion: datos['idReunion'],
         idProyecto: datos['idProyecto'],
-        nombre: datos['nombre'],
-        descripcion: datos['descripcion'],
-        fechaFin: datos['fechaFin'],
-        fechaInicio: datos['fec']
+        ubicacion: datos['ubicacion'],
+        tematica: datos['tematica']
     };
-    var sql = 'update pf_actividades set ? where idActividad = ?';
+    var sql = 'update pf_reuniones set ? where idReunion = ?';
     //Se hace un insert mandado el objet completo
-    conexion.query(sql, [update, idActividad], function(error, resultado) {
+    conexion.query(sql, [update, idReunion], function(error, resultado) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
@@ -151,10 +148,9 @@ function updateActivity(pedido, respuesta) {
  * @param {type} respuesta
  * @returns {undefined}
  */
-//Habilita a las funciones para que sean llamadas o exportadas desde otros archivos
+//Habilita a las funciones para que sean llamadas o exportadas desde otros archivos 
 exports.conectardb = conectardb;
-exports.getActivityById = getActivityById;
-exports.saveActivity = saveActivity;
-exports.updateActivity = updateActivity;
-exports.listActivities = listActivities;
-exports.deleteActivity = deleteActivity;
+exports.saveMeeting = saveMeeting;
+exports.listMeetings = listMeetings;
+exports.deleteMeeting = deleteMeeting;
+exports.updateMeeting = updateMeeting;

@@ -22,31 +22,29 @@ app.controller('CtlTask', function($scope, taskService) {
          * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
-        alert($scope.datos.nombreTarea);
         var idActividad = $scope.activities[0].idActividad;
-        if (form) {
-            // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
-            //  * el cual esta asociado a los input*/
-            taskService.saveTask($scope.datos, idActividad).then(function(response) {
-                // //     /*El resultado de la promesa se recibe por parametro*/
-                // //     //alert(response.usuario + " " + response.password);
-                // //     /*Solo con limpiar el objeto se limpian todos los input 
-                // //      * asociados*/
-                if (response == "OK") {
-                    $('.msgServidor').html("<div id='msg' class='alert alert-success'>el lote fue registrada <span class='glyphicon glyphicon-ok'></span></div>");
-                    setTimeout(function() {
-                        $('#msg').attr("display", "none");
-                    }, 5000);
-                } else {
-                    $('.msgServidor').html("<div id='msg' class='alert alert-danger'>Error en el registro <span class='glyphicon glyphicon-ok'></span></div>");
-                    setTimeout(function() {
-                        $('#msg').attr("display", "none");
-                    }, 5000);
-                }
-                $scope.identificacion = "";
-            });
+        if ($scope.isNullOrEmpty($scope.datos.nombreTarea) || $scope.isNullOrEmpty($scope.datos.fechaInicio) || $scope.isNullOrEmpty($scope.datos.fechaFin) || $scope.isNullOrEmpty($scope.datos.porcentajeDesarrollo)) {
+            $(".alerts").html("<div class='info'><p>Check the entered data</p></div>");
         } else {
-            alert("Verifique los datos ingresados");
+            if (form) {
+                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+                //  * el cual esta asociado a los input*/
+                taskService.saveTask($scope.datos, idActividad).then(function(response) {
+                    // //     /*El resultado de la promesa se recibe por parametro*/
+                    // //     //alert(response.usuario + " " + response.password);
+                    // //     /*Solo con limpiar el objeto se limpian todos los input 
+                    // //      * asociados*/
+                    if (response == "OK") {
+                        $(".alerts").html("<div class='info'><p>Task is saved</p></div>");
+                        $scope.listTask();
+                    } else {
+                        $(".alerts").html("<div class='info'><p>Task is not saved</p></div>");
+                    }
+                    $scope.datos = "";
+                });
+            } else {
+                alert("Verifique los datos ingresados");
+            }
         }
     };
     //modificar////////////////////////////////////////////
@@ -57,45 +55,46 @@ app.controller('CtlTask', function($scope, taskService) {
          * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
-        if (form) {
-            // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
-            //  * el cual esta asociado a los input*/
-            var idActividad = $scope.activities[0].idActividad;
-            taskService.update($scope.datos, idActividad).then(function(response) {
-                // //     /*El resultado de la promesa se recibe por parametro*/
-                // //     //alert(response.usuario + " " + response.password);
-                // //     /*Solo con limpiar el objeto se limpian todos los input 
-                // //      * asociados*/
-                if (response == "OK") {
-                    alert("ok");
-                } else {
-                    alert("error");
-                }
-                $scope.datos = "";
-            });
+        if ($scope.isNullOrEmpty($scope.datos.nombreTarea) || $scope.isNullOrEmpty($scope.datos.fechaInicio) || $scope.isNullOrEmpty($scope.datos.fechaFin) || $scope.isNullOrEmpty($scope.datos.porcentajeDesarrollo)) {
+            $(".alerts").html("<div class='info'><p>Check the entered data</p></div>");
+        } else {
+            if (form) {
+                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+                //  * el cual esta asociado a los input*/
+                var idActividad = $scope.activities[0].idActividad;
+                taskService.update($scope.datos, idActividad).then(function(response) {
+                    // //     /*El resultado de la promesa se recibe por parametro*/
+                    // //     //alert(response.usuario + " " + response.password);
+                    // //     /*Solo con limpiar el objeto se limpian todos los input 
+                    // //      * asociados*/
+                    if (response == "OK") {
+                        $(".alerts").html("<div class='info'><p>Task is updated</p></div>");
+                        $scope.listTask();
+                    } else {
+                        $(".alerts").html("<div class='info'><p>Task is not updated</p></div>");
+                    }
+                    $scope.datos = "";
+                });
+            }
         }
     };
     ///Eliminar/////////////////////////////////////////////
     $scope.deleteTask = function(codigo) {
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
-        alert(codigo);
+        //alert(codigo);
         taskService.deleteTask(codigo).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
             if (response == "OK") {
-                $('.msgServidor').html("<div id='msg' class='alert alert-success'>el lote fue eliminada <span class='glyphicon glyphicon-ok'></span></div>");
-                setTimeout(function() {
-                    $('#msg').attr("display", "none");
-                }, 5000);
+                $(".alerts").html("<div class='info'><p>delete task ok</p></div>");
+                $scope.listTask();
             } else {
-                $('.msgServidor').html("<div id='msg' class='alert alert-danger'>Error al eliminar <span class='glyphicon glyphicon-ok'></span></div>");
-                setTimeout(function() {
-                    $(".msgServidor").attr("display", "none");
-                }, 5000);
+                $(".alerts").html("<div class='info'><p>error deleting</p></div>");
             }
+            $scope.datos = "";
         });
     };
     //listar//////////////////////////////////////////
@@ -116,7 +115,7 @@ app.controller('CtlTask', function($scope, taskService) {
                     });
                 }
             } else {
-                alert("no hay datos");
+                //alert("no hay datos");
             }
         });
     };
@@ -139,7 +138,7 @@ app.controller('CtlTask', function($scope, taskService) {
                     });
                 }
             } else {
-                alert("no hay datos");
+                // alert("no hay datos");
             }
         });
     };
@@ -167,60 +166,18 @@ app.controller('CtlTask', function($scope, taskService) {
                     });
                 }
             } else {
-                alert("no hay datos");
+                // alert("no hay datos");
             }
         });
     };
-    /////////////////////////
-    //Listar Fincas
-    // $scope.listarFincas = function() {
-    //     // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
-    //     //  * el cual esta asociado a los input*/
-    //     //  
-    //     taskService.listarFincas($scope.identificacion).then(function(response) {
-    //         // //     /*El resultado de la promesa se recibe por parametro*/
-    //         // //     //alert(response.usuario + " " + response.password);
-    //         // //     /*Solo con limpiar el objeto se limpian todos los input 
-    //         // //      * asociados*/
-    //         if (response.length > 0) {
-    //             for (var i = 0; i < response.length; i++) {
-    //                 $scope.fincas.push({
-    //                     codigo: response[i].ID,
-    //                     nombre: response[i].nombre,
-    //                     descripcion: response[i].descripcion,
-    //                     longitud: response[i].longitud,
-    //                     latitud: response[i].latitud,
-    //                     hectareas: response[i].hectareas
-    //                 });
-    //             }
-    //         } else {
-    //             $('.msgServidor').html("<div id='msg' class='alert alert-danger'>No hay registros de fincas <span class='glyphicon glyphicon-ok'></span></div>");
-    //             setTimeout(function() {
-    //                 $('.msgServidor').attr("display", "none");
-    //             }, 5000);
-    //         }
-    //     });
-    // };
-    // //Ordenar Campos////////////////////////////////////////
-    // $scope.ordenarPorParametro = function(tipo) {
-    //     $scope.ordenSeleccionado = tipo;
-    // };
-    // //Mostrar Campos
-    // $scope.mostrarCampos = function(codigo) {
-    //     var lotesV = $scope.lotes;
-    //     var lote;
-    //     angular.forEach(lotesV, function(obj) {
-    //         if (obj.codigo === codigo) {
-    //             lote = obj;
-    //             lote.metros = parseInt(obj.metros);
-    //         }
-    //     });
-    //     //Seteo los campos
-    //     $scope.identificacion = lote;
-    //     $('#btnEditar').removeAttr('disabled');
-    // };
+    $scope.isNullOrEmpty = function(obj) {
+        if (obj == null || obj == "") {
+            return true;
+        }
+        return false;
+    };
     $scope.getSelectedRow = function(obj) {
-        alert(obj.nombreTarea);
+        // alert(obj.nombreTarea);
         var fechaInicio = $scope.formatDate(obj.fechaInicio);
         var fechaFin = $scope.formatDate(obj.fechaFin);
         obj.fechaInicio = fechaInicio;

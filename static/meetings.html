@@ -1,3 +1,145 @@
-<span>
-    meeting
-</span>
+<div class="principal">
+    <div class="container">
+        <br>
+            <br>
+                <div class="row">
+                    <div class="col-md-5">
+                        <!-- panel formulario -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Meetings
+                            </div>
+                            <br>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <span class="btn btn-default form-control btnTeam" ng-click="listProject()">
+                                            Select a Project
+                                            <i class="glyphicon glyphicon-plus-sign pull-left">
+                                            </i>
+                                        </span>
+                                        <br>
+                                            <ul class="list-group list">
+                                                <li class="list-group-item" ng-click="selectProject(obj)" ng-repeat="obj in   projects | filter:filtrar ">
+                                                    {{obj.nombre}}
+                                                </li>
+                                            </ul>
+                                        </br>
+                                    </div>
+                                    <form class="formCrud" name="formMeeting" role="form">
+                                        <div class="alerts">
+                                        </div>
+                                        <input name="codigo" ng-model="datos.codigo" style="display:none" type="text">
+                                            <input name="idReunion" ng-model="datos.idReunion" style="display:none" type="text">
+                                                <div class="form-group">
+                                                    <label>
+                                                        Location
+                                                    </label>
+                                                    <input class="form-control" ng-model="datos.ubicacion" placeholder="Location " required="" type="text">
+                                                    </input>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        Thematic meeting
+                                                    </label>
+                                                    <textarea class="form-control" name="descripcion" ng-model="datos.tematica">
+                                                    </textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        <!-- Botones -->
+                                                        <br>
+                                                            <div class="btn-group btn-group-justified grupobtn">
+                                                                <span class="btn form-control" ng-click="saveMeeting(formMeeting)">
+                                                                    Create
+                                                                    <i class="glyphicon glyphicon-plus">
+                                                                    </i>
+                                                                </span>
+                                                                <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formMeeting)">
+                                                                    Edit
+                                                                    <i class="glyphicon glyphicon-pencil">
+                                                                    </i>
+                                                                </span>
+                                                            </div>
+                                                        </br>
+                                                    </label>
+                                                </div>
+                                            </input>
+                                        </input>
+                                    </form>
+                                </div>
+                            </br>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-search">
+                                        </i>
+                                    </span>
+                                    <input class="form-control" ng-model="filtrar" placeholder="Search a project" type="text">
+                                    </input>
+                                </div>
+                                <!-- table -->
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Id
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Project
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Location
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Thematic meeting
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    <i class="glyphicon glyphicon-trash">
+                                                    </i>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-init="listMeetings()">
+                                        <tr ng-click="getSelectedRow(obj)" ng-repeat="obj in   meetings |
+                            filter:filtrar ">
+                                            <td>
+                                                {{obj.idReunion}}
+                                            </td>
+                                            <td>
+                                                {{obj.nombre}}
+                                            </td>
+                                            <td>
+                                                {{obj.ubicacion}}
+                                            </td>
+                                            <td>
+                                                {{obj.tematica}}
+                                            </td>
+                                            <td>
+                                                <span class="glyphicon glyphicon-trash" ng-click="delete(obj.idReunion)">
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </br>
+        </br>
+    </div>
+</div>

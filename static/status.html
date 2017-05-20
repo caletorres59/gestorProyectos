@@ -30,7 +30,7 @@
                     </div>
                     <div>
                         <div class="row allitems">
-                            <div class="col-md-6 statusItem" ng-repeat="obj in itemsprojects">
+                            <div class="col-md-5 statusItem" ng-repeat="obj in itemsprojects">
                                 <strong>
                                     Data of Project
                                 </strong>
@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-5 statusItem">
+                            <div class="col-md-6 statusItem">
                                 <strong>
                                     Created works
                                 </strong>
@@ -98,23 +98,82 @@
                                         <strong>
                                             Description:
                                         </strong>
-                                        {{obj.nombreCargo}}
+                                        {{obj.descripcion}}
                                     </p>
                                     <p>
                                         <strong>
                                             Schedules:
                                         </strong>
                                         {{obj.horario}}
+                                        <span>
+                                            Hours
+                                        </span>
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div class="row allitems">
-                            <div class="col-md-6 statusItem">
-                                items proyecto
-                            </div>
                             <div class="col-md-5 statusItem">
-                                items proyecto
+                                <div>
+                                    <strong>
+                                        Project members and role assignments
+                                    </strong>
+                                    <div ng-repeat="obj in team">
+                                        <p>
+                                            <strong>
+                                                Name:
+                                            </strong>
+                                            {{obj.nombres}}
+                                        </p>
+                                        <p>
+                                            <strong>
+                                                Job:
+                                            </strong>
+                                            {{obj.nombreCargo}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 statusItem">
+                                <strong>
+                                    Activities
+                                </strong>
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            Activity NAme
+                                        </td>
+                                        <td>
+                                            Responsable
+                                        </td>
+                                        <td>
+                                            End Date
+                                        </td>
+                                        <td>
+                                            Start Date
+                                        </td>
+                                        <td>
+                                            End Date
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="obj in activities">
+                                        <td>
+                                            {{obj.nombre}}
+                                        </td>
+                                        <td>
+                                            {{obj.nombres}}
+                                        </td>
+                                        <td>
+                                            {{obj.descripcion}}
+                                        </td>
+                                        <td>
+                                            {{obj.fechaInicio | date:'yyyy-MM-dd'}}
+                                        </td>
+                                        <td>
+                                            {{obj.fechaFin | date:'yyyy-MM-dd'}}
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
