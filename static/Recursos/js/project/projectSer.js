@@ -84,7 +84,7 @@ app.service('projectsService', function($http, $httpParamSerializerJQLike) {
             return response.data;
         }, function myError(response) {
             alert("Error");
-            alert(response.statusText);
+            //alert(response.statusText);
         });
         /*Luego se retorna la promesa*/
         return promise;

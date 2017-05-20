@@ -42,7 +42,7 @@ app.controller('CtlMeetings', function($scope, meetingService) {
                     $scope.datos = "";
                 });
             } else {
-                alert("Verifique los datos ingresados");
+                //alert("Verifique los datos ingresados");
             }
         }
         // $scope.listar();

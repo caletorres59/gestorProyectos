@@ -57,12 +57,54 @@ app.service('statusService', function($http, $httpParamSerializerJQLike) {
         /*Luego se retorna la promesa*/
         return promise;
     };
+    this.listTask = function(idProyecto, idActividad) {
+        /*El resultado del $http es almacenado en la promesa*/
+        /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
+        var promise = $http({
+            method: "post",
+            url: "/listTask2",
+            data: $httpParamSerializerJQLike({
+                idProyecto: idProyecto
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function mySucces(response) {
+            /*Todos los datos se almacenan en .data*/
+            return response.data;
+        }, function myError(response) {
+            alert("Error");
+        });
+        /*Luego se retorna la promesa*/
+        return promise;
+    };
     this.listActivities = function(codigo) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         var promise = $http({
             method: "post",
             url: "/listActivities2",
+            data: $httpParamSerializerJQLike({
+                idProyecto: codigo
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function mySucces(response) {
+            /*Todos los datos se almacenan en .data*/
+            return response.data;
+        }, function myError(response) {
+            alert("Error");
+        });
+        /*Luego se retorna la promesa*/
+        return promise;
+    };
+    this.listMeetings = function(codigo) {
+        /*El resultado del $http es almacenado en la promesa*/
+        /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
+        var promise = $http({
+            method: "post",
+            url: "/listMeetings",
             data: $httpParamSerializerJQLike({
                 idProyecto: codigo
             }),

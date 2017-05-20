@@ -51,6 +51,23 @@ function crear(respuesta) {
     });
     //Se construye la respuesta al cliente
 }
+
+function listTask2(pedido, respuesta) {
+    var datos = pedido.body;
+    //Se crea un objeto con la informacion capturada
+    var idProyecto = datos['idProyecto'];
+    console.log(idProyecto);
+    //Se hace un insert mandado el objet completo
+    var sql = 'SELECT t.idTarea, p.nombre, a.nombre as nombreActividad, t.nombreTarea, t.fechaInicio, t.fechaFin, t.porcentajeDesarrollo FROM pf_tareas t JOIN pf_actividades a ON t.idActividad = a.idActividad JOIN pf_proyectos p ON a.idProyecto = p.idProyecto WHERE p.idProyecto = ?';
+    conexion.query(sql, [idProyecto], function(error, filas) {
+        if (error) {
+            console.log(error);
+            respuesta.send(constantes.ERROR);
+        } else {
+            respuesta.send(JSON.stringify(filas));
+        }
+    });
+}
 /**
  * Funcion que registra un usuario
  * @param {type} pedido
@@ -97,3 +114,4 @@ function listActivities(pedido, respuesta) {
 exports.conectardb = conectardb;
 exports.listProjectsItems = listProjectsItems;
 exports.listActivities = listActivities;
+exports.listTask2 = listTask2;
