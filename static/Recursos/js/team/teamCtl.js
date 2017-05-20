@@ -12,6 +12,7 @@ app.controller('CtlTeam', function($scope, teamService) {
     $scope.jobs = [];
     $scope.person = [];
     $scope.team = [];
+    $scope.idUsuario = sessionStorage.getItem("id");
     $("#srch-term").fadeOut();
     $("#spn-jobs").fadeOut();
     //$scope.identificacion = "";
@@ -113,7 +114,7 @@ app.controller('CtlTeam', function($scope, teamService) {
         $scope.projects = [];
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
-        teamService.listProject().then(function(response) {
+        teamService.listProject($scope.idUsuario).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
@@ -135,7 +136,8 @@ app.controller('CtlTeam', function($scope, teamService) {
         $scope.jobs = [];
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
-        teamService.listJobs().then(function(response) {
+        var idProyecto = $scope.projects[0].idProyecto;
+        teamService.listJobs(idProyecto).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 

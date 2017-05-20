@@ -11,54 +11,75 @@
                             </div>
                             <br>
                                 <div class="panel-body">
-                                    <form class="formCrud" name="formJobs" role="form">
-                                        <div class="alerts">
+                                    <div class="form-group">
+                                        <span class="btn btn-default form-control btnTeam" ng-click="listProject()">
+                                            Select a  Project
+                                            <i class="glyphicon glyphicon-plus-sign pull-left">
+                                            </i>
+                                        </span>
+                                        <br>
+                                            <ul class="list-group list">
+                                                <li class="list-group-item" ng-click="selectProject(obj)" ng-repeat="obj in   projects | filter:filtrar ">
+                                                    {{obj.nombre}}
+                                                </li>
+                                            </ul>
+                                        </br>
+                                    </div>
+                                    <div class="panel panel-default" id="spn-jobs">
+                                        <div class="panel-heading">
+                                            Fill in the form
                                         </div>
-                                        <input name="codigo" ng-model="datos.idCargo" style="display:none" type="text">
-                                            <div class="form-group">
-                                                <label>
-                                                    Name
-                                                </label>
-                                                <input class="form-control" name="nombre" ng-model="datos.nombreCargo" placeholder="name">
-                                                </input>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>
-                                                    Description
-                                                </label>
-                                                <textarea class="form-control" name="descripcion" ng-model="datos.descripcion">
-                                                </textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>
-                                                    Working hours
-                                                </label>
-                                                <input class="form-control" ng-model="datos.horario" placeholder="Working hours" required="" type="text">
-                                                </input>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>
-                                                    Salary
-                                                </label>
-                                                <input class="form-control" ng-model="datos.salario" placeholder="Salary " required="" type="number">
-                                                </input>
-                                            </div>
-                                            <br>
-                                                <div class="btn-group btn-group-justified grupobtn">
-                                                    <span class="btn form-control" ng-click="saveJobs(formJobs)">
-                                                        Create
-                                                        <i class="glyphicon glyphicon-plus">
-                                                        </i>
-                                                    </span>
-                                                    <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formJobs)">
-                                                        Edit
-                                                        <i class="glyphicon glyphicon-pencil">
-                                                        </i>
-                                                    </span>
+                                        <div class="panel-body">
+                                            <form class="formCrud" name="formJobs" role="form">
+                                                <div class="alerts">
                                                 </div>
-                                            </br>
-                                        </input>
-                                    </form>
+                                                <input name="codigo" ng-model="datos.idCargo" style="display:none" type="text">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Name
+                                                        </label>
+                                                        <input class="form-control" name="nombre" ng-model="datos.nombreCargo" placeholder="name">
+                                                        </input>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Description
+                                                        </label>
+                                                        <textarea class="form-control" name="descripcion" ng-model="datos.descripcion">
+                                                        </textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Working hours
+                                                        </label>
+                                                        <input class="form-control" ng-model="datos.horario" placeholder="Working hours" required="" type="text">
+                                                        </input>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Salary
+                                                        </label>
+                                                        <input class="form-control" ng-model="datos.salario" placeholder="Salary " required="" type="number">
+                                                        </input>
+                                                    </div>
+                                                    <br>
+                                                        <div class="btn-group btn-group-justified grupobtn">
+                                                            <span class="btn form-control" ng-click="saveJobs(formJobs)">
+                                                                Create
+                                                                <i class="glyphicon glyphicon-plus">
+                                                                </i>
+                                                            </span>
+                                                            <span class="btn form-control" disabled="" id="btn-edit" ng-click="update(formJobs)">
+                                                                Edit
+                                                                <i class="glyphicon glyphicon-pencil">
+                                                                </i>
+                                                            </span>
+                                                        </div>
+                                                    </br>
+                                                </input>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </br>
                         </div>

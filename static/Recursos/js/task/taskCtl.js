@@ -9,6 +9,7 @@ app.controller('CtlTask', function($scope, taskService) {
     /*Se inicializa el modelo*/
     $scope.datos = "";
     $scope.projects = [];
+    $scope.idUsuario = sessionStorage.getItem("id");
     // $scope.fincas = [];
     $("#activities").fadeOut();
     $("#panelTask").fadeOut();
@@ -21,7 +22,7 @@ app.controller('CtlTask', function($scope, taskService) {
          * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
-        alert($scope.datos.nombre);
+        alert($scope.datos.nombreTarea);
         var idActividad = $scope.activities[0].idActividad;
         if (form) {
             // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
@@ -48,38 +49,32 @@ app.controller('CtlTask', function($scope, taskService) {
             alert("Verifique los datos ingresados");
         }
     };
-    // //modificar////////////////////////////////////////////
-    // $scope.modificar = function(form) {
-    //     /*Al ser el servicio la llamada por http (funcion asincrona) toca definir
-    //      * promesas con el "then", que se ejecuta unicamente cuando se le retorna
-    //      * un valor valido. Este se ejecuta unicamente cuando el llamado http 
-    //      * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
-    //      * uso de ese paradigma*/
-    //     /*Si el formulario esta bien validado*/
-    //     if (form) {
-    //         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
-    //         //  * el cual esta asociado a los input*/
-    //         taskService.modificar($scope.identificacion).then(function(response) {
-    //             // //     /*El resultado de la promesa se recibe por parametro*/
-    //             // //     //alert(response.usuario + " " + response.password);
-    //             // //     /*Solo con limpiar el objeto se limpian todos los input 
-    //             // //      * asociados*/
-    //             if (response == "OK") {
-    //                 $('.msgServidor').html("<div id='msg' class='alert alert-success'>el lote fue modificada <span class='glyphicon glyphicon-ok'></span></div>");
-    //                 setTimeout(function() {
-    //                     $('#msg').attr("display", "none");
-    //                 }, 5000);
-    //                 $scope.listar();
-    //             } else {
-    //                 $('.msgServidor').html("<div id='msg' class='alert alert-danger'>Error al modificar <span class='glyphicon glyphicon-ok'></span></div>");
-    //                 setTimeout(function() {
-    //                     $('#msg').attr("display", "none");
-    //                 }, 5000);
-    //             }
-    //             $scope.identificacion = "";
-    //         });
-    //     }
-    // };
+    //modificar////////////////////////////////////////////
+    $scope.update = function(form) {
+        /*Al ser el servicio la llamada por http (funcion asincrona) toca definir
+         * promesas con el "then", que se ejecuta unicamente cuando se le retorna
+         * un valor valido. Este se ejecuta unicamente cuando el llamado http 
+         * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
+         * uso de ese paradigma*/
+        /*Si el formulario esta bien validado*/
+        if (form) {
+            // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+            //  * el cual esta asociado a los input*/
+            var idActividad = $scope.activities[0].idActividad;
+            taskService.update($scope.datos, idActividad).then(function(response) {
+                // //     /*El resultado de la promesa se recibe por parametro*/
+                // //     //alert(response.usuario + " " + response.password);
+                // //     /*Solo con limpiar el objeto se limpian todos los input 
+                // //      * asociados*/
+                if (response == "OK") {
+                    alert("ok");
+                } else {
+                    alert("error");
+                }
+                $scope.datos = "";
+            });
+        }
+    };
     ///Eliminar/////////////////////////////////////////////
     $scope.deleteTask = function(codigo) {
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
@@ -108,7 +103,7 @@ app.controller('CtlTask', function($scope, taskService) {
         $scope.projects = [];
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
-        taskService.listProject().then(function(response) {
+        taskService.listProject($scope.idUsuario).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
@@ -224,6 +219,22 @@ app.controller('CtlTask', function($scope, taskService) {
     //     $scope.identificacion = lote;
     //     $('#btnEditar').removeAttr('disabled');
     // };
+    $scope.getSelectedRow = function(obj) {
+        alert(obj.nombreTarea);
+        var fechaInicio = $scope.formatDate(obj.fechaInicio);
+        var fechaFin = $scope.formatDate(obj.fechaFin);
+        obj.fechaInicio = fechaInicio;
+        obj.fechaFin = fechaFin;
+        obj.porcentajeDesarrollo = parseInt(obj.porcentajeDesarrollo);
+        $scope.datos = obj;
+        $('#btn-edit').removeAttr('disabled');
+    };
+    $scope.formatDate = function(fecha) {
+        var fechaReplace = '' + fecha;
+        var pattern = /(\d{4})(\d{2})(\d{2})/;
+        var new_fecha = new Date(fechaReplace.replace(pattern, '$1-$2-$3'));
+        return new_fecha;
+    };
     $scope.selectProject = function(obj) {
         $scope.projects = [];
         $scope.projects.push({

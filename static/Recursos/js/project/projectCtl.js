@@ -25,8 +25,8 @@ app.controller('CtlProjects', function($scope, projectsService) {
             if (form) {
                 // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
                 //  * el cual esta asociado a los input*/
-                $scope.datos.idUsuario = sessionStorage.getItem("id");
-                projectsService.saveProject($scope.datos).then(function(response) {
+                var idUsuario = sessionStorage.getItem("id");
+                projectsService.saveProject($scope.datos, idUsuario).then(function(response) {
                     // //     /*El resultado de la promesa se recibe por parametro*/
                     // //     //alert(response.usuario + " " + response.password);
                     // //     /*Solo con limpiar el objeto se limpian todos los input 

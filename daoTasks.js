@@ -164,19 +164,21 @@ function listTask(pedido, respuesta) {
     });
 }
 //update
-function updateJobs(pedido, respuesta) {
+function updateTask(pedido, respuesta) {
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
-    var idCargo = [datos['idCargo']];
+    var idTarea = [datos['idTarea']];
+    console.log(idTarea + "consola update");
     var update = {
-        idCargo: datos['idCargo'],
-        descripcion: datos['descripcion'],
-        horario: datos['horario'],
-        salario: datos['salario']
+        idActividad: datos['idActividad'],
+        nombreTarea: datos['nombreTarea'],
+        fechaInicio: datos['fechaInicio'],
+        fechaFin: datos['fechaFin'],
+        porcentajeDesarrollo: datos['porcentajeDesarrollo']
     };
-    var sql = 'update pf_cargos set ? where idCargo = ?';
+    var sql = 'update pf_tareas set ? where idTarea = ?';
     //Se hace un insert mandado el objet completo
-    conexion.query(sql, [update, idCargo], function(error, resultado) {
+    conexion.query(sql, [update, idTarea], function(error, resultado) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
@@ -195,3 +197,4 @@ exports.conectardb = conectardb;
 exports.saveTask = saveTask;
 exports.listTask = listTask;
 exports.deleteTask = deleteTask;
+exports.updateTask = updateTask;

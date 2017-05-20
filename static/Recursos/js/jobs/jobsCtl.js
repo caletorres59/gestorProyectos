@@ -9,6 +9,9 @@ app.controller('CtlJobs', function($scope, jobsService) {
     /*Se inicializa el modelo*/
     $scope.datos = "";
     $scope.jobs = [];
+    $scope.projects = [];
+    $scope.idUsuario = sessionStorage.getItem("id");
+    $("#spn-jobs").fadeOut();
     //$scope.identificacion = "";
     /*Se define una funcion en el controlador*/
     $scope.saveJobs = function(form) {
@@ -18,20 +21,21 @@ app.controller('CtlJobs', function($scope, jobsService) {
          * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
+        var idProyecto = $scope.projects[0].idProyecto;
         if ($scope.isNullOrEmpty($scope.datos.nombreCargo) || $scope.isNullOrEmpty($scope.datos.descripcion) || $scope.isNullOrEmpty($scope.datos.horario) || $scope.isNullOrEmpty($scope.datos.salario)) {
             $(".alerts").html("<div class='info'><p>Check the entered data</p></div>");
         } else {
             if (form) {
                 // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
                 //  * el cual esta asociado a los input*/
-                jobsService.saveJobs($scope.datos).then(function(response) {
+                jobsService.saveJobs($scope.datos, idProyecto).then(function(response) {
                     // //     /*El resultado de la promesa se recibe por parametro*/
                     // //     //alert(response.usuario + " " + response.password);
                     // //     /*Solo con limpiar el objeto se limpian todos los input 
                     // //      * asociados*/
                     if (response == "OK") {
                         $(".alerts").html("<div class='info'><p>Job is saved</p></div>");
-                        $scope.listJobs();
+                        $scope.listJobs(idProyecto);
                     } else {
                         $(".alerts").html("<div class='info'><p>Job is not saved</p></div>");
                     }
@@ -42,6 +46,27 @@ app.controller('CtlJobs', function($scope, jobsService) {
             }
         }
         // $scope.listar();
+    };
+    $scope.listProject = function() {
+        $scope.projects = [];
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        //  * el cual esta asociado a los input*/
+        jobsService.listProject($scope.idUsuario).then(function(response) {
+            // //     /*El resultado de la promesa se recibe por parametro*/
+            // //     //alert(response.usuario + " " + response.password);
+            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //      * asociados*/
+            if (response.length > 0) {
+                for (var i = 0; i < response.length; i++) {
+                    $scope.projects.push({
+                        idProyecto: response[i]['idProyecto'],
+                        nombre: response[i]['nombre']
+                    });
+                }
+            } else {
+                alert("no hay datos");
+            }
+        });
     };
     //modificar////////////////////////////////////////////
     $scope.update = function(form) {
@@ -64,7 +89,7 @@ app.controller('CtlJobs', function($scope, jobsService) {
                     // //      * asociados*/
                     if (response == "OK") {
                         $(".alerts").html("<div class='info'><p>Job is updated</p></div>");
-                        $scope.listJobs();
+                        $scope.listJobs(idProyecto);
                     } else {
                         $(".alerts").html("<div class='info'><p>Job is not upadated</p></div>");
                     }
@@ -92,11 +117,11 @@ app.controller('CtlJobs', function($scope, jobsService) {
         });
     };
     //listar//////////////////////////////////////////
-    $scope.listJobs = function() {
+    $scope.listJobs = function(codigo) {
         $scope.jobs = [];
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
         //  * el cual esta asociado a los input*/
-        jobsService.listJobs().then(function(response) {
+        jobsService.listJobs(codigo).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
@@ -108,7 +133,8 @@ app.controller('CtlJobs', function($scope, jobsService) {
                         nombreCargo: response[i]['nombreCargo'],
                         descripcion: response[i]['descripcion'],
                         horario: response[i]['horario'],
-                        salario: response[i]['salario']
+                        salario: response[i]['salario'],
+                        idProyecto: response[i]['idProyecto']
                     });
                 }
             } else {
@@ -122,6 +148,16 @@ app.controller('CtlJobs', function($scope, jobsService) {
             return true;
         }
         return false;
+    };
+    $scope.selectProject = function(obj) {
+        $scope.projects = [];
+        $scope.projects.push({
+            idProyecto: obj.idProyecto,
+            nombre: obj.nombre
+        });
+        alert(obj.idProyecto)
+        $scope.listJobs(obj.idProyecto);
+        $("#spn-jobs").fadeIn("slow");
     };
     // /////////////////////////
     // //Listar Fincas

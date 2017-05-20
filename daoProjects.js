@@ -70,7 +70,8 @@ function save_project(pedido, respuesta) {
         nombre: datos['nombre'],
         fechaInicio: datos['fechaInicio'],
         fechaFin: datos['fechaFin'],
-        etapaProyecto: datos['etapaProyecto']
+        etapaProyecto: datos['etapaProyecto'],
+        idUsuario: datos['idUsuario']
     };
     var sql = 'insert into pf_proyectos set ?';
     //Se hace un insert mandado el objet completo

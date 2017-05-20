@@ -14,13 +14,15 @@
  * jquery para que lleguen al servidor*/
 app.service('taskService', function($http, $httpParamSerializerJQLike) {
     /*Se define una funcion interna llamada logIn, que recibe 2 parametros*/
-    this.listProject = function() {
+    this.listProject = function(idUsuario) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         var promise = $http({
             method: "post",
             url: "/listProjects",
-            data: $httpParamSerializerJQLike({}),
+            data: $httpParamSerializerJQLike({
+                idUsuario: idUsuario
+            }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -64,7 +66,7 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
             url: "/saveTask",
             data: $httpParamSerializerJQLike({
                 idActividad: idActividad,
-                nombreTarea: datos['nombre'],
+                nombreTarea: datos['nombreTarea'],
                 fechaInicio: datos['fechaInicio'],
                 fechaFin: datos['fechaFin'],
                 porcentajeDesarrollo: datos['porcentajeDesarrollo']
@@ -107,18 +109,19 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
         return promise;
     };
     //Modificar
-    this.modificar = function(identificacion) {
+    this.update = function(datos, idActividad) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         var promise = $http({
             method: "post",
-            url: "/updateLotes",
+            url: "/updateTask",
             data: $httpParamSerializerJQLike({
-                codigo: identificacion.codigo,
-                nombre: identificacion.nombre,
-                fincas: identificacion.selFincas,
-                metros: identificacion.metros,
-                descripcion: identificacion.descripcion
+                idTarea: datos['idTarea'],
+                idActividad: idActividad,
+                nombreTarea: datos['nombreTarea'],
+                fechaInicio: datos['fechaInicio'],
+                fechaFin: datos['fechaFin'],
+                porcentajeDesarrollo: datos['porcentajeDesarrollo']
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

@@ -14,7 +14,7 @@
  * jquery para que lleguen al servidor*/
 app.service('projectsService', function($http, $httpParamSerializerJQLike) {
     /*Se define una funcion interna llamada logIn, que recibe 2 parametros*/
-    this.saveProject = function(datos) {
+    this.saveProject = function(datos, codigo) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         var promise = $http({
@@ -24,7 +24,8 @@ app.service('projectsService', function($http, $httpParamSerializerJQLike) {
                 nombre: datos.nombre,
                 fechaInicio: datos.fechaInicio,
                 fechaFin: datos.fechaFin,
-                etapaProyecto: datos.etapaProyecto
+                etapaProyecto: datos.etapaProyecto,
+                idUsuario: codigo
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

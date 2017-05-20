@@ -14,7 +14,7 @@
  * jquery para que lleguen al servidor*/
 app.service('jobsService', function($http, $httpParamSerializerJQLike) {
     /*Se define una funcion interna llamada logIn, que recibe 2 parametros*/
-    this.saveJobs = function(datos) {
+    this.saveJobs = function(datos, codigo) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         var promise = $http({
@@ -24,7 +24,8 @@ app.service('jobsService', function($http, $httpParamSerializerJQLike) {
                 nombreCargo: datos.nombreCargo,
                 descripcion: datos.descripcion,
                 horario: datos.horario,
-                salario: datos.salario
+                salario: datos.salario,
+                idProyecto: codigo
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -89,13 +90,36 @@ app.service('jobsService', function($http, $httpParamSerializerJQLike) {
         return promise;
     };
     //Listar
-    this.listJobs = function() {
+    this.listJobs = function(codigo) {
         /*El resultado del $http es almacenado en la promesa*/
         /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
         var promise = $http({
             method: "post",
             url: "/listJobs",
-            data: $httpParamSerializerJQLike({}),
+            data: $httpParamSerializerJQLike({
+                idProyecto: codigo
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function mySucces(response) {
+            /*Todos los datos se almacenan en .data*/
+            return response.data;
+        }, function myError(response) {
+            alert("Error");
+        });
+        /*Luego se retorna la promesa*/
+        return promise;
+    };
+    this.listProject = function(codigo) {
+        /*El resultado del $http es almacenado en la promesa*/
+        /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
+        var promise = $http({
+            method: "post",
+            url: "/listProjects",
+            data: $httpParamSerializerJQLike({
+                idUsuario: codigo
+            }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }

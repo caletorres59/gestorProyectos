@@ -22,6 +22,12 @@ app.config(function($routeProvider) {
     }).when('/tasks', {
         controller: 'CtlTask',
         templateUrl: 'task.html'
+    }).when('/resources', {
+        controller: 'CtlResources',
+        templateUrl: 'resources.html'
+    }).when('/status', {
+        controller: 'CtlStatus',
+        templateUrl: 'status.html'
     }).otherwise({
         redirectTo: '/'
     });

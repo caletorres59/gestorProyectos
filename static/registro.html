@@ -68,10 +68,9 @@
             </div>
         </header>
         <section class="main">
-          <div class="alerts">
-          </div>
+            <div class="alerts">
+            </div>
             <form class="form-5 registro clearfix" name="formRegistro" ng-controller="CtlRegistro">
-
                 <p>
                     <input id="nombre" name="nombre" ng-model="datos.nombreUsuario" placeholder="Username" required="text" type="text">
                     </input>
@@ -85,15 +84,20 @@
                     </input>
                     <input name="apellido" ng-model="datos.apellidos" placeholder="last name" required="text" type="text">
                     </input>
+                    <select class="select-color" ng-init="Seleccione una opcion">
+                        <option selected="selected" value="0">
+                            Type User
+                        </option>
+                        <option ng-repeat="x in userTypes" value="{{x.value}}">
+                            {{x.nombre}}
+                        </option>
+                    </select>
                     <input name="email" ng-model="datos.email" placeholder="e-mail" required="text" type="email">
                     </input>
                     <input name="fecha" ng-model="datos.fechaNacimiento" placeholder="date of birdth" required="date" type="date">
                     </input>
-                    <select ng-model="datos.tipoUsuario">
-                      <option ng-repeat="x in userTypes" value="{{x.value}}">{{x.nombre}}</option>
-                    </select>
                 </p>
-                <button name="submit" ng-click="registrar('formRegistro')" >
+                <button name="submit" ng-click="registrar('formRegistro')">
                     <i class="icon-arrow-right">
                     </i>
                     <span>

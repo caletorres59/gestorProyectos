@@ -48,7 +48,8 @@
 .form-5 input[type=email],
 .form-5 input[type=date],
 .form-5 input[type=text],
-.form-5 input[type=password] {
+.form-5 input[type=password],
+.form-5 select.select-color {
     /* Size and position */
     width: 100%;
     height: 50px;
@@ -121,6 +122,17 @@
     text-shadow: 0 -1px 1px rgba(0,0,0,0.4);
     font-family: 'Handlee', cursive;
 }
+.form-5 select.select-color:-ms-input-placeholder {
+    color: #fff;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.4);
+    font-family: 'Handlee', cursive;
+}
+form-5 select.select-color::-webkit-input-placeholder
+{
+    color: #fff;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.4);
+    font-family: 'Handlee', cursive;
+}
 
 .form-5 button {
     /* Size and position */
@@ -151,7 +163,7 @@
 .form-5.registro button {
     /* Size and position */
     width: 30%;
-    height: 350px;
+    height: 452px;
     float: left;
     position: relative;
     overflow: hidden;
@@ -352,4 +364,94 @@ div.panel-heading
     background: #DD63EB;
     border-radius: 5%;
     padding: 10px;
+}
+.container-projects
+{
+    width: 25%;
+    height: 100%;
+    background: #FFF8FF;
+    border: 1px solid #B8D8FD;
+    padding: 20px;
+    float: left;
+
+
+
+}
+.tittle-projects
+{
+    font-size: 25px;
+    text-align: center;
+    color: #E427EB;
+    border-bottom: 1px solid #E427EB;
+    margin-bottom: 15px;
+}
+
+.project
+{
+    
+    box-shadow: 5px 5px 2px #F2F1F1;
+    width: 100%;
+    height: 50px;
+    padding: 14px;
+    background: #fff;
+    color: #E394EC;
+    margin-bottom: 15px;
+
+}
+
+.project:hover
+{
+    
+    box-shadow: 0px 0px 0px #F2F1F1;
+    cursor: pointer;
+}
+.project i
+{
+    margin-right: 2px;
+    color: #9FCAE8;
+    font-size: 18px;
+}
+
+div.items
+{
+ color: red;
+ width: 70%;
+ height: 100%;
+ background: #fff;
+ margin-left : 420px;
+}
+div.header
+{
+    padding: 15px;
+    text-align: center;
+    color:  #E394EC;
+    font-size: 40px;
+    border-bottom: 1px solid  #E394EC;
+    margin: 10px;
+}
+
+div.row.itemsp2
+{
+    padding-left: 70px;
+}
+
+#mesaggereporter
+{
+    padding: 15px 50px;
+    font-size: 60px;
+    color: hsl(194, 99%, 67%);
+    font-style: italic;
+    text-align: center;
+
+}
+
+.statusItem
+{
+    color: #E629C5;
+    margin: 15px;
+    border: 1px solid #F9F0FD;
+    height: auto;
+    font-size: 20px;
+    padding: 10px;
+
 }

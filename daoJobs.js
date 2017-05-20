@@ -70,7 +70,8 @@ function saveJobs(pedido, respuesta) {
         nombreCargo: datos['nombreCargo'],
         descripcion: datos['descripcion'],
         horario: datos['horario'],
-        salario: datos['salario']
+        salario: datos['salario'],
+        idProyecto: datos['idProyecto']
     };
     var sql = 'insert into pf_cargos set ?';
     //Se hace un insert mandado el objet completo
@@ -107,10 +108,13 @@ function deleteJobs(pedido, respuesta) {
 }
 
 function listJobs(pedido, respuesta) {
-    var sql = 'select idCargo, nombreCargo , descripcion, horario, salario from pf_cargos';
+    var datos = pedido.body;
+    //Se crea un objeto con la informacion capturada
+    var idProyecto = [datos['idProyecto']];
+    var sql = 'select idCargo, nombreCargo , descripcion, horario, salario, idProyecto from pf_cargos where idProyecto = ?';
     //Se hace un insert mandado el objet completo
     console.log("estoy en lista");
-    conexion.query(sql, function(error, filas) {
+    conexion.query(sql, idProyecto, function(error, filas) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);

@@ -1,10 +1,10 @@
 // Configuracion base de datos, INICIO 
 // usuario
-var user = 'sql10164504';
+var user = 'root';
 // contrasena
-var pass = 'slrdtCRy8D';
+var pass = 'root';
 // host
-var host = 'sql10.freesqldatabase.com';
+var host = '35.186.184.93';
 //puerto
 var port = '3306';
 // base de datos
