@@ -30,23 +30,26 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
         /*Si el formulario esta bien validado*/
           $scope.datos.idProyecto = $scope.idProyecto;
           $scope.datos.idUsuario = $scope.idUsuario;
-            // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
-            //  * el cual esta asociado a los input*/
+          if($scope.isNullOrEmpty($scope.datos.nombre)||$scope.isNullOrEmpty($scope.datos.descripcion)
+        ||$scope.isNullOrEmpty($scope.datos.fechaInicio)||$scope.isNullOrEmpty($scope.datos.fechaFin)){
+          $(".alerts").html("<div class='error'><p>Check the entered data</p></div>");
+          }else{
             activitiesService.saveActivity($scope.datos).then(function (response) {
-                // //     /*El resultado de la promesa se recibe por parametro*/
-                // //     //alert(response.usuario + " " + response.password);
-                // //     /*Solo con limpiar el objeto se limpian todos los
-                // //      * asociados*/
-
+                // //     /*El resultado de la promesa se recibe por parametro
                 if (response == "OK"){
-                    alert("ok");
+                  $(".alerts").html("<div class='info'><p>Activity created correctly</p></div>");
                 } else {
-                    alert("error");
+                    $(".alerts").html("<div class='error'><p>The Activity was not saved</p></div>");
                 }
 
                 $scope.datos = "";
             });
-        $scope.listActivities();
+
+            $scope.listActivities();
+          }
+            // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
+            //  * el cual esta asociado a los input*/
+
     };
     //modificar////////////////////////////////////////////
     $scope.update = function (form) {
@@ -56,6 +59,10 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
          * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
+        if($scope.isNullOrEmpty($scope.datos.nombre)||$scope.isNullOrEmpty($scope.datos.descripcion)
+      ||$scope.isNullOrEmpty($scope.datos.fechaInicio)||$scope.isNullOrEmpty($scope.datos.fechaFin)){
+        $(".alerts").html("<div class='error'><p>Check the entered data</p></div>");
+        }else{
         if (form) {
 
 
@@ -66,16 +73,17 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
                 // //     //alert(response.usuario + " " + response.password);
                 // //     /*Solo con limpiar el objeto se limpian todos los input
                 // //      * asociados*/
-                if (response == "OK") {
-                    alert("ok");
+                if (response == "OK"){
+                  $(".alerts").html("<div class='info'><p>Activity updated correctly</p></div>");
                 } else {
-                    alert("error");
+                    $(".alerts").html("<div class='error'><p>The Activity was not updated</p></div>");
                 }
                 $scope.datos = "";
             });
-        }else{
-          alert("nada");
         }
+
+        $scope.listActivities();
+      }
     };
     ///Eliminar/////////////////////////////////////////////
     $scope.delete = function (codigo) {
@@ -86,10 +94,10 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input
             // //      * asociados*/
-            if (response == "OK") {
-                alert("ok");
+            if (response == "OK"){
+              $(".alerts").html("<div class='info'><p>Activity deleted correctly</p></div>");
             } else {
-                alert("error");
+                $(".alerts").html("<div class='error'><p>The Activity was not deleted</p></div>");
             }
             $scope.datos = "";
             $scope.listActivities();
@@ -221,5 +229,12 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
       obj.fechaFin = new Date(obj.fechaFin);
       $scope.datos = obj;
       $('#btn-edit').removeAttr('disabled');
+    };
+
+    $scope.isNullOrEmpty = function(obj) {
+        if (obj == null || obj == "") {
+            return true;
+        }
+        return false;
     };
 });
