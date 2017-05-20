@@ -58,7 +58,7 @@ function saveTask(pedido, respuesta) {
     //    pedido.on('data', function (datosparciales) {
     //        info += datosparciales;
     //    });
-    //    
+    //
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
     var task = {
@@ -91,7 +91,7 @@ function searchId(pedido, respuesta) {
     //    pedido.on('data', function (datosparciales) {
     //        info += datosparciales;
     //    });
-    //    
+    //
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
     //
@@ -115,7 +115,7 @@ function deleteTask(pedido, respuesta) {
     //    pedido.on('data', function (datosparciales) {
     //        info += datosparciales;
     //    });
-    //    
+    //
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
     var idTarea = [datos['idTarea']];
@@ -183,18 +183,61 @@ function updateTask(pedido, respuesta) {
             console.log(error);
             respuesta.send(constantes.ERROR);
         } else {
-            respuesta.send(constantes.OK);
+          respuesta.send(constantes.OK);
         }
     });
+}
+
+function assignResources(pedido, respuesta){
+  var datos = pedido.body;
+  var idTarea = datos['idTarea'];
+  var sql = 'delete from recursosTareas where idTarea = ?';
+  conexion.query(sql, [idTarea], function(error, resultado) {
+      if(error){
+        console.log(error);
+        respuesta.send(constantes.ERROR);
+      }else{
+        var sql = 'insert into recursosTareas set ?';
+        for (var i = 0; i < resultado.length; i++) {
+            var insert ={
+                idTarea: datos.assigns[i].idTarea,
+                idRecurso: datos.assigns[i].idRecurso
+            }
+            conexion.query(sql,[insert], function(error,resultado){
+              if(error){
+                console.log(error);
+                respuesta.send(constantes.ERROR);
+              }
+            });
+        }
+        respuesta.send(constantes.OK);
+      }
+  });
+}
+
+function getResources(pedido, respuesta){
+  var datos = pedido.body;
+  var idTarea = datos['idTarea'];
+  var sql = 'SELECT idRecurso FROM recursosTareas WHERE idTarea =  ?';
+  conexion.query(sql, [idTarea], function(error, filas) {
+      if (error) {
+          console.log(error);
+          respuesta.send(constantes.ERROR);
+      } else {
+          respuesta.send(JSON.stringify(filas));
+      }
+  });
 }
 /**
  *  Funcion que lista los tipos de cerveza los retorna como un String
  * @param {type} respuesta
  * @returns {undefined}
  */
-//Habilita a las funciones para que sean llamadas o exportadas desde otros archivos 
+//Habilita a las funciones para que sean llamadas o exportadas desde otros archivos
 exports.conectardb = conectardb;
 exports.saveTask = saveTask;
 exports.listTask = listTask;
 exports.deleteTask = deleteTask;
 exports.updateTask = updateTask;
+exports.getResources = getResources;
+exports.assignResources = assignResources;

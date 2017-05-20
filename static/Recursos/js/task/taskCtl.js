@@ -9,7 +9,18 @@ app.controller('CtlTask', function($scope, taskService) {
     /*Se inicializa el modelo*/
     $scope.datos = "";
     $scope.projects = [];
+    $scope.resources = [];
+    $scope.taskResources = [];
+    $scope.assigns = [{
+      idRecurso: 1,
+      recurso: 'Recurso 1',
+      assignRes: true
+    }];
+
+    $scope.taskToAssignPermissions = "";
     $scope.idUsuario = sessionStorage.getItem("id");
+    $scope.idProyecto = "";
+    $scope.showModal = false;
     // $scope.fincas = [];
     $("#activities").fadeOut();
     $("#panelTask").fadeOut();
@@ -18,8 +29,8 @@ app.controller('CtlTask', function($scope, taskService) {
     $scope.saveTask = function(form) {
         /*Al ser el servicio la llamada por http (funcion asincrona) toca definir
          * promesas con el "then", que se ejecuta unicamente cuando se le retorna
-         * un valor valido. Este se ejecuta unicamente cuando el llamado http 
-         * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
+         * un valor valido. Este se ejecuta unicamente cuando el llamado http
+         * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
         var idActividad = $scope.activities[0].idActividad;
@@ -27,12 +38,12 @@ app.controller('CtlTask', function($scope, taskService) {
             $(".alerts").html("<div class='info'><p>Check the entered data</p></div>");
         } else {
             if (form) {
-                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
                 //  * el cual esta asociado a los input*/
                 taskService.saveTask($scope.datos, idActividad).then(function(response) {
                     // //     /*El resultado de la promesa se recibe por parametro*/
                     // //     //alert(response.usuario + " " + response.password);
-                    // //     /*Solo con limpiar el objeto se limpian todos los input 
+                    // //     /*Solo con limpiar el objeto se limpian todos los input
                     // //      * asociados*/
                     if (response == "OK") {
                         $(".alerts").html("<div class='info'><p>Task is saved</p></div>");
@@ -51,21 +62,21 @@ app.controller('CtlTask', function($scope, taskService) {
     $scope.update = function(form) {
         /*Al ser el servicio la llamada por http (funcion asincrona) toca definir
          * promesas con el "then", que se ejecuta unicamente cuando se le retorna
-         * un valor valido. Este se ejecuta unicamente cuando el llamado http 
-         * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el 
+         * un valor valido. Este se ejecuta unicamente cuando el llamado http
+         * consume el REST ("REST" es un paradigma, mientras"RESTful" describe el
          * uso de ese paradigma*/
         /*Si el formulario esta bien validado*/
         if ($scope.isNullOrEmpty($scope.datos.nombreTarea) || $scope.isNullOrEmpty($scope.datos.fechaInicio) || $scope.isNullOrEmpty($scope.datos.fechaFin) || $scope.isNullOrEmpty($scope.datos.porcentajeDesarrollo)) {
             $(".alerts").html("<div class='info'><p>Check the entered data</p></div>");
         } else {
             if (form) {
-                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+                // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
                 //  * el cual esta asociado a los input*/
                 var idActividad = $scope.activities[0].idActividad;
                 taskService.update($scope.datos, idActividad).then(function(response) {
                     // //     /*El resultado de la promesa se recibe por parametro*/
                     // //     //alert(response.usuario + " " + response.password);
-                    // //     /*Solo con limpiar el objeto se limpian todos los input 
+                    // //     /*Solo con limpiar el objeto se limpian todos los input
                     // //      * asociados*/
                     if (response == "OK") {
                         $(".alerts").html("<div class='info'><p>Task is updated</p></div>");
@@ -80,13 +91,13 @@ app.controller('CtlTask', function($scope, taskService) {
     };
     ///Eliminar/////////////////////////////////////////////
     $scope.deleteTask = function(codigo) {
-        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
         //  * el cual esta asociado a los input*/
         //alert(codigo);
         taskService.deleteTask(codigo).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
-            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //     /*Solo con limpiar el objeto se limpian todos los input
             // //      * asociados*/
             if (response == "OK") {
                 $(".alerts").html("<div class='info'><p>delete task ok</p></div>");
@@ -100,12 +111,12 @@ app.controller('CtlTask', function($scope, taskService) {
     //listar//////////////////////////////////////////
     $scope.listProject = function() {
         $scope.projects = [];
-        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
         //  * el cual esta asociado a los input*/
         taskService.listProject($scope.idUsuario).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
-            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //     /*Solo con limpiar el objeto se limpian todos los input
             // //      * asociados*/
             if (response.length > 0) {
                 for (var i = 0; i < response.length; i++) {
@@ -122,17 +133,15 @@ app.controller('CtlTask', function($scope, taskService) {
     //Listar Actividades
     $scope.listActivities = function() {
         $scope.activities = [];
-        var idProyecto = $scope.projects[0].idProyecto;
-        alert(idProyecto + "asas");
-        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        var idProyecto = $scope.idProyecto;
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
         //  * el cual esta asociado a los input*/
         taskService.listActivities(idProyecto, $scope.idUsuario).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
-            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //     /*Solo con limpiar el objeto se limpian todos los input
             // //      * asociados*/
-            // 
-            alert(response);
+            //
             if (response.length > 0) {
                 for (var i = 0; i < response.length; i++) {
                     $scope.activities.push({
@@ -149,12 +158,12 @@ app.controller('CtlTask', function($scope, taskService) {
         $scope.task = [];
         var idProyecto = $scope.projects[0].idProyecto;
         var idActividad = $scope.activities[0].idActividad;
-        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
         //  * el cual esta asociado a los input*/
         taskService.listTask(idProyecto, idActividad).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
-            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //     /*Solo con limpiar el objeto se limpian todos los input
             // //      * asociados*/
             if (response.length > 0) {
                 for (var i = 0; i < response.length; i++) {
@@ -201,6 +210,7 @@ app.controller('CtlTask', function($scope, taskService) {
             idProyecto: obj.idProyecto,
             nombre: obj.nombre
         });
+        $scope.idProyecto = obj.idProyecto;
         // alert(obj.idProyecto)
         //$scope.listTeam(obj.idProyecto);
         $("#activities").fadeIn("slow");
@@ -215,4 +225,15 @@ app.controller('CtlTask', function($scope, taskService) {
         $scope.listTask();
         $("#panelTask").fadeIn("slow");
     };
-});
+
+    $scope.openModal= function(idTarea){
+      $scope.showModal = true;
+      $scope.taskToAssignPermissions = idTarea;
+      $scope.resources = [];
+      $scope.resources = $scope.listResources();
+      $scope.taskResources = taskService.listTaskResources();
+      for (var i = 0; i < $scope.resources.length; i++) {
+        $
+      }
+    };
+  };

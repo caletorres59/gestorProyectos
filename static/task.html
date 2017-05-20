@@ -76,7 +76,7 @@
                                             <label>
                                                 Progress
                                             </label>
-                                            <input class="form-control" ng-model="datos.porcentajeDesarrollo" placeholder="progress %" required="" type="text">
+                                            <input class="form-control" ng-model="datos.porcentajeDesarrollo" placeholder="progress %" required="" type="number">
                                             </input>
                                         </div>
                                         <!-- Botones -->
@@ -156,6 +156,11 @@
                                                     </i>
                                                 </a>
                                             </th>
+                                            <th>
+                                              <a>
+                                                Set Task Resources
+                                              </a>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody ng-init="">
@@ -190,9 +195,54 @@
                                                 <span class="glyphicon glyphicon-trash" ng-click="deleteTask(obj.idTarea)">
                                                 </span>
                                             </td>
+                                            <td>
+                                                <span class="btn" ng-click="openModal(obj.idTarea)">
+                                                   <i class="glyphicon glyphicon-wrench"></i>
+                                                </span>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div class="modal fade in" aria-hidden="false" style="display: block;" ng-show="showModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <table>
+                                              <thead>
+                                                  <tr>
+                                                      <th class="seleccionable">
+                                                          <a>
+                                                              Resource
+                                                          </a>
+                                                      </th>
+                                                      <th class="seleccionable">
+                                                          <a>
+                                                              Assign
+                                                          </a>
+                                                      </th>
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody ng-init="">
+                                                      <tr ng-repeat="assign in   assigns |
+                                          filter:filtrar ">
+                                                          <td>
+                                                              {{assign.recurso}}
+                                                          </td>
+                                                          <td>
+                                                            <span ng-show="!assign.assignRes">
+                                                               <i class="glyphicon glyphicon-plus" ng-click="cambiarValor(assign)"></i>
+                                                            </span>
+                                                            <span ng-show="assign.assignRes">
+                                                               <i class="glyphicon glyphicon-minus" ng-click="cambiarValor(assign)"></i>
+                                                            </span>
+                                                          </td>
+                                            </table>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" ng-click="guardarRecursos()">Guardar Recursos</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>

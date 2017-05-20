@@ -114,8 +114,22 @@ function listActivities(pedido, respuesta) {
     var datos = pedido.body;
     var idProyecto = datos['idProyecto'];
     var idUsuario = datos['idUsuario'];
-    console.log(idProyecto + " " + idUsuario);
     conexion.query(sql, [idProyecto, idUsuario], function(error, filas) {
+        if (error) {
+            console.log(error);
+            respuesta.send(constantes.ERROR);
+        } else {
+          console.log(JSON.stringify(filas));
+            respuesta.send(JSON.stringify(filas));
+        }
+    });
+}
+function listActivitiesByProject(pedido, respuesta) {
+    var sql = 'select idActividad, idUsuario , idProyecto, nombre, descripcion, fechaInicio, fechaFin from pf_actividades where idProyecto = ?';
+    //Se hace un insert mandado el objet completo
+    var datos = pedido.body;
+    var idProyecto = datos['idProyecto'];
+    conexion.query(sql, [idProyecto], function(error, filas) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
@@ -160,3 +174,4 @@ exports.saveActivity = saveActivity;
 exports.updateActivity = updateActivity;
 exports.listActivities = listActivities;
 exports.deleteActivity = deleteActivity;
+exports.listActivitiesByProject = listActivitiesByProject;
