@@ -14,7 +14,8 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
     $scope.projects = [];
     $scope.users = [];
     $scope.idProyecto= "";
-    $scope.idUsuario="";
+    $scope.idUsuarioSesion = sessionStorage.getItem("id");
+    $scope.idUsuario = "";
     $("#srch-term").fadeOut();
     $("#div-data").fadeOut();
     //$scope.identificacion = "";
@@ -100,7 +101,7 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
         $scope.projects = [];
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
         //  * el cual esta asociado a los input*/
-        activitiesService.listProjects().then(function(response) {
+        activitiesService.listProjects($scope.idUsuarioSesion).then(function(response) {
             // //     /*El resultado de la promesa se recibe por parametro*/
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input
@@ -141,7 +142,7 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
         $scope.activities = [];
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
         //  * el cual esta asociado a los input*/
-        activitiesService.listActivities($scope.idProyecto).then(function (response) {
+        activitiesService.listActivities($scope.idProyecto, $scope.idUsuario).then(function (response) {
             if (response.length > 0)
             {
                 for (var i = 0; i < response.length; i++)
@@ -199,12 +200,17 @@ app.controller('CtlActivities', function ($scope, activitiesService) {
             nombre: obj.nombre
         });
         $scope.idProyecto=obj.idProyecto;
-        $scope.listActivities();
         $scope.listUsersByProject();
         $("#srch-term").fadeIn("slow");
     };
     $scope.selectUser = function(obj) {
+      $scope.users = [];
+      $scope.users.push({
+        idUsuario: obj.idUsuario,
+        nombreCompleto:obj.nombreCompleto
+      });
       $scope.idUsuario = obj.idUsuario;
+      $scope.listActivities();
       $("#div-data").fadeIn("slow");
     };
 

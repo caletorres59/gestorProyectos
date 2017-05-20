@@ -109,11 +109,12 @@ function deleteActivity(pedido, respuesta) {
 }
 
 function listActivities(pedido, respuesta) {
-    var sql = 'select idActividad, idUsuario , idProyecto, nombre, descripcion, fechaInicio, fechaFin from pf_actividades where idProyecto = ?';
+    var sql = 'select idActividad, idUsuario , idProyecto, nombre, descripcion, fechaInicio, fechaFin from pf_actividades where idProyecto = ? and idUsuario = ?';
     //Se hace un insert mandado el objet completo
     var datos = pedido.body;
     var idProyecto = datos['idProyecto'];
-    conexion.query(sql, [idProyecto], function(error, filas) {
+    var idUsuario = datos['idUsuario'];
+    conexion.query(sql, [idProyecto, idUsuario], function(error, filas) {
         if (error) {
             console.log(error);
             respuesta.send(constantes.ERROR);
