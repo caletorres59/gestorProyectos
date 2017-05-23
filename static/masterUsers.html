@@ -24,6 +24,10 @@
             <script src="Recursos\js\MasterPages\appMasterPageUsers.js" type="text/javascript">
             </script>
             <!-- Controladores y servicios -->
+            <script src="Recursos\js\myprojects\myprojectCtl.js" type="text/javascript">
+            </script>
+            <script src="Recursos\js\myprojects\myprojectSer.js" type="text/javascript">
+            </script>
             <!--[if lte IE 7]><style>.main{display:none;} .support-note .note-ie{display:block;}</style><![endif]-->
             <style>
                 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Handlee);
@@ -46,34 +50,19 @@
     <header ng-controller="CtlUsers">
         <nav class="navbar">
             <div class="navbar-header">
-                <a class="" href="#">
+                <a "="" class="navbar-brand" href="#/">
                     Projects
-                    <stron>
+                    <strong>
                         EAM
-                    </stron>
+                    </strong>
                     <i class="glyphicon glyphicon-book">
                     </i>
                 </a>
             </div>
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="#">
+                    <a href="#/myprojects/">
                         My Projects
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        My activities
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Estatus of my projects
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Meetings
                     </a>
                 </li>
             </ul>

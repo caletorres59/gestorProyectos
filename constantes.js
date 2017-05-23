@@ -4,7 +4,7 @@ var user = 'root';
 // contrasena
 var pass = 'root';
 // host
-var host = '35.186.184.93';
+var host = '35.186.181.80';
 //puerto
 var port = '3306';
 // base de datos

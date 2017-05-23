@@ -1,0 +1,256 @@
+<div class="principal">
+    <div class="row">
+        <div class="col-md-12 tittleuser">
+            <p>
+                You are welcome.
+                 In this section you will be able to see all the projects in which you are working
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="alerts">
+        </div>
+        <!-- row projects and activities -->
+        <div class="row">
+            <div class="col-md-12 myprojects">
+                <div class="mesaggeproyect">
+                    Select a project and at the bottom you will see activities, tasks and a general summary
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-search">
+                        </i>
+                    </span>
+                    <input class="form-control" ng-model="filtrar" placeholder="Search a project" type="text">
+                    </input>
+                </div>
+                <table class="table table-striped tableclass">
+                    <thead>
+                        <tr>
+                            <th class="seleccionable">
+                                <a>
+                                    Id
+                                </a>
+                            </th>
+                            <th class="seleccionable">
+                                <a>
+                                    Responsable
+                                </a>
+                            </th>
+                            <th class="seleccionable">
+                                <a>
+                                    Name of project
+                                </a>
+                            </th>
+                            <th class="seleccionable">
+                                <a>
+                                    Job title
+                                </a>
+                            </th>
+                            <th class="seleccionable">
+                                <a>
+                                    Date start
+                                </a>
+                            </th>
+                            <th class="seleccionable">
+                                <a>
+                                    Date end
+                                </a>
+                            </th>
+                            <th class="seleccionable">
+                                <a>
+                                    Stage
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody ng-init="listMyProject()">
+                        <tr ng-click="selectProject(obj)" ng-repeat="obj in  myprojects |
+                            filter:filtrar ">
+                            <td>
+                                {{obj.idProyecto}}
+                            </td>
+                            <td>
+                                {{obj.nombres}}
+                            </td>
+                            <td>
+                                {{obj.nombre}}
+                            </td>
+                            <td>
+                                {{obj.nombreCargo}}
+                            </td>
+                            <td>
+                                {{obj.fechaInicio | date:'yyyy-MM-dd'}}
+                            </td>
+                            <td>
+                                {{obj.fechaFin | date:'yyyy-MM-dd'}}
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="progress-bar progress-bar-striped active" id="bar" role="progressbar" style="width: 50%">
+                                        {{obj.etapaProyecto}} %
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+            <!-- row activities -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            My Activities
+                        </div>
+                        <div class="panel-body">
+                            <div class="mesaggeproyect">
+                                Select an activity
+                            </div>
+                            <table class="table table-striped tableclass">
+                                <thead>
+                                    <tr>
+                                        <th class="seleccionable">
+                                            <a>
+                                                Activity name
+                                            </a>
+                                        </th>
+                                        <th class="seleccionable">
+                                            <a>
+                                                Description
+                                            </a>
+                                        </th>
+                                        <th class="seleccionable">
+                                            <a>
+                                                Start Date
+                                            </a>
+                                        </th>
+                                        <th class="seleccionable">
+                                            <a>
+                                                End Date
+                                            </a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-init="">
+                                    <tr ng-click="selectedActivity(obj)" ng-repeat="obj in  myactivities |
+                            filter:filtrar ">
+                                        <td>
+                                            {{obj.nombre}}
+                                        </td>
+                                        <td>
+                                            {{obj.descripcion}}
+                                        </td>
+                                        <td>
+                                            {{obj.fechaInicio | date:'yyyy-MM-dd'}}
+                                        </td>
+                                        <td>
+                                            {{obj.fechaFin | date:'yyyy-MM-dd'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- row tasks -->
+            <br>
+                <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    My task
+                                </div>
+                                <div class="panel-body">
+                                    <div class="alerts">
+                                    </div>
+                                    <table class="table table-striped tableclass">
+                                        <thead>
+                                            <tr>
+                                                <th class="seleccionable">
+                                                    <a>
+                                                        Task
+                                                    </a>
+                                                </th>
+                                                <th class="seleccionable">
+                                                    <a>
+                                                        Start Date
+                                                    </a>
+                                                </th>
+                                                <th class="seleccionable">
+                                                    <a>
+                                                        End Date
+                                                    </a>
+                                                </th>
+                                                <th class="seleccionable">
+                                                    <a>
+                                                        Current progress
+                                                    </a>
+                                                </th>
+                                                <th class="seleccionable">
+                                                    <a>
+                                                        Update Progress (optional)
+                                                    </a>
+                                                </th>
+                                                <th class="seleccionable">
+                                                    <a>
+                                                        Add a comment(optional)
+                                                    </a>
+                                                </th>
+                                                <th class="seleccionable">
+                                                    <a>
+                                                        <i class=" glyphicon glyphicon-edit">
+                                                        </i>
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-init="">
+                                            <tr ng-repeat="obj in  mytask |
+                            filter:filtrar ">
+                                                <td>
+                                                    {{obj.nombreTarea}}
+                                                </td>
+                                                <td>
+                                                    {{obj.fechaInicio | date:'yyyy-MM-dd'}}
+                                                </td>
+                                                <td>
+                                                    {{obj.fechaFin | date:'yyyy-MM-dd'}}
+                                                </td>
+                                                <td>
+                                                    <div class="progress">
+                                                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="progress-bar progress-bar-striped active" id="bar" role="progressbar" style="width: 50%">
+                                                            {{obj.porcentajeDesarrollo}} %
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input id="progreso" name="newprogress" ng-model="datos.newprogress" placeholder="%" type="number">
+                                                    </input>
+                                                </td>
+                                                <td>
+                                                    <textarea id="coment" ng-model="comentario">
+                                                    </textarea>
+                                                </td>
+                                                <td>
+                                                    <a href="" ng-click="updateTask(obj)">
+                                                        <i class=" glyphicon glyphicon-edit">
+                                                        </i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </br>
+            </br>
+        </br>
+    </div>
+</div>

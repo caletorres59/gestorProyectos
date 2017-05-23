@@ -455,3 +455,28 @@ div.row.itemsp2
     padding: 10px;
 
 }
+.tittleuser
+{
+    background: #fff;
+    font-size: 30px;
+    color: #8A1BAE;
+    text-align: center;
+    padding-top: 25px;
+    margin-bottom: 20px;
+}
+.myprojects
+{
+    background: #fff;
+    padding: 10px;
+}
+.mesaggeproyect
+{
+    text-align: center;
+    color:#D46CD8;
+    font-size: 22px;
+
+}
+.tableclass
+{
+    cursor: pointer;
+}

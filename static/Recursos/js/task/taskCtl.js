@@ -14,7 +14,7 @@ app.controller('CtlTask', function($scope, taskService) {
             $scope.assigns = [{
                 idRecurso: 1,
                 recurso: 'Recurso 1',
-                assignRes: true
+                assignRes: false
     }];
             $scope.taskToAssignPermissions = "";
             $scope.idUsuario = sessionStorage.getItem("id");

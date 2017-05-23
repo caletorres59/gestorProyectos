@@ -7,9 +7,9 @@ app.config(function($routeProvider) {
     $routeProvider.when('/', {
         //controller: 'controladorEstudiantes',
         templateUrl: 'inicioadmin.html'
-        // }).when('/Presentaciones', {
-        //     controller: 'controladorPresentacion',
-        //     templateUrl: 'gestionPresentacion.html'
+    }).when('/myprojects', {
+        controller: 'myprojectsCtl',
+        templateUrl: 'myprojects.html'
         // }).when('/Producciones', {
         //     controller: 'controladorProduccion',
         //     templateUrl: 'gestionProduccion.html'

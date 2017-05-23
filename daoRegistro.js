@@ -66,7 +66,6 @@ function registroUsuario(pedido, respuesta) {
     //
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
-    var rol = 'user';
     var tipoDocumento = 'cc';
     var registro = {
         nombreUsuario: datos['nombreUsuario'],
@@ -80,35 +79,33 @@ function registroUsuario(pedido, respuesta) {
         fechaNacimiento: datos['fechaNacimiento']
     };
     console.log(registro);
-
-      var sql = 'insert into pf_usuarios set ?';
-      //Se hace un insert mandado el objet completo
-      conexion.query(sql, registro, function(error, resultado) {
-          if (error) {
-              console.log(error);
-              respuesta.send(constantes.ERROR);
-          } else {
-              respuesta.send(constantes.OK);
-          }
-      });
-
+    var sql = 'insert into pf_usuarios set ?';
+    //Se hace un insert mandado el objet completo
+    conexion.query(sql, registro, function(error, resultado) {
+        if (error) {
+            console.log(error);
+            respuesta.send(constantes.ERROR);
+        } else {
+            respuesta.send(constantes.OK);
+        }
+    });
 }
 
-function findUserByEmail(email){
-  var sql = 'select idUsuario from pf_usuarios where email = ?';
-  //Se hace un insert mandado el objet
-  conexion.query(sql, email, function(error, filas) {
-      if (error) {
-        return false;
-      } else {
-          var retorno = JSON.stringify(filas);
-          if(retorno[0]["idUsuario"] != undefined){
+function findUserByEmail(email) {
+    var sql = 'select idUsuario from pf_usuarios where email = ?';
+    //Se hace un insert mandado el objet
+    conexion.query(sql, email, function(error, filas) {
+        if (error) {
             return false;
-          }else{
-            return true;
-          }
-      }
-  });
+        } else {
+            var retorno = JSON.stringify(filas);
+            if (retorno[0]["idUsuario"] != undefined) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    });
 }
 /**
  *  Funcion que lista los tipos de cerveza los retorna como un String
