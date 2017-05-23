@@ -153,7 +153,8 @@ function listTask(pedido, respuesta) {
     var idActividad = datos['idActividad'];
     console.log(idProyecto);
     //Se hace un insert mandado el objet completo
-    var sql = 'SELECT t.idTarea, p.nombre, a.nombre as nombreActividad, t.nombreTarea, t.fechaInicio, t.fechaFin, t.porcentajeDesarrollo FROM pf_tareas t JOIN pf_actividades a ON t.idActividad = a.idActividad JOIN pf_proyectos p ON a.idProyecto = p.idProyecto WHERE p.idProyecto = ? AND a.idActividad = ?';
+    var sql = 'SELECT t.idTarea, p.nombre, a.nombre as nombreActividad, t.nombreTarea, t.fechaInicio, t.fechaFin, t.porcentajeDesarrollo,'
+    +' t.comentarios FROM pf_tareas t JOIN pf_actividades a ON t.idActividad = a.idActividad JOIN pf_proyectos p ON a.idProyecto = p.idProyecto WHERE p.idProyecto = ? AND a.idActividad = ?';
     conexion.query(sql, [idProyecto, idActividad], function(error, filas) {
         if (error) {
             console.log(error);
@@ -174,7 +175,8 @@ function updateTask(pedido, respuesta) {
         nombreTarea: datos['nombreTarea'],
         fechaInicio: datos['fechaInicio'],
         fechaFin: datos['fechaFin'],
-        porcentajeDesarrollo: datos['porcentajeDesarrollo']
+        porcentajeDesarrollo: datos['porcentajeDesarrollo'],
+        comentarios: datos['comentarios']
     };
     var sql = 'update pf_tareas set ? where idTarea = ?';
     //Se hace un insert mandado el objet completo

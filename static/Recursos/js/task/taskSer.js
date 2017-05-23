@@ -69,7 +69,8 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
                 nombreTarea: datos['nombreTarea'],
                 fechaInicio: datos['fechaInicio'],
                 fechaFin: datos['fechaFin'],
-                porcentajeDesarrollo: datos['porcentajeDesarrollo']
+                porcentajeDesarrollo: datos['porcentajeDesarrollo'],
+                comentarios: datos['comentarios']
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -119,7 +120,8 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
                 nombreTarea: datos['nombreTarea'],
                 fechaInicio: datos['fechaInicio'],
                 fechaFin: datos['fechaFin'],
-                porcentajeDesarrollo: datos['porcentajeDesarrollo']
+                porcentajeDesarrollo: datos['porcentajeDesarrollo'],
+                comentarios: datos['comentarios']
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
