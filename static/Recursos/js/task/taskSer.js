@@ -70,7 +70,7 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
                 fechaInicio: datos['fechaInicio'],
                 fechaFin: datos['fechaFin'],
                 porcentajeDesarrollo: datos['porcentajeDesarrollo'],
-                comentarios: datos['comentarios']
+                comentario: datos['comentario']
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -121,7 +121,7 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
                 fechaInicio: datos['fechaInicio'],
                 fechaFin: datos['fechaFin'],
                 porcentajeDesarrollo: datos['porcentajeDesarrollo'],
-                comentarios: datos['comentarios']
+                comentario: datos['comentario']
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -180,6 +180,24 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
         /*Luego se retorna la promesa*/
         return promise;
     };
+
+    this.listResources= function(identificacion){
+      var promise = $http({
+          method: "post",
+          url: "/listResources",
+          data: $httpParamSerializerJQLike({
+            idProyecto: identificacion
+          }),
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      }).then(function mySucces(response) {
+          /*Todos los datos se almacenan en .data*/
+          return response.data;
+      }, function myError(response) {
+          alert("Error");
+      });
+      /*Luego se retorna la promesa*/
+      return promise;
+    }
     ///
     this.listarFincas = function(identificacion) {
         /*El resultado del $http es almacenado en la promesa*/

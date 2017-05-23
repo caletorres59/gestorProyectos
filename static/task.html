@@ -79,6 +79,13 @@
                                             <input class="form-control" ng-model="datos.porcentajeDesarrollo" placeholder="progress %" required="" type="number">
                                             </input>
                                         </div>
+                                        <div class="form-group">
+                                            <label>
+                                                Comment
+                                            </label>
+                                            <input class="form-control" ng-model="datos.comentario" placeholder="comment" type="text">
+                                            </input>
+                                        </div>
                                         <!-- Botones -->
                                         <div class="btn-group btn-group-justified grupobtn">
                                             <span class="btn form-control" ng-click="saveTask(formTasks)">
@@ -204,6 +211,45 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div class="modal fade in" aria-hidden="false" style="display: block;" ng-show="showModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <table>
+                                              <thead>
+                                                  <tr>
+                                                      <th class="seleccionable">
+                                                          <a>
+                                                              Resource
+                                                          </a>
+                                                      </th>
+                                                      <th class="seleccionable">
+                                                          <a>
+                                                              Assign
+                                                          </a>
+                                                      </th>
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody ng-init="">
+                                                      <tr ng-repeat="assign in   assigns |
+                                          filter:filtrar ">
+                                                          <td>
+                                                              {{assign.recurso}}
+                                                          </td>
+                                                          <td>
+                                                            <span ng-show="!assign.assignRes">
+                                                               <i class="glyphicon glyphicon-plus" ng-click="cambiarValor(assign)"></i>
+                                                            </span>
+                                                            <span ng-show="assign.assignRes">
+                                                               <i class="glyphicon glyphicon-minus" ng-click="cambiarValor(assign)"></i>
+                                                            </span>
+                                                          </td>
+                                            </table>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" ng-click="guardarRecursos()">Guardar Recursos</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

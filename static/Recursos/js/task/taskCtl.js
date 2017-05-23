@@ -223,12 +223,61 @@ app.controller('CtlTask', function($scope, taskService) {
                 $scope.listTask();
                 $("#panelTask").fadeIn("slow");
             };
-            $scope.openModal = function(idTarea) {
-                $scope.showModal = true;
-                $scope.taskToAssignPermissions = idTarea;
-                $scope.resources = [];
-                $scope.resources = $scope.listResources();
-                $scope.taskResources = taskService.listTaskResources();
-                for (var i = 0; i < $scope.resources.length; i++) {}
+
+            $scope.listResources = function () {
+
             };
-        };
+            $scope.openModal = function(idTarea) {
+              $scope.resources = [];
+              // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
+              //  * el cual esta asociado a los input*/
+             taskService.listResources($scope.idProyecto).then(function (response) {
+                  if (response.length > 0)
+                  {
+                      for (var i = 0; i < response.length; i++)
+                      {
+                          $scope.resources.push({
+                            idRecurso: response[i].idRecurso,
+                            nombre: response[i].nombre,
+                            cantidad: response[i].cantidad,
+                            descripcion: response[i].descripcion,
+                            ubicacion: response[i].ubicacion,
+                            idProyecto: response[i].idProyecto
+                          });
+                      }
+                      $scope.showModal = true;
+                      $scope.taskToAssignPermissions = idTarea;
+                      taskService.getResources(idTarea).then(function(response){
+                        if(response.length > 0){
+                          for (var i = 0; i < response.length; i++)
+                          {
+                              $scope.taskResources.push({
+                                idRecurso: response[i].idRecurso
+                              });
+                          }
+                        }
+                      });
+                      $scope.assigns = [];
+                      for (var i = 0; i < $scope.resources.length; i++) {
+                        $scope.assigns.push({
+                            idRecurso: $scope.resources[i].idRecurso,
+                            recurso: $scope.resources[i].nombre,
+                            assignRes: false,
+                        });
+                        for(var j = 0; j<$scope.taskResources.length; j++){
+                          alert($scope.resources[i].idRecurso + ", " + $scope.taskResources[j].idRecurso);
+                          if($scope.resources[i].idRecurso == $scope.taskResources[j].idRecurso){
+                            $scope.assigns[i].assignRes = true;
+                          }
+                        }
+                      }
+                  } else
+                  {
+                      $('.alerts').html("<div id='msg' class='alert alert-danger'>No hay registros de fincas <span class='glyphicon glyphicon-ok'></span></div>");
+                  }
+              });
+            };
+            $scope.guardarRecursos = function(){
+              $scope.showModal = false;
+            }
+        });
