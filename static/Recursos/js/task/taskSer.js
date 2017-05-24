@@ -198,6 +198,25 @@ app.service('taskService', function($http, $httpParamSerializerJQLike) {
       /*Luego se retorna la promesa*/
       return promise;
     }
+
+    this.assignResources = function(resourcesList, idTarea){
+      var promise = $http({
+          method: "post",
+          url: "/assignResources",
+          data: $httpParamSerializerJQLike({
+            idTarea: idTarea,
+            assigns: JSON.stringify(resourcesList)
+          }),
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      }).then(function mySucces(response) {
+          /*Todos los datos se almacenan en .data*/
+          return response.data;
+      }, function myError(response) {
+          alert("Error");
+      });
+      /*Luego se retorna la promesa*/
+      return promise;
+    }
     ///
     this.listarFincas = function(identificacion) {
         /*El resultado del $http es almacenado en la promesa*/

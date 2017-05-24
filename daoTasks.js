@@ -193,6 +193,7 @@ function updateTask(pedido, respuesta) {
 function assignResources(pedido, respuesta){
   var datos = pedido.body;
   var idTarea = datos['idTarea'];
+  var assigns = JSON.parse(datos['assigns']);
   var sql = 'delete from recursosTareas where idTarea = ?';
   conexion.query(sql, [idTarea], function(error, resultado) {
       if(error){
@@ -200,11 +201,12 @@ function assignResources(pedido, respuesta){
         respuesta.send(constantes.ERROR);
       }else{
         var sql = 'insert into recursosTareas set ?';
-        for (var i = 0; i < resultado.length; i++) {
+        for (var i = 0; i < assigns.length; i++) {
             var insert ={
-                idTarea: datos.assigns[i].idTarea,
-                idRecurso: datos.assigns[i].idRecurso
+                idTarea: idTarea,
+                idRecurso: assigns[i].idRecurso
             }
+            console.log(insert);
             conexion.query(sql,[insert], function(error,resultado){
               if(error){
                 console.log(error);

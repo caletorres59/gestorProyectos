@@ -265,7 +265,6 @@ app.controller('CtlTask', function($scope, taskService) {
                             assignRes: false,
                         });
                         for(var j = 0; j<$scope.taskResources.length; j++){
-                          alert($scope.resources[i].idRecurso + ", " + $scope.taskResources[j].idRecurso);
                           if($scope.resources[i].idRecurso == $scope.taskResources[j].idRecurso){
                             $scope.assigns[i].assignRes = true;
                           }
@@ -277,7 +276,22 @@ app.controller('CtlTask', function($scope, taskService) {
                   }
               });
             };
+
             $scope.guardarRecursos = function(){
               $scope.showModal = false;
+              var assign;
+              var assignsToSet = [];
+              for (var i = 0; i < $scope.assigns.length; i++) {
+                assign = $scope.assigns[i];
+                if(assign.assignRes){
+                  assignsToSet.push(assign);
+                }
+              }
+              taskService.assignResources(assignsToSet, $scope.taskToAssignPermissions);
+              $(".alerts").html("<div class='info'><p>The resources were assigned correctly</p></div>");
+            }
+
+            $scope.cambiarValor = function(obj){
+              obj.assignRes = !obj.assignRes;
             }
         });
