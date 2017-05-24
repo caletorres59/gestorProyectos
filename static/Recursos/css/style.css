@@ -480,3 +480,21 @@ div.row.itemsp2
 {
     cursor: pointer;
 }
+.meetingUser
+{
+    width: 50%;
+    height: auto;
+    border: 1px solid #FBD4FD;
+    padding: 20px;
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    background: #D35EDD;
+    color: #fff;
+    margin: 10px;
+}
+.meetingRow
+{
+    display: flex;
+    flex-direction: row;
+}

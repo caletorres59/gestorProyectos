@@ -1,0 +1,58 @@
+<div class="principal">
+    <div class="container-projects">
+        <!-- Tittle projects -->
+        <div class="tittle-projects">
+            My Proyects
+        </div>
+        <div class="project" ng-click="projectSelected(obj)" ng-repeat="obj   in  projectsuser">
+            {{obj.nombre}}
+            <i class="glyphicon glyphicon-hand-right pull-right">
+            </i>
+        </div>
+    </div>
+    <div class="items">
+        <!-- Encabezado -->
+        <div class="row itemsp2">
+            <div class="col-md-12">
+                <div class="header">
+                    General information about project meetings
+                </div>
+                <!-- row items -->
+                <div class="row" id="mesaggereporter">
+                    Select a project and look at the meetings you have scheduled
+                </div>
+                <br>
+                    <div class="row ">
+                        <div class="col-md-12 meetingRow">
+                            <div class="meetingUser" ng-repeat="obj in meetings">
+                                <strong>
+                                    Meetings
+                                </strong>
+                                <p>
+                                    <strong>
+                                        Project:
+                                    </strong>
+                                    {{obj.nombre}}
+                                </p>
+                                <p>
+                                    <strong>
+                                        Location:
+                                    </strong>
+                                    {{obj.ubicacion}}
+                                </p>
+                                <p>
+                                    <strong>
+                                        Thematic:
+                                    </strong>
+                                    {{obj.tematica}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                </br>
+            </div>
+        </div>
+    </div>
+</div>

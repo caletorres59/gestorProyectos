@@ -56,7 +56,7 @@ app.controller('myprojectsCtl', function($scope, myprojectsService) {
             // //      * asociados*/
             if (response == "OK") {
                 $(".alerts").html("<div class='info'><p>Task is updated</p></div>");
-                $scope.listTask();
+                //$scope.listMyTask();
             } else {
                 $(".alerts").html("<div class='info'><p>Task is not updated</p></div>");
             }
@@ -241,28 +241,34 @@ app.controller('myprojectsCtl', function($scope, myprojectsService) {
     //validate
     // $scope.listProject();
     $scope.updateTask = function(obj) {
-        //alert(obj.nombreTarea);
-        var comentario = angular.element('#coment').val();
-        var progreso = angular.element('#progreso').val();
-        alert(comentario);
-        alert(progreso);
-        if (comentario == "" && progreso == "") {
+        //alert(obj.comentarios + "asdasdas");
+        //$scope.datos = obj;
+        if (obj.comentarios == "" && obj.progreso == "") {
             $('.alerts').html('<p>Please enter the new progress or a new comment in order to update</p>');
         } else
-        if (comentario == "") {
-            alert(obj.porcentajeDesarrollo);
-            alert(progreso);
-            if (obj.porcentajeDesarrollo >= progreso) {
-                $('.alerts').html('<p>Please enter a higher value than the current one</p>');
-            } else {
-                obj.porcentajeDesarrollo = progreso;
+        if (obj.comentarios == "" || obj.comentarios == null) {
+            if (obj.progreso > obj.porcentajeDesarrollo) {
+                obj.porcentajeDesarrollo = obj.progreso;
                 $scope.updateMyTask(obj);
+            } else {
+                $('.alerts').html('<p>Please enter a higher value than the current one</p>');
             }
-        } else if (progreso == "") {
-            alert('progress vacio null');
+        } else if (obj.progreso == "" && obj.comentarios != "") {
+            obj.comentario = obj.comentarios;
+            $scope.updateMyTask(obj);
+            obj.comentarios = "";
+            obj.progreso = "";
         } else
-        if (comentario != "" && progreso != null) {
-            alert("ambos fueron llenados")
+        if (obj.comentarios != "" && progreso != null) {
+            if (obj.progreso > obj.porcentajeDesarrollo) {
+                obj.porcentajeDesarrollo = obj.progreso;
+                obj.comentario = obj.comentarios;
+                $scope.updateMyTask(obj);
+                obj.comentarios = "";
+                obj.progreso = "";
+            } else {
+                $('.alerts').html('<p>Please enter a higher value than the current one</p>');
+            }
         }
         // $("#spn-jobs").fadeIn("slow");
     };

@@ -10,11 +10,12 @@ app.config(function($routeProvider) {
     }).when('/myprojects', {
         controller: 'myprojectsCtl',
         templateUrl: 'myprojects.html'
-        // }).when('/Producciones', {
-        //     controller: 'controladorProduccion',
-        //     templateUrl: 'gestionProduccion.html'
-        // }).when('/Logo', {
-        //     templateUrl: 'gestionLogo.html'
+    }).when('/status', {
+        controller: 'statusUserCtl',
+        templateUrl: 'statusUser.html'
+    }).when('/meetings', {
+        controller: 'meetingsUserCtl',
+        templateUrl: 'meetingsUser.html',
     }).otherwise({
         redirectTo: '/'
     });

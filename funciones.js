@@ -27,6 +27,7 @@ var daoTasks = require('./daoTasks');
 var daoStatus = require('./daoStatus');
 var daoMeetings = require('./daoMeetings');
 var daoResources = require('./daoResources');
+var daoStatusUser = require('./daoStatusUser');
 // integrante
 var daoMyProjects = require('./daoMyProjects');
 var bodyParser = require('body-parser');
@@ -47,6 +48,7 @@ function configurarServidor() {
     daoMeetings.conectardb();
     daoResources.conectardb();
     daoMyProjects.conectardb();
+    daoStatusUser.conectardb();
     app.use(express.static(__dirname + '/static'));
     server = app.listen(8888, function() {
         console.log('Servidor web iniciado');
@@ -109,6 +111,8 @@ app.post('/listMyProjects', daoMyProjects.listMyProjects);
 app.post('/listMyActivities', daoMyProjects.listMyActivities);
 app.post('/listMyTask', daoMyProjects.listMyTask);
 app.post('/updateMyTask', daoMyProjects.updateMyTask);
+//Status User
+app.post('/listProjectUser', daoStatusUser.listProjectUser);
 // app.post('/updateJobs', daoJobs.updateJobs);
 // app.post('/crearVacas', daoVacas.crearVacas);
 // app.post('/listarVacas', daoVacas.listarVacas);
