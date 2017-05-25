@@ -35,6 +35,27 @@ app.service('myprojectsService', function($http, $httpParamSerializerJQLike) {
         /*Luego se retorna la promesa*/
         return promise;
     };
+    this.listResources = function(idTarea) {
+        /*El resultado del $http es almacenado en la promesa*/
+        /*Ademas se debe definir el tipo de cabecera para enviar los datos*/
+        var promise = $http({
+            method: "post",
+            url: "/listResources2",
+            data: $httpParamSerializerJQLike({
+                idTarea: idTarea
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function mySucces(response) {
+            /*Todos los datos se almacenan en .data*/
+            return response.data;
+        }, function myError(response) {
+            return response.data;
+        });
+        /*Luego se retorna la promesa*/
+        return promise;
+    };
     //items
     // this.listItemsProyect = function(codigo) {
     //     /*El resultado del $http es almacenado en la promesa*/

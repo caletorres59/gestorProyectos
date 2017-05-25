@@ -34,8 +34,11 @@ app.controller('CtlTask', function($scope, taskService) {
                 /*Si el formulario esta bien validado*/
                 var idActividad = $scope.activities[0].idActividad;
                 if ($scope.isNullOrEmpty($scope.datos.nombreTarea) || $scope.isNullOrEmpty($scope.datos.fechaInicio) || $scope.isNullOrEmpty($scope.datos.fechaFin) || $scope.isNullOrEmpty($scope.datos.porcentajeDesarrollo)) {
-                    $(".alerts").html("<div class='info'><p>Check the entered data</p></div>");
+                    $(".alerts").html("<div class='error'><p>Check the entered data</p></div>");
                 } else {
+                  if($scope.datos.fechaInicio > $scope.datos.fechaFin){
+                    $(".alerts").html("<div class='error'><p>Starting date cannot be more recent than finish Date</p></div>");
+                  }else{
                     if (form) {
                         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
                         //  * el cual esta asociado a los input*/
@@ -53,8 +56,9 @@ app.controller('CtlTask', function($scope, taskService) {
                             $scope.datos = "";
                         });
                     } else {
-                        //  alert("Verifique los datos ingresados");
+                      $(".alerts").html("<div class='info'><p>Check the entered data</p></div>");
                     }
+                  }
                 }
             };
             //modificar////////////////////////////////////////////
@@ -68,6 +72,9 @@ app.controller('CtlTask', function($scope, taskService) {
                 if ($scope.isNullOrEmpty($scope.datos.nombreTarea) || $scope.isNullOrEmpty($scope.datos.fechaInicio) || $scope.isNullOrEmpty($scope.datos.fechaFin) || $scope.isNullOrEmpty($scope.datos.porcentajeDesarrollo)) {
                     $(".alerts").html("<div class='info'><p>Check the entered data</p></div>");
                 } else {
+                  if($scope.datos.fechaInicio > $scope.datos.fechaFin){
+                    $(".alerts").html("<div class='error'><p>Starting date cannot be more recent than finish Date</p></div>");
+                  }else{
                     if (form) {
                         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
                         //  * el cual esta asociado a los input*/
@@ -87,6 +94,7 @@ app.controller('CtlTask', function($scope, taskService) {
                         });
                     }
                 }
+              }
             };
             ///Eliminar/////////////////////////////////////////////
             $scope.deleteTask = function(codigo) {
@@ -110,6 +118,10 @@ app.controller('CtlTask', function($scope, taskService) {
             //listar//////////////////////////////////////////
             $scope.listProject = function() {
                 $scope.projects = [];
+                $scope.task = [];
+                $scope.activities = [];
+                $("#activities").fadeOut();
+                $("#panelTask").fadeOut();
                 // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
                 //  * el cual esta asociado a los input*/
                 taskService.listProject($scope.idUsuario).then(function(response) {
@@ -277,6 +289,10 @@ app.controller('CtlTask', function($scope, taskService) {
                   }
               });
             };
+
+            $scope.cerrarModal = function(){
+              $scope.showModal = false;
+            }
 
             $scope.guardarRecursos = function(){
               $scope.showModal = false;

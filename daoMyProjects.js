@@ -85,6 +85,23 @@ function listMyTask(pedido, respuesta) {
     });
 }
 
+function listResources(pedido, respuesta) {
+    var datos = pedido.body;
+    //Se crea un objeto con la informacion capturada
+    var idTarea = datos['idTarea'];
+    console.log(idTarea + "id atare");
+    //Se hace un insert mandado el objet completo
+    var sql = 'SELECT r.idRecurso, r.nombre, r.cantidad, r.descripcion, r.ubicacion FROM recursosTareas rt join pf_recursos r on rt.idRecurso = r.idRecurso join pf_tareas t on rt.idTarea = t.idTarea where rt.idTarea = ?';
+    conexion.query(sql, [idTarea], function(error, filas) {
+        if (error) {
+            console.log(error);
+            respuesta.send(constantes.ERROR);
+        } else {
+            respuesta.send(JSON.stringify(filas));
+        }
+    });
+}
+
 function updateMyTask(pedido, respuesta) {
     var datos = pedido.body;
     //Se crea un objeto con la informacion capturada
@@ -159,3 +176,4 @@ exports.updateMyTask = updateMyTask;
 exports.listProjectsItems = listProjectsItems;
 exports.listMyActivities = listMyActivities;
 exports.listMyTask = listMyTask;
+exports.listResources = listResources;

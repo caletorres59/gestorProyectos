@@ -19,7 +19,6 @@ app.controller('statusUserCtl', function($scope, statusUserService) {
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
-            alert(response.length);
             if (response.length > 0) {
                 for (var i = 0; i < response.length; i++) {
                     $scope.projectsuser.push({

@@ -12,7 +12,7 @@
         </div>
         <!-- row projects and activities -->
         <div class="row">
-            <div class="col-md-12 myprojects">
+            <div class="col-md-12 myprojects" id="projectsrow">
                 <div class="mesaggeproyect">
                     Select a project and at the bottom you will see activities, tasks and a general summary
                 </div>
@@ -99,7 +99,7 @@
         </div>
         <br>
             <!-- row activities -->
-            <div class="row">
+            <div class="row myprojects" id="activitiesrow">
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -159,7 +159,7 @@
             <!-- row tasks -->
             <br>
                 <br>
-                    <div class="row">
+                    <div class="row myprojects" id="mytasks">
                         <div class="col-md-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -203,8 +203,12 @@
                                                 </th>
                                                 <th class="seleccionable">
                                                     <a>
-                                                        <i class=" glyphicon glyphicon-edit">
-                                                        </i>
+                                                        Edit
+                                                    </a>
+                                                </th>
+                                                <th class="seleccionable">
+                                                    <a>
+                                                        Resources
                                                     </a>
                                                 </th>
                                             </tr>
@@ -242,6 +246,12 @@
                                                         </i>
                                                     </a>
                                                 </td>
+                                                <td>
+                                                    <a href="" ng-click="listResources(obj.idTarea)">
+                                                        <i class="glyphicon glyphicon-eye-open">
+                                                        </i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -249,6 +259,61 @@
                             </div>
                         </div>
                     </div>
+                    <br>
+                        <div class="row myprojects" id="rowresources">
+                            <div class="col-md-12">
+                                <div class="mesaggeproyect">
+                                    Resources assigned
+                                </div>
+                                <table class="table table-striped tableclass">
+                                    <thead>
+                                        <tr>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Name
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Quantity
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Description
+                                                </a>
+                                            </th>
+                                            <th class="seleccionable">
+                                                <a>
+                                                    Location
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="obj in  myresources |
+                            filter:filtrar ">
+                                            <td>
+                                                {{obj.nombre}}
+                                            </td>
+                                            <td>
+                                                {{obj.cantidad}}
+                                            </td>
+                                            <td>
+                                                {{obj.descripcion}}
+                                            </td>
+                                            <td>
+                                                {{obj.ubicacion}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <a class="btn btn-danger" href="#/myprojects/">
+                                    See other project
+                                </a>
+                            </div>
+                        </div>
+                    </br>
                 </br>
             </br>
         </br>
