@@ -172,7 +172,8 @@ app.controller('CtlTask', function($scope, taskService) {
                                 nombreTarea: response[i]['nombreTarea'],
                                 fechaInicio: response[i]['fechaInicio'],
                                 fechaFin: response[i]['fechaFin'],
-                                porcentajeDesarrollo: response[i]['porcentajeDesarrollo']
+                                porcentajeDesarrollo: response[i]['porcentajeDesarrollo'],
+                                comentario: response[i]['comentario']
                             });
                         }
                     } else {

@@ -79,13 +79,6 @@
                                             <input class="form-control" ng-model="datos.porcentajeDesarrollo" placeholder="progress %" required="" type="number">
                                             </input>
                                         </div>
-                                        <div class="form-group">
-                                            <label>
-                                                Comment
-                                            </label>
-                                            <input class="form-control" ng-model="datos.comentario" placeholder="comment" type="text">
-                                            </input>
-                                        </div>
                                         <!-- Botones -->
                                         <div class="btn-group btn-group-justified grupobtn">
                                             <span class="btn form-control" ng-click="saveTask(formTasks)">
@@ -154,11 +147,6 @@
                                             </th>
                                             <th class="seleccionable">
                                                 <a>
-                                                    Status
-                                                </a>
-                                            </th>
-                                            <th class="seleccionable">
-                                                <a>
                                                     <i class="glyphicon glyphicon-trash">
                                                     </i>
                                                 </a>
@@ -167,6 +155,11 @@
                                                 <a>
                                                     Set Task Resources
                                                 </a>
+                                            </th>
+                                            <th>
+                                              <a>
+                                                Comment
+                                              </a>
                                             </th>
                                         </tr>
                                     </thead>
@@ -196,9 +189,6 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                {{obj.estado}}
-                                            </td>
-                                            <td>
                                                 <span class="glyphicon glyphicon-trash" ng-click="deleteTask(obj.idTarea)">
                                                 </span>
                                             </td>
@@ -207,6 +197,9 @@
                                                     <i class="glyphicon glyphicon-wrench">
                                                     </i>
                                                 </span>
+                                            </td>
+                                            <td>
+                                              {{obj.comentario}}
                                             </td>
                                         </tr>
                                     </tbody>

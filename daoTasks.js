@@ -175,8 +175,7 @@ function updateTask(pedido, respuesta) {
         nombreTarea: datos['nombreTarea'],
         fechaInicio: datos['fechaInicio'],
         fechaFin: datos['fechaFin'],
-        porcentajeDesarrollo: datos['porcentajeDesarrollo'],
-        comentario: datos['comentario']
+        porcentajeDesarrollo: datos['porcentajeDesarrollo']
     };
     var sql = 'update pf_tareas set ? where idTarea = ?';
     //Se hace un insert mandado el objet completo
