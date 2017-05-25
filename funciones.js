@@ -111,6 +111,7 @@ app.post('/listMyProjects', daoMyProjects.listMyProjects);
 app.post('/listMyActivities', daoMyProjects.listMyActivities);
 app.post('/listMyTask', daoMyProjects.listMyTask);
 app.post('/updateMyTask', daoMyProjects.updateMyTask);
+app.post('/listResources2', daoMyProjects.listResources);
 //Status User
 app.post('/listProjectUser', daoStatusUser.listProjectUser);
 // app.post('/updateJobs', daoJobs.updateJobs);
