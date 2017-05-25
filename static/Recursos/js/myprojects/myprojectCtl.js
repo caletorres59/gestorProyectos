@@ -9,6 +9,9 @@ app.controller('myprojectsCtl', function($scope, myprojectsService) {
     $scope.meetings = [];
     $scope.myactivities = [];
     $scope.datos = "";
+    $('#activitiesrow').fadeOut();
+    $('#mytasks').fadeOut();
+    $("#rowresources").fadeOut();
     //$scope.datos = "";
     $(".allitems").fadeOut();
     //$scope.identificacion = "";
@@ -22,7 +25,6 @@ app.controller('myprojectsCtl', function($scope, myprojectsService) {
             // //     //alert(response.usuario + " " + response.password);
             // //     /*Solo con limpiar el objeto se limpian todos los input 
             // //      * asociados*/
-            alert("cargo" + response[0]['cargo']);
             if (response.length > 0) {
                 for (var i = 0; i < response.length; i++) {
                     $scope.myprojects.push({
@@ -272,6 +274,30 @@ app.controller('myprojectsCtl', function($scope, myprojectsService) {
         }
         // $("#spn-jobs").fadeIn("slow");
     };
+    $scope.listResources = function(idTarea) {
+        $scope.myresources = [];
+        // /*Se ejecuta la funcion mandando por parametro el objeto identificacion, 
+        //  * el cual esta asociado a los input*/
+        myprojectsService.listResources(idTarea).then(function(response) {
+            // //     /*El resultado de la promesa se recibe por parametro*/
+            // //     //alert(response.usuario + " " + response.password);
+            // //     /*Solo con limpiar el objeto se limpian todos los input 
+            // //      * asociados*/
+            if (response.length > 0) {
+                for (var i = 0; i < response.length; i++) {
+                    $scope.myresources.push({
+                        idRecurso: response[i]['idRecurso'],
+                        nombre: response[i]['nombre'],
+                        cantidad: response[i]['cantidad'],
+                        descripcion: response[i]['descripcion'],
+                        ubicacion: response[i]['ubicacion']
+                    });
+                }
+            } else {
+                alert("no hay datos");
+            }
+        });
+    };
     $scope.selectProject = function(obj) {
         $scope.myprojects = [];
         $scope.myprojects.push({
@@ -284,11 +310,10 @@ app.controller('myprojectsCtl', function($scope, myprojectsService) {
             nombreCargo: obj.cargo
         });
         $scope.listMyActivities(obj.idProyecto);
-        // $("#spn-jobs").fadeIn("slow");
+        $("#activitiesrow").fadeIn("slow");
     };
     $scope.selectedActivity = function(obj) {
         $scope.myactivities = [];
-        alert(obj.idActividad);
         $scope.myactivities.push({
             idActividad: obj.idActividad,
             idUsuario: obj.idUsuario,
@@ -299,6 +324,8 @@ app.controller('myprojectsCtl', function($scope, myprojectsService) {
             idProyecto: obj.idProyecto,
             nombres: obj.nombres
         });
+        $("#mytasks").fadeIn("slow");
+        $("#rowresources").fadeIn("slow");
         $scope.listMyTask(obj.idActividad);
         // $("#spn-jobs").fadeIn("slow");
     };

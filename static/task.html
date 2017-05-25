@@ -8,8 +8,8 @@
                             Add Task
                         </div>
                         <div class="panel-body">
-                          <div class="alerts">
-                          </div>
+                            <div class="alerts">
+                            </div>
                             <input name="codigo" ng-model="datos.idCargo" style="display:none" type="text">
                             </input>
                             <!-- Projects -->
@@ -193,7 +193,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="btn" ng-click="openModal(obj.idTarea)">
+                                                <span class="btn" data-toggle="modal" ng-click="openModal(obj.idTarea)">
                                                     <i class="glyphicon glyphicon-wrench">
                                                     </i>
                                                 </span>
@@ -204,41 +204,55 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div class="modal fade in" aria-hidden="false" style="display: block;" ng-show="showModal">
+                                <div aria-hidden="false" class="modal fade in" data-toggle="modal" id="modal" ng-show="showModal" style="display: block;">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <table>
-                                              <thead>
-                                                  <tr>
-                                                      <th class="seleccionable">
-                                                          <a>
-                                                              Resource
-                                                          </a>
-                                                      </th>
-                                                      <th class="seleccionable">
-                                                          <a>
-                                                              Assign
-                                                          </a>
-                                                      </th>
+                                            <div class="modal-header">
+                                                <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
+                                                    ×
+                                                </button>
+                                                <h4 class="modal-title">
+                                                    Modal Header
+                                                </h4>
+                                            </div>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="seleccionable">
+                                                            <a>
+                                                                Resource
+                                                            </a>
+                                                        </th>
+                                                        <th class="seleccionable">
+                                                            <a>
+                                                                Assign
+                                                            </a>
+                                                        </th>
                                                     </tr>
-                                                  </thead>
-                                                  <tbody ng-init="">
-                                                      <tr ng-repeat="assign in   assigns |
+                                                </thead>
+                                                <tbody ng-init="">
+                                                    <tr ng-repeat="assign in   assigns |
                                           filter:filtrar ">
-                                                          <td>
-                                                              {{assign.recurso}}
-                                                          </td>
-                                                          <td>
+                                                        <td>
+                                                            {{assign.recurso}}
+                                                        </td>
+                                                        <td>
                                                             <span ng-show="!assign.assignRes">
-                                                               <i class="glyphicon glyphicon-plus" ng-click="cambiarValor(assign)"></i>
+                                                                <i class="glyphicon glyphicon-plus" ng-click="cambiarValor(assign)">
+                                                                </i>
                                                             </span>
                                                             <span ng-show="assign.assignRes">
-                                                               <i class="glyphicon glyphicon-minus" ng-click="cambiarValor(assign)"></i>
+                                                                <i class="glyphicon glyphicon-minus" ng-click="cambiarValor(assign)">
+                                                                </i>
                                                             </span>
-                                                          </td>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
                                             </table>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary" ng-click="guardarRecursos()">Guardar Recursos</button>
+                                                <button class="btn btn-primary" ng-click="guardarRecursos()" type="button">
+                                                    Guardar Recursos
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
