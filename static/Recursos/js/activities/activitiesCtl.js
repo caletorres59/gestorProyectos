@@ -30,6 +30,9 @@ app.controller('CtlActivities', function($scope, activitiesService) {
         if ($scope.isNullOrEmpty($scope.datos.nombre) || $scope.isNullOrEmpty($scope.datos.descripcion) || $scope.isNullOrEmpty($scope.datos.fechaInicio) || $scope.isNullOrEmpty($scope.datos.fechaFin)) {
             $(".alerts").html("<div class='error'><p>Check the entered data</p></div>");
         } else {
+          if($scope.datos.fechaInicio > $scope.datos.fechaFin){
+            $(".alerts").html("<div class='error'><p>Starting date cannot be more recent than finish Date</p></div>");
+          }else{
             activitiesService.saveActivity($scope.datos).then(function(response) {
                 // //     /*El resultado de la promesa se recibe por parametro
                 if (response == "OK") {
@@ -41,6 +44,7 @@ app.controller('CtlActivities', function($scope, activitiesService) {
             });
             $scope.listActivities();
         }
+      }
         // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
         //  * el cual esta asociado a los input*/
     };
@@ -55,6 +59,9 @@ app.controller('CtlActivities', function($scope, activitiesService) {
         if ($scope.isNullOrEmpty($scope.datos.nombre) || $scope.isNullOrEmpty($scope.datos.descripcion) || $scope.isNullOrEmpty($scope.datos.fechaInicio) || $scope.isNullOrEmpty($scope.datos.fechaFin)) {
             $(".alerts").html("<div class='error'><p>Check the entered data</p></div>");
         } else {
+          if($scope.datos.fechaInicio > $scope.datos.fechaFin){
+            $(".alerts").html("<div class='error'><p>Starting date cannot be more recent than finish Date</p></div>");
+          }else{
             if (form) {
                 // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
                 //  * el cual esta asociado a los input*/
@@ -73,6 +80,7 @@ app.controller('CtlActivities', function($scope, activitiesService) {
             }
             $scope.listActivities();
         }
+      }
     };
     ///Eliminar/////////////////////////////////////////////
     $scope.delete = function(codigo) {

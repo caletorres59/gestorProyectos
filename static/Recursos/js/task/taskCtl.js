@@ -241,6 +241,7 @@ app.controller('CtlTask', function($scope, taskService) {
 
             };
             $scope.openModal = function(idTarea) {
+              $scope.assigns = [];
               $scope.resources = [];
               // /*Se ejecuta la funcion mandando por parametro el objeto identificacion,
               //  * el cual esta asociado a los input*/
@@ -260,17 +261,16 @@ app.controller('CtlTask', function($scope, taskService) {
                       }
                       $scope.showModal = true;
                       $scope.taskToAssignPermissions = idTarea;
-                      taskService.getResources(idTarea).then(function(response){
-                        if(response.length > 0){
-                          for (var i = 0; i < response.length; i++)
+                      taskService.getResources(idTarea).then(function(resp){
+                        if(resp.length > 0){
+                          for (var i = 0; i < resp.length; i++)
                           {
                               $scope.taskResources.push({
-                                idRecurso: response[i].idRecurso
+                                idRecurso: resp[i].idRecurso
                               });
                           }
                         }
                       });
-                      $scope.assigns = [];
                       for (var i = 0; i < $scope.resources.length; i++) {
                         $scope.assigns.push({
                             idRecurso: $scope.resources[i].idRecurso,
@@ -278,20 +278,21 @@ app.controller('CtlTask', function($scope, taskService) {
                             assignRes: false,
                         });
                         for(var j = 0; j<$scope.taskResources.length; j++){
-                          if($scope.resources[i].idRecurso == $scope.taskResources[j].idRecurso){
+                          if($scope.resources[i].idRecurso === $scope.taskResources[j].idRecurso){
                             $scope.assigns[i].assignRes = true;
                           }
                         }
                       }
                   } else
                   {
-                      $('.alerts').html("<div id='msg' class='alert alert-danger'>No hay registros de fincas <span class='glyphicon glyphicon-ok'></span></div>");
+                      $('.alerts').html("<div id='msg' class='alert alert-danger'>No hay registros <span class='glyphicon glyphicon-ok'></span></div>");
                   }
               });
             };
 
             $scope.cerrarModal = function(){
               $scope.showModal = false;
+              $scope.assigns = [];
             }
 
             $scope.guardarRecursos = function(){
@@ -306,6 +307,7 @@ app.controller('CtlTask', function($scope, taskService) {
               }
               taskService.assignResources(assignsToSet, $scope.taskToAssignPermissions);
               $(".alerts").html("<div class='info'><p>The resources were assigned correctly</p></div>");
+              $scope.assigns = [];
             }
 
             $scope.cambiarValor = function(obj){

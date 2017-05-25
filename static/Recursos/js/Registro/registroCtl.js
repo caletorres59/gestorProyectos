@@ -36,7 +36,7 @@ app.controller('CtlRegistro', function($scope, registroService) {
         /*Si el formulario esta bien validado*/
         if($scope.isNullOrEmpty($scope.datos.nombreUsuario)||$scope.isNullOrEmpty($scope.datos.contrasena)||$scope.isNullOrEmpty($scope.datos.numeroDocumento)
       ||$scope.isNullOrEmpty($scope.datos.nombres)|| $scope.isNullOrEmpty($scope.datos.apellidos) || $scope.isNullOrEmpty($scope.datos.email)
-    ||$scope.isNullOrEmpty($scope.datos.fechaNacimiento)){
+    ||$scope.isNullOrEmpty($scope.datos.fechaNacimiento)||$scope.isNullOrEmpty($scope.datos.tipoUsuario)){
       $(".alerts").html("<div class='error'><p>Check the entered data</p></div>");
     }else{
       if($scope.datos.confirmarContrasena != $scope.datos.contrasena){

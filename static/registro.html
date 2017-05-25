@@ -84,9 +84,9 @@
                     </input>
                     <input name="apellido" ng-model="datos.apellidos" placeholder="last name" required="text" type="text">
                     </input>
-                    <select class="select-color" ng-init="Seleccione una opcion">
-                        <option selected="selected" value="0">
-                            Type User
+                    <select class="select-color" ng-model="datos.tipoUsuario" ng-init="Seleccione una opcion">
+                        <option>
+                            User type
                         </option>
                         <option ng-repeat="x in userTypes" value="{{x.value}}">
                             {{x.nombre}}
@@ -94,7 +94,7 @@
                     </select>
                     <input name="email" ng-model="datos.email" placeholder="e-mail" required="text" type="email">
                     </input>
-                    <input name="fecha" ng-model="datos.fechaNacimiento" placeholder="date of birdth" required="date" type="date">
+                    <input name="fecha" ng-model="datos.fechaNacimiento" placeholder="date of birth" required="date" type="date">
                     </input>
                 </p>
                 <button name="submit" ng-click="registrar('formRegistro')">

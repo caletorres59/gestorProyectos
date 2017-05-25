@@ -205,10 +205,8 @@ function assignResources(pedido, respuesta){
                 idTarea: idTarea,
                 idRecurso: assigns[i].idRecurso
             }
-            console.log(insert);
             conexion.query(sql,[insert], function(error,resultado){
               if(error){
-                console.log(error);
                 respuesta.send(constantes.ERROR);
               }
             });
@@ -221,6 +219,7 @@ function assignResources(pedido, respuesta){
 function getResources(pedido, respuesta){
   var datos = pedido.body;
   var idTarea = datos['idTarea'];
+  console.log(idTarea);
   var sql = 'SELECT idRecurso FROM recursosTareas WHERE idTarea =  ?';
   conexion.query(sql, [idTarea], function(error, filas) {
       if (error) {
